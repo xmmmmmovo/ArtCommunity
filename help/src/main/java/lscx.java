@@ -75,7 +75,7 @@ public class lscx extends JPanel implements ActionListener {
 
             while (rs.next()) {
 
-                String Hno = rs.getString("CIno");
+                String Hno = rs.getString("Hno");
                 String HCname = rs.getString("HCname");
                 String HCid = rs.getString("HCid");
                 String Hatime = rs.getString("Hatime");

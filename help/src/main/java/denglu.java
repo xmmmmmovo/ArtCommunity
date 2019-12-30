@@ -120,8 +120,7 @@ public class denglu extends JFrame {
     Boolean panduan(String a, String b) {
         try {
             Bean a1 = new Bean();    //数据库连接
-            ResultSet rs = a1.executeQuery("select * from Manager where Mno=" + a + " and Mpassword=" + b + "");
-
+            ResultSet rs = a1.executeQuery("select * from Manager where Mno='" + a + "' and Mpassword='" + b + "'");
             if (rs.next())
                 return true;
             a1.close();

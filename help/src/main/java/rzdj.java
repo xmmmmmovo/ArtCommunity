@@ -232,7 +232,7 @@ public class rzdj extends JPanel {
                 //			System.out.println(cid);
 
                 Bean aaa = new Bean();
-                aaa.execQuery("insert into CUSTOMER values('" + cid + "','" + cidtype + "','" + cname + "','" + csex + "','" + tel + "')");//插入客户信息
+//                aaa.execQuery("insert into CUSTOMER values('" + cid + "','" + cidtype + "','" + cname + "','" + csex + "','" + tel + "')");//插入客户信息
                 aaa.execQuery("insert into CHECKIN(CIid,CIname,CItime,CIdays,CImon,CIMname,CIRno,CIRstate) values('" + cid + "','" + cname + "','" + nowdate + "'," + day + "," + money + ",'" + manage + "','" + rno + "','已住')");//插入入住信息
                 aaa.execQuery("UPDATE Room SET Rdeposite = '" + yjstate + "'WHERE Rno='" + rno + "'");
 
