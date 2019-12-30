@@ -2,11 +2,15 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.*;
 
+/**
+ * jdbc相关
+ * 类似数据库连接类
+ * */
 public class Bean {
-	 	private static final String driverStr = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	    private static final String connStr = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;DatabaseName=Hotel";
-	    private static final String dbusername = "sa";
-	    private static final String dbpassword = "dxq1997";
+	 	private static final String driverStr = "com.mysql.jdbc.Driver";
+	    private static final String connStr = "jdbc:mysql://49.232.53.181:44444/hotel";
+	    private static final String dbusername = "root";
+	    private static final String dbpassword = "123456";
 	    private static Connection conn = null;
 	    private Statement stmt = null;
 	    public Bean()
@@ -14,7 +18,7 @@ public class Bean {
 	        try
 	        {
 	            Class.forName(driverStr);
-	            conn = DriverManager.getConnection("jdbc:sqlserver://localhost\\SQLEXPRESS:1433;DatabaseName=Hotel","sa", "dxq1997");
+	            conn = DriverManager.getConnection(connStr, dbusername, dbpassword);
 	            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 	            System.out.println("数据连接成功");
 	        } 

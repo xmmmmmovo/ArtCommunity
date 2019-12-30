@@ -1,0 +1,12 @@
+select * from Manager where Mno=" + a + " and Mpassword=" + b + ""
+select Rno,Rtype from Room where Rstate='空' AND ROstate='否'
+select * from history
+aaa.execQuery("insert into CUSTOMER values('" + cid + "','" + cidtype + "','" + cname + "','" + csex + "','" + tel + "')");//插入客户信息
+aaa.execQuery("insert into CHECKIN(CIid,CIname,CItime,CIdays,CImon,CIMname,CIRno,CIRstate) values('" + cid + "','" + cname + "','" + nowdate + "'," + day + "," + money + ",'" + manage + "','" + rno + "','已住')");//插入入住信息
+aaa.execQuery("UPDATE Room SET Rdeposite = '" + yjstate + "'WHERE Rno='" + rno + "'");
+tf.executeUpdate("UPDATE Room SET Rstate='空' WHERE Rno='"+no+"'");                    //更改房间入住状态，预定状态
+tf.executeUpdate("UPDATE Room SET Rostate='否' WHERE Rno='"+no+"'");
+tf.executeUpdate("UPDATE CHECKIN SET CIRstate='已退' WHERE CIRno='"+no+"'");
+ResultSet rs= yd.executeQuery( "SELECT * FROM Orderr WHERE Otel="+Ctel+"");
+rs = yd.executeQuery("SELECT Rno =MIN(Rno) FROM Room b WHERE (( b.Rstate = '空' ) AND (b.Rtype = '"+ydtype+"')AND(b.ROstate='否'))");
+

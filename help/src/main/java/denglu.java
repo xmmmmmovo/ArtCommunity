@@ -108,7 +108,7 @@ public class denglu extends JFrame {
         JLabel lblImag = new JLabel();
         lblImag.setSize(100, 100);
         lblImag.setLocation(140, 24);
-        ImageIcon icon = new ImageIcon("C:\\Users\\dell\\Pictures\\3.jpg");    //lblImag将要显示的图标
+        ImageIcon icon = new ImageIcon("hotel.png");    //lblImag将要显示的图标
         Image img = icon.getImage();    //图标中获取图像
         img = img.getScaledInstance(100, 100, Image.SCALE_DEFAULT); //创建此图像的缩放版本，原大小100x100
         icon.setImage(img);
