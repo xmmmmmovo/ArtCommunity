@@ -60,7 +60,7 @@ describe('Breadcrumb.vue', () => {
     expect(len).toBe(2)
   })
 
-  it('nested route', () => {
+  it('posts route', () => {
     router.push('/menu/menu1/menu1-2/menu1-2-1')
     const len = wrapper.findAll('.el-breadcrumb__inner').length
     expect(len).toBe(4)

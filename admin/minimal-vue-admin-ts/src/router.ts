@@ -57,14 +57,14 @@ export default new Router({
     {
       path: '/admin',
       component: Layout,
-      redirect: '/admin/table',
+      redirect: '/editor',
       children: [
         {
-          path: 'table',
-          component: () => import(/* webpackChunkName: "table" */ '@/views/table/index.vue'),
+          path: 'admin-editor',
+          component: () => import(/* webpackChunkName: "admins" */ '@/views/admins/index.vue'),
           meta: {
-            title: 'Table',
-            icon: 'table'
+            title: '管理员管理',
+            icon: 'admin'
           }
         }
       ]
@@ -84,9 +84,9 @@ export default new Router({
       ]
     },
     {
-      path: '/nested',
+      path: '/editor',
       component: Layout,
-      redirect: '/nested/menu1',
+      redirect: '/editor/menu1',
       meta: {
         title: 'Nested',
         icon: 'nested'
@@ -94,31 +94,31 @@ export default new Router({
       children: [
         {
           path: 'menu1',
-          component: () => import(/* webpackChunkName: "menu1" */ '@/views/nested/menu1/index.vue'),
-          redirect: '/nested/menu1/menu1-1',
+          component: () => import(/* webpackChunkName: "menu1" */ '@/views/posts/menu1/index.vue'),
+          redirect: '/posts/menu1/menu1-1',
           meta: {title: 'Menu1'},
           children: [
             {
               path: 'menu1-1',
-              component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/nested/menu1/menu1-1/index.vue'),
+              component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/posts/menu1/menu1-1/index.vue'),
               meta: {title: 'Menu1-1'}
             },
             {
               path: 'menu1-2',
-              component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/nested/menu1/menu1-2/index.vue'),
-              redirect: '/nested/menu1/menu1-2/menu1-2-1',
+              component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/posts/menu1/menu1-2/index.vue'),
+              redirect: '/posts/menu1/menu1-2/menu1-2-1',
               meta: {title: 'Menu1-2'},
             },
             {
               path: 'menu1-3',
-              component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/nested/menu1/menu1-3/index.vue'),
+              component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/posts/menu1/menu1-3/index.vue'),
               meta: {title: 'Menu1-3'}
             }
           ]
         },
         {
           path: 'menu2',
-          component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
+          component: () => import(/* webpackChunkName: "menu2" */ '@/views/posts/menu2/index.vue'),
           meta: {title: 'Menu2'}
         }
       ]
