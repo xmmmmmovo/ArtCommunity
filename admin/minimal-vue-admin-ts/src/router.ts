@@ -60,14 +60,6 @@ export default new Router({
       },
       children: [
         {
-          path: 'tree',
-          component: () => import(/* webpackChunkName: "tree" */ '@/views/tree/index.vue'),
-          meta: {
-            title: 'Tree',
-            icon: 'tree'
-          }
-        },
-        {
           path: 'table',
           component: () => import(/* webpackChunkName: "table" */ '@/views/table/index.vue'),
           meta: {
@@ -116,18 +108,6 @@ export default new Router({
               component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/nested/menu1/menu1-2/index.vue'),
               redirect: '/nested/menu1/menu1-2/menu1-2-1',
               meta: { title: 'Menu1-2' },
-              children: [
-                {
-                  path: 'menu1-2-1',
-                  component: () => import(/* webpackChunkName: "menu1-2-1" */ '@/views/nested/menu1/menu1-2/menu1-2-1/index.vue'),
-                  meta: { title: 'Menu1-2-1' }
-                },
-                {
-                  path: 'menu1-2-2',
-                  component: () => import(/* webpackChunkName: "menu1-2-2" */ '@/views/nested/menu1/menu1-2/menu1-2-2/index.vue'),
-                  meta: { title: 'Menu1-2-2' }
-                }
-              ]
             },
             {
               path: 'menu1-3',
@@ -144,13 +124,13 @@ export default new Router({
       ]
     },
     {
-      path: 'external-link',
+      path: '作者链接',
       component: Layout,
       children: [
         {
-          path: 'https://github.com/Armour/vue-typescript-admin-template',
+          path: 'https://github.com/xmmmmmovo',
           meta: {
-            title: 'External Link',
+            title: '作者链接',
             icon: 'link'
           }
         }

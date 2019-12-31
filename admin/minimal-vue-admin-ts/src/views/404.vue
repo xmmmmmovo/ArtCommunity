@@ -4,47 +4,24 @@
       <div class="pic-404">
         <img
           class="pic-404__parent"
-          src="@/assets/404-images/404.png"
-          alt="404"
-        >
-        <img
-          class="pic-404__child left"
-          src="@/assets/404-images/404-cloud.png"
-          alt="404"
-        >
-        <img
-          class="pic-404__child mid"
-          src="@/assets/404-images/404-cloud.png"
-          alt="404"
-        >
-        <img
-          class="pic-404__child right"
-          src="@/assets/404-images/404-cloud.png"
+          src="@/assets/404.jpg"
           alt="404"
         >
       </div>
-      <div class="text-404">
+      <div class="text-404 div404">
         <div class="text-404__oops">
           OOPS!
-        </div>
-        <div class="text-404__info">
-          All rights reserved
-          <a
-            style="color:#20a0ff"
-            href="https://wallstreetcn.com"
-            target="_blank"
-          >wallstreetcn</a>
         </div>
         <div class="text-404__headline">
           {{ message }}
         </div>
         <div class="text-404__info">
-          Please check that the URL you entered is correct, or click the button below to return to the homepage.
+          请检查页面url是否正确
         </div>
         <a
           href=""
           class="text-404__return-home"
-        >Back to home</a>
+        >回到主页</a>
       </div>
     </div>
   </div>
@@ -57,7 +34,7 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'Page404'
 })
 export default class extends Vue {
-  private message = '404 Page Not Found'
+  private message = '404 页面未找到！'
 }
 </script>
 
@@ -67,6 +44,10 @@ export default class extends Vue {
   position: absolute;
   top: 40%;
   left: 50%;
+}
+
+.div404 {
+  margin-left: 10%;
 }
 
 .wscn-http404 {
@@ -83,124 +64,6 @@ export default class extends Vue {
 
     &__parent {
       width: 100%;
-    }
-
-    &__child {
-      position: absolute;
-
-      &.left {
-        width: 80px;
-        top: 17px;
-        left: 220px;
-        opacity: 0;
-        animation-name: cloudLeft;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1s;
-      }
-
-      &.mid {
-        width: 46px;
-        top: 10px;
-        left: 420px;
-        opacity: 0;
-        animation-name: cloudMid;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1.2s;
-      }
-
-      &.right {
-        width: 62px;
-        top: 100px;
-        left: 500px;
-        opacity: 0;
-        animation-name: cloudRight;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1s;
-      }
-
-      @keyframes cloudLeft {
-        0% {
-          top: 17px;
-          left: 220px;
-          opacity: 0;
-        }
-
-        20% {
-          top: 33px;
-          left: 188px;
-          opacity: 1;
-        }
-
-        80% {
-          top: 81px;
-          left: 92px;
-          opacity: 1;
-        }
-
-        100% {
-          top: 97px;
-          left: 60px;
-          opacity: 0;
-        }
-      }
-
-      @keyframes cloudMid {
-        0% {
-          top: 10px;
-          left: 420px;
-          opacity: 0;
-        }
-
-        20% {
-          top: 40px;
-          left: 360px;
-          opacity: 1;
-        }
-
-        70% {
-          top: 130px;
-          left: 180px;
-          opacity: 1;
-        }
-
-        100% {
-          top: 160px;
-          left: 120px;
-          opacity: 0;
-        }
-      }
-
-      @keyframes cloudRight {
-        0% {
-          top: 100px;
-          left: 500px;
-          opacity: 0;
-        }
-
-        20% {
-          top: 120px;
-          left: 460px;
-          opacity: 1;
-        }
-
-        80% {
-          top: 180px;
-          left: 340px;
-          opacity: 1;
-        }
-
-        100% {
-          top: 200px;
-          left: 300px;
-          opacity: 0;
-        }
-      }
     }
   }
 
