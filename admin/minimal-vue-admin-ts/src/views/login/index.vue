@@ -81,6 +81,7 @@ import { isValidUsername } from '@/utils/validate'
   name: 'Login'
 })
 export default class extends Vue {
+  // 验证用户名
   private validateUsername = (rule: any, value: string, callback: Function) => {
     if (!isValidUsername(value)) {
       callback(new Error('Please enter the correct user name'))
@@ -88,6 +89,7 @@ export default class extends Vue {
       callback()
     }
   }
+  // 验证密码
   private validatePassword = (rule: any, value: string, callback: Function) => {
     if (value.length < 6) {
       callback(new Error('The password can not be less than 6 digits'))
@@ -95,10 +97,12 @@ export default class extends Vue {
       callback()
     }
   }
+  // 登录表单
   private loginForm = {
-    username: 'admin',
-    password: '111111'
+    username: '',
+    password: ''
   }
+  // 登录规则
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur' }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
@@ -111,8 +115,6 @@ export default class extends Vue {
 
   @Watch('$route', { immediate: true })
   private onRouteChange(route: Route) {
-    // TODO: remove the "as Dictionary<string>" hack after v4 release for vue-router
-    // See https://github.com/vuejs/vue-router/pull/2050 for details
     const query = route.query as Dictionary<string>
     if (query) {
       this.redirect = query.redirect

@@ -6,17 +6,19 @@ import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
 import org.nuc.course.db.service.AdminService;
 import org.nuc.course.model.Admin;
+import org.nuc.course.utils.BCryptUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by xmmmmmovo on 2019/12/31.
-*/
+ * Created by xmmmmmovo on 2019/12/31.
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -25,6 +27,7 @@ public class AdminController {
 
     @PostMapping("/add")
     public Result add(Admin admin) {
+        admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
         adminService.save(admin);
         return ResultGenerator.genSuccessResult();
     }
@@ -42,13 +45,26 @@ public class AdminController {
     }
 
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        Admin admin = adminService.findById(id);
-        return ResultGenerator.genSuccessResult(admin);
+    public Result detail(
+            @RequestParam String adminEmail,
+            @RequestParam String adminPassword
+    ) {
+        Condition condition = new Condition(Admin.class);
+        condition.createCriteria()
+                .andEqualTo("admin_email", adminEmail);
+        Admin admin = adminService.findByCondition(condition).get(0);
+        if (BCryptUtils.match(adminPassword, admin.getAdminPassword())) {
+            return ResultGenerator.genSuccessResult(admin);
+        } else {
+            return ResultGenerator.genFailResult("登录失败 请检查密码");
+        }
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result list(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size
+    ) {
         PageHelper.startPage(page, size);
         List<Admin> list = adminService.findAll();
         PageInfo pageInfo = new PageInfo(list);

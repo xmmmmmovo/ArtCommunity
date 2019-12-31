@@ -1,4 +1,4 @@
- import Vue from 'vue'
+import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout/index.vue'
 
@@ -20,7 +20,7 @@ export default new Router({
     if (savedPosition) {
       return savedPosition
     } else {
-      return { x: 0, y: 0 }
+      return {x: 0, y: 0}
     }
   },
   base: process.env.BASE_URL,
@@ -28,32 +28,36 @@ export default new Router({
     {
       path: '/login',
       component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
-      meta: { hidden: true }
+      meta: {hidden: true}
     },
     {
       path: '/404',
       component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
-      meta: { hidden: true }
+      meta: {hidden: true}
     },
     {
       path: '/',
       component: Layout,
       redirect: '/dashboard',
+      meta: {
+        hidden: true
+      },
       children: [
         {
           path: 'dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
           meta: {
-            title: 'Dashboard',
-            icon: 'dashboard'
+            title: '主界面',
+            icon: 'user',
+            hidden: true
           }
-        }
+        },
       ]
     },
     {
-      path: '/example',
+      path: '/admin',
       component: Layout,
-      redirect: '/example/tree',
+      redirect: '/admin/tree',
       meta: {
         title: 'Example',
         icon: 'example'
@@ -96,30 +100,30 @@ export default new Router({
           path: 'menu1',
           component: () => import(/* webpackChunkName: "menu1" */ '@/views/nested/menu1/index.vue'),
           redirect: '/nested/menu1/menu1-1',
-          meta: { title: 'Menu1' },
+          meta: {title: 'Menu1'},
           children: [
             {
               path: 'menu1-1',
               component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/nested/menu1/menu1-1/index.vue'),
-              meta: { title: 'Menu1-1' }
+              meta: {title: 'Menu1-1'}
             },
             {
               path: 'menu1-2',
               component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/nested/menu1/menu1-2/index.vue'),
               redirect: '/nested/menu1/menu1-2/menu1-2-1',
-              meta: { title: 'Menu1-2' },
+              meta: {title: 'Menu1-2'},
             },
             {
               path: 'menu1-3',
               component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/nested/menu1/menu1-3/index.vue'),
-              meta: { title: 'Menu1-3' }
+              meta: {title: 'Menu1-3'}
             }
           ]
         },
         {
           path: 'menu2',
           component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
-          meta: { title: 'Menu2' }
+          meta: {title: 'Menu2'}
         }
       ]
     },
@@ -139,7 +143,7 @@ export default new Router({
     {
       path: '*',
       redirect: '/404',
-      meta: { hidden: true }
+      meta: {hidden: true}
     }
   ]
 })
