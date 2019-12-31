@@ -24,7 +24,9 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            欢迎您！
+            <a>
+              欢迎您！
+            </a>
           </el-dropdown-item>
           <router-link to="/">
             <el-dropdown-item>

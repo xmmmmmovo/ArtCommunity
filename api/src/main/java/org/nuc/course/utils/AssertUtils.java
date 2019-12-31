@@ -1,7 +1,7 @@
 package org.nuc.course.utils;
 
-import com.zoctan.seedling.core.exception.ServiceException;
-import com.zoctan.seedling.core.response.ResultCode;
+import org.nuc.course.core.exception.ServiceException;
+import org.nuc.course.core.response.ResultCode;
 
 /**
  * 断言工具
