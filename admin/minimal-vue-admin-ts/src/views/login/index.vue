@@ -10,7 +10,7 @@
     >
       <div class="title-container">
         <h3 class="title">
-          Login Form
+          登陆界面
         </h3>
       </div>
 
@@ -24,7 +24,7 @@
           name="username"
           type="text"
           autocomplete="on"
-          placeholder="username"
+          placeholder="管理员邮箱"
         />
       </el-form-item>
 
@@ -37,7 +37,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="password"
+          placeholder="管理员密码"
           name="password"
           autocomplete="on"
           @keyup.enter.native="handleLogin"
@@ -56,15 +56,8 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        Sign in
+        登录
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span> username: admin </span>
-          <span> password: any </span>
-        </div>
-      </div>
     </el-form>
   </div>
 </template>
@@ -84,7 +77,7 @@ export default class extends Vue {
   // 验证用户名
   private validateUsername = (rule: any, value: string, callback: Function) => {
     if (!isValidUsername(value)) {
-      callback(new Error('Please enter the correct user name'))
+      callback(new Error('请确认管理员邮箱'))
     } else {
       callback()
     }
@@ -92,7 +85,7 @@ export default class extends Vue {
   // 验证密码
   private validatePassword = (rule: any, value: string, callback: Function) => {
     if (value.length < 6) {
-      callback(new Error('The password can not be less than 6 digits'))
+      callback(new Error('密码至少有6位'))
     } else {
       callback()
     }

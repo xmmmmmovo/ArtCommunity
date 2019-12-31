@@ -57,11 +57,7 @@ export default new Router({
     {
       path: '/admin',
       component: Layout,
-      redirect: '/admin/tree',
-      meta: {
-        title: 'Example',
-        icon: 'example'
-      },
+      redirect: '/admin/table',
       children: [
         {
           path: 'table',
