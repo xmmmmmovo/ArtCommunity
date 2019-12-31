@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
+import org.nuc.course.core.ServiceException;
 import org.nuc.course.db.service.AdminService;
 import org.nuc.course.model.Admin;
 import org.nuc.course.utils.BCryptUtils;
@@ -49,17 +50,17 @@ public class AdminController {
             @RequestParam String adminEmail,
             @RequestParam String adminPassword
     ) {
-        Condition condition = new Condition(Admin.class);
-        condition.createCriteria()
-                .andEqualTo("admin_email", adminEmail);
-        Admin admin = adminService.findByCondition(condition).get(0);
+        Admin admin = adminService.findBy("admin_email", adminEmail);
         if (BCryptUtils.match(adminPassword, admin.getAdminPassword())) {
             return ResultGenerator.genSuccessResult(admin);
         } else {
-            return ResultGenerator.genFailResult("登录失败 请检查密码");
+            return ResultGenerator.genFailResult("账号密码错误, 请检查");
         }
     }
 
+    /**
+     * 分页查询
+     * */
     @PostMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
