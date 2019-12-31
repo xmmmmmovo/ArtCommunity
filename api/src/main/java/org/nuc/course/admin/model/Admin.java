@@ -1,37 +1,112 @@
 package org.nuc.course.admin.model;
 
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-
-@Data
-@Table(name = "admin")
 public class Admin {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    /** 邮箱 */
-    @Column(name = "admin_email")
-    private String email;
-
-    /** 账户名 */
     @Column(name = "admin_name")
-    private String name;
+    private String adminName;
 
-    /** 密码 */
+    @Column(name = "admin_email")
+    private String adminEmail;
+
     @Column(name = "admin_password")
-    private String password;
+    private String adminPassword;
 
-    /** 密码 */
     @Column(name = "admin_avatar")
-    private String avatar;
+    private String adminAvatar;
 
-    /** 注册时间 */
     @Column(name = "register_time")
-    private Timestamp registerTime;
+    private Date registerTime;
 
+    /**
+     * @return id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return admin_name
+     */
+    public String getAdminName() {
+        return adminName;
+    }
+
+    /**
+     * @param adminName
+     */
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
+    /**
+     * @return admin_email
+     */
+    public String getAdminEmail() {
+        return adminEmail;
+    }
+
+    /**
+     * @param adminEmail
+     */
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
+    }
+
+    /**
+     * @return admin_password
+     */
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    /**
+     * @param adminPassword
+     */
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+
+    /**
+     * @return admin_avatar
+     */
+    public String getAdminAvatar() {
+        return adminAvatar;
+    }
+
+    /**
+     * @param adminAvatar
+     */
+    public void setAdminAvatar(String adminAvatar) {
+        this.adminAvatar = adminAvatar;
+    }
+
+    /**
+     * @return register_time
+     */
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    /**
+     * @param registerTime
+     */
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
+    }
 }
