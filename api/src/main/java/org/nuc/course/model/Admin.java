@@ -109,4 +109,16 @@ public class Admin {
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", adminName='" + adminName + '\'' +
+                ", adminEmail='" + adminEmail + '\'' +
+                ", adminPassword='" + adminPassword + '\'' +
+                ", adminAvatar='" + adminAvatar + '\'' +
+                ", registerTime=" + registerTime +
+                '}';
+    }
 }

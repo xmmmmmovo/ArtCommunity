@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,8 @@ public class AdminController {
     @PostMapping("/add")
     public Result add(Admin admin) {
         admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
-        adminService.save(admin);
+        admin.setRegisterTime(new Date());
+        System.out.println(admin);
         return ResultGenerator.genSuccessResult();
     }
 
