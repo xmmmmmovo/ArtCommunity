@@ -1,11 +1,11 @@
-package org.nuc.course.admin.controller;
+package org.nuc.course.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.nuc.course.admin.model.Admin;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
 import org.nuc.course.db.service.AdminService;
+import org.nuc.course.model.Admin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

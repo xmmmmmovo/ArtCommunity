@@ -1,4 +1,4 @@
-package org.nuc.course.admin.model;
+package org.nuc.course.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
