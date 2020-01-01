@@ -31,7 +31,7 @@ public class AdminController {
     public Result add(Admin admin) {
         admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
         admin.setRegisterTime(new Date());
-        System.out.println(admin);
+//        System.out.println(admin);
         return ResultGenerator.genSuccessResult();
     }
 

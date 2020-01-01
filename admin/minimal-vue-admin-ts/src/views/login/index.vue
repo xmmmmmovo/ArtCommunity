@@ -106,6 +106,7 @@ export default class extends Vue {
   private redirect?: string
   private otherQuery: Dictionary<string> = {}
 
+  // j监视器
   @Watch('$route', { immediate: true })
   private onRouteChange(route: Route) {
     const query = route.query as Dictionary<string>
@@ -115,6 +116,7 @@ export default class extends Vue {
     }
   }
 
+  // 移动监视器
   mounted() {
     if (this.loginForm.username === '') {
       (this.$refs.username as Input).focus()
@@ -123,6 +125,7 @@ export default class extends Vue {
     }
   }
 
+  // 显示代码
   private showPwd() {
     if (this.passwordType === 'password') {
       this.passwordType = ''
@@ -134,6 +137,7 @@ export default class extends Vue {
     })
   }
 
+  // 异步登录逻辑
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
