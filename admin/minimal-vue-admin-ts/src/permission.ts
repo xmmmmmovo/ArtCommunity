@@ -3,7 +3,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { Message } from 'element-ui'
 import { Route } from 'vue-router'
-import { UserModule } from '@/store/modules/user'
+import { AdminModule } from '@/store/modules/admin'
 
 NProgress.configure({ showSpinner: false })
 
@@ -14,22 +14,22 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
   NProgress.start()
 
   // Determine whether the user has logged in
-  if (UserModule.token) {
+  if (AdminModule.token) {
     if (to.path === '/login') {
       // If is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
       // Check whether the user has obtained his permission roles
-      if (UserModule.roles.length === 0) {
+      if (AdminModule.roles.length === 0) {
         try {
           // Get user info, including roles
-          await UserModule.GetUserInfo()
+          await AdminModule.GetUserInfo()
           // Set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (err) {
           // Remove token and redirect to login page
-          UserModule.ResetToken()
+          AdminModule.ResetToken()
           Message.error(err || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()

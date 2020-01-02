@@ -1,10 +1,7 @@
 package org.nuc.course.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
+import javax.persistence.*;
 
 public class Admin {
     @Id
@@ -25,6 +22,8 @@ public class Admin {
 
     @Column(name = "register_time")
     private Date registerTime;
+
+    private String token;
 
     /**
      * @return id
@@ -110,6 +109,20 @@ public class Admin {
         this.registerTime = registerTime;
     }
 
+    /**
+     * @return token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -119,6 +132,7 @@ public class Admin {
                 ", adminPassword='" + adminPassword + '\'' +
                 ", adminAvatar='" + adminAvatar + '\'' +
                 ", registerTime=" + registerTime +
+                ", token='" + token + '\'' +
                 '}';
     }
 }

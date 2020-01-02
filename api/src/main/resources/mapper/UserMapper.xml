@@ -11,5 +11,7 @@
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
     <result column="user_bio" jdbcType="VARCHAR" property="userBio" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
   </resultMap>
 </mapper>

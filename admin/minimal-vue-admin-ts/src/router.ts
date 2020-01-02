@@ -94,14 +94,9 @@ export default new Router({
       children: [
         {
           path: '作品管理',
-          component: () => import(/* webpackChunkName: "menu1" */ '@/views/posts/menu1/index.vue'),
+          component: () => import(/* webpackChunkName: "menu1" */ '@/views/posts/index.vue'),
           redirect: '/posts/menu1/menu1-1',
           meta: {title: 'Menu1'},
-        },
-        {
-          path: 'menu2',
-          component: () => import(/* webpackChunkName: "menu2" */ '@/views/posts/menu2/index.vue'),
-          meta: {title: 'Menu2'}
         }
       ]
     },

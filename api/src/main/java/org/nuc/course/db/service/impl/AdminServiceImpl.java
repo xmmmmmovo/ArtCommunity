@@ -11,11 +11,12 @@ import javax.annotation.Resource;
 
 
 /**
- * Created by xmmmmmovo on 2019/12/31.
+ * Created by xmmmmmovo on 2020/01/02.
  */
 @Service
 @Transactional
 public class AdminServiceImpl extends AbstractService<Admin> implements AdminService {
     @Resource
     private AdminMapper adminMapper;
+
 }

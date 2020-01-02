@@ -7,7 +7,10 @@ import org.nuc.course.core.ResultGenerator;
 import org.nuc.course.core.ServiceException;
 import org.nuc.course.db.service.AdminService;
 import org.nuc.course.model.Admin;
+import org.nuc.course.model.User;
 import org.nuc.course.utils.BCryptUtils;
+import org.nuc.course.utils.DTOUtils;
+import org.nuc.course.utils.IdUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +32,11 @@ public class AdminController {
 
     @PostMapping("/add")
     public Result add(Admin admin) {
+        admin.setToken(IdUtils.uuid64());
         admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
         admin.setRegisterTime(new Date());
-//        System.out.println(admin);
-        return ResultGenerator.genSuccessResult();
+        adminService.save(admin);
+        return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
     }
 
     @PostMapping("/delete")
@@ -48,13 +52,26 @@ public class AdminController {
     }
 
     @PostMapping("/detail")
-    public Result detail(
-            @RequestParam String adminEmail,
+    public Result detail(@RequestParam Integer id) {
+        Admin admin = adminService.findById(id);
+        return ResultGenerator.genSuccessResult(admin);
+    }
+
+    @PostMapping("/token_detail")
+    public Result detailByToken(@RequestParam String token) {
+        Admin admin = adminService.findBy("token", token);
+        return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
+    }
+
+    @PostMapping("/login")
+    public Result adminLogin(
+            @RequestParam String adminName,
             @RequestParam String adminPassword
     ) {
-        Admin admin = adminService.findBy("admin_email", adminEmail);
+        Admin admin = adminService.findBy("adminName", adminName);
+        System.out.println(admin);
         if (BCryptUtils.match(adminPassword, admin.getAdminPassword())) {
-            return ResultGenerator.genSuccessResult(admin);
+            return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
         } else {
             return ResultGenerator.genFailResult("账号密码错误, 请检查");
         }

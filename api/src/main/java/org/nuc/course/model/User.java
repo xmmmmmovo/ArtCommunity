@@ -23,6 +23,11 @@ public class User {
     @Column(name = "user_bio")
     private String userBio;
 
+    private String token;
+
+    @Column(name = "user_avatar")
+    private String userAvatar;
+
     /**
      * @return id
      */
@@ -105,5 +110,33 @@ public class User {
      */
     public void setUserBio(String userBio) {
         this.userBio = userBio;
+    }
+
+    /**
+     * @return token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /**
+     * @return user_avatar
+     */
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    /**
+     * @param userAvatar
+     */
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }

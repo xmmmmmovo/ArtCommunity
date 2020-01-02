@@ -1,22 +1,21 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, logout, getUserInfo } from '@/api/users'
+import { login, logout, getUserInfo } from '@/api/admins'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
-export interface IUserState {
+// admin接口
+export interface IAdminState {
   token: string
   name: string
   avatar: string
-  introduction: string
   roles: string[]
 }
 
 @Module({ dynamic: true, store, name: 'user' })
-class User extends VuexModule implements IUserState {
+class Admin extends VuexModule implements IAdminState {
   public token = getToken() || ''
   public name = ''
   public avatar = ''
-  public introduction = ''
   public roles: string[] = []
 
   @Mutation
@@ -32,11 +31,6 @@ class User extends VuexModule implements IUserState {
   @Mutation
   private SET_AVATAR(avatar: string) {
     this.avatar = avatar
-  }
-
-  @Mutation
-  private SET_INTRODUCTION(introduction: string) {
-    this.introduction = introduction
   }
 
   @Mutation
@@ -77,7 +71,6 @@ class User extends VuexModule implements IUserState {
     this.SET_ROLES(roles)
     this.SET_NAME(name)
     this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
   }
 
   @Action
@@ -92,4 +85,4 @@ class User extends VuexModule implements IUserState {
   }
 }
 
-export const UserModule = getModule(User)
+export const AdminModule = getModule(Admin)

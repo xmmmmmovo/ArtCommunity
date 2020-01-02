@@ -67,7 +67,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
 import { Dictionary } from 'vuex'
 import { Form as ElForm, Input } from 'element-ui'
-import { UserModule } from '@/store/modules/user'
+import { AdminModule } from '@/store/modules/admin'
 import { isValidUsername } from '@/utils/validate'
 
 @Component({
@@ -142,7 +142,7 @@ export default class extends Vue {
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
         this.loading = true
-        await UserModule.Login(this.loginForm)
+        await AdminModule.Login(this.loginForm)
         this.$router.push({
           path: this.redirect || '/',
           query: this.otherQuery
