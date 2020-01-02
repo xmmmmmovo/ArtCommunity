@@ -88,33 +88,15 @@ export default new Router({
       component: Layout,
       redirect: '/editor/menu1',
       meta: {
-        title: 'Nested',
+        title: '作者',
         icon: 'nested'
       },
       children: [
         {
-          path: 'menu1',
+          path: '作品管理',
           component: () => import(/* webpackChunkName: "menu1" */ '@/views/posts/menu1/index.vue'),
           redirect: '/posts/menu1/menu1-1',
           meta: {title: 'Menu1'},
-          children: [
-            {
-              path: 'menu1-1',
-              component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/posts/menu1/menu1-1/index.vue'),
-              meta: {title: 'Menu1-1'}
-            },
-            {
-              path: 'menu1-2',
-              component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/posts/menu1/menu1-2/index.vue'),
-              redirect: '/posts/menu1/menu1-2/menu1-2-1',
-              meta: {title: 'Menu1-2'},
-            },
-            {
-              path: 'menu1-3',
-              component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/posts/menu1/menu1-3/index.vue'),
-              meta: {title: 'Menu1-3'}
-            }
-          ]
         },
         {
           path: 'menu2',
