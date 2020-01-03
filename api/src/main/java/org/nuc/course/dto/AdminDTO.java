@@ -8,11 +8,13 @@ public class AdminDTO {
     private String token;
     private String adminName;
     private String avatar;
+    private String role;
 
-    public AdminDTO(Long id, String token, String adminName, String avatar) {
+    public AdminDTO(Long id, String token, String adminName, String avatar, String role) {
         this.id = id;
         this.token = token;
         this.adminName = adminName;
         this.avatar = avatar;
+        this.role = role;
     }
 }

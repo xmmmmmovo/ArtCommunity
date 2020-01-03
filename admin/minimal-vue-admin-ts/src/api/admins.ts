@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 export const getUserInfo = (data: any) =>
   request({
-    url: '/admin/info',
-    method: 'post',
+    url: '/admin/token_detail',
+    method: 'POST',
     data
   })
 

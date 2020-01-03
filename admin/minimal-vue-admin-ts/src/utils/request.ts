@@ -23,7 +23,6 @@ const service = axios.create({
 service.interceptors.response.use(
   (response) => {
     const res = response.data
-    console.log(response.data)
     if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
@@ -32,7 +31,7 @@ service.interceptors.response.use(
       })
       if (res.code === 500 || res.code === 400) {
         MessageBox.confirm(
-          '用户出错',
+          '用户信息出错',
           '用户出现错误',
           {
             confirmButtonText: '重新登录',

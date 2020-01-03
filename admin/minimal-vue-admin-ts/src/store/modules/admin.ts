@@ -70,20 +70,26 @@ class Admin extends VuexModule implements IAdminState {
   @Action
   public async GetUserInfo() {
     if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
+      throw Error('token未验证！')
     }
-    const { data } = await getUserInfo({ /* Your params here */ })
+    let formData = new FormData()
+    formData.append("token", this.token)
+    const { data } = await getUserInfo(formData)
     if (!data) {
-      throw Error('Verification failed, please Login again.')
+      throw Error('验证失败！请重新登录')
     }
-    const { roles, name, avatar, introduction } = data.user
+    let role: string = data.role
+    let roles: string[] = []
+    if (role === 'admin') {
+      roles.push('admin', 'editor')
+    } else {
+      roles.push('editor')
+    }
     // roles must be a non-empty array
     if (!roles || roles.length <= 0) {
       throw Error('GetUserInfo: roles must be a non-null array!')
     }
     this.SET_ROLES(roles)
-    this.SET_NAME(name)
-    this.SET_AVATAR(avatar)
   }
 
   @Action

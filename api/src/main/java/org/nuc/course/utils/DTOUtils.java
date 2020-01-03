@@ -21,7 +21,8 @@ public class DTOUtils {
                 admin.getId(),
                 admin.getToken(),
                 admin.getAdminName(),
-                admin.getAdminAvatar()
+                admin.getAdminAvatar(),
+                admin.getRoles()
         );
     }
 }
