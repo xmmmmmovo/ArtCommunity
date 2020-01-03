@@ -11,10 +11,7 @@ import org.nuc.course.model.User;
 import org.nuc.course.utils.BCryptUtils;
 import org.nuc.course.utils.DTOUtils;
 import org.nuc.course.utils.IdUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
@@ -39,19 +36,19 @@ public class AdminController {
         return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         adminService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public Result update(Admin admin) {
         adminService.update(admin);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         Admin admin = adminService.findById(id);
         return ResultGenerator.genSuccessResult(admin);
@@ -79,7 +76,7 @@ public class AdminController {
     /**
      * 分页查询
      * */
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size

@@ -17,6 +17,9 @@ public class Article {
     @Column(name = "create_time")
     private Date createTime;
 
+    @Column(name = "article_author")
+    private Long articleAuthor;
+
     @Column(name = "article_content")
     private String articleContent;
 
@@ -74,6 +77,20 @@ public class Article {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * @return article_author
+     */
+    public Long getArticleAuthor() {
+        return articleAuthor;
+    }
+
+    /**
+     * @param articleAuthor
+     */
+    public void setArticleAuthor(Long articleAuthor) {
+        this.articleAuthor = articleAuthor;
     }
 
     /**

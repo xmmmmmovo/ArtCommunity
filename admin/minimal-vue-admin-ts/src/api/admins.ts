@@ -1,15 +1,37 @@
 import request from '@/utils/request'
 
-export const getUserInfo = (data: any) =>
+export const getAdmins = (params: any) =>
   request({
-    url: '/admin/token_detail',
-    method: 'POST',
-    data
+    url: '/articles',
+    method: 'get',
+    params
   })
 
-export const login = (data: any) =>
+export const getAdminPageviews = (params: any) =>
   request({
-    url: '/admin/login',
-    method: 'POST',
-    data
+    url: '/articles',
+    method: 'get',
+    params
+  })
+
+export const createAdmin = (params: any) =>
+  request({
+    url: '/articles',
+    method: 'get',
+    params
+  })
+
+
+export const defaultAdminData = (params: any) =>
+  request({
+    url: '/articles',
+    method: 'get',
+    params
+  })
+
+export const deleteAdmin = (params: any) =>
+  request({
+    url: '/articles',
+    method: 'get',
+    params
   })
