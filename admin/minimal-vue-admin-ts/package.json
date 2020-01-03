@@ -4,7 +4,7 @@
   "private": true,
   "author": "Chong Guo <armourcy@gmail.com>",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --fix",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6",
@@ -27,13 +27,15 @@
     "vuex": "^3.1.1",
     "vuex-class": "^0.3.2",
     "vuex-module-decorators": "^0.10.1",
-    "xlsx": "^0.15.3"
+    "xlsx": "^0.15.3",
+    "file-saver": "^2.0.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/js-cookie": "^2.2.2",
     "@types/nprogress": "^0.2.0",
     "@types/webpack-env": "^1.14.0",
+    "@types/file-saver": "^2.0.1",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-e2e-cypress": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",

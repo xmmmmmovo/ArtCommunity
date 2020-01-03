@@ -69,7 +69,6 @@ public class AdminController {
             @RequestParam String adminPassword
     ) {
         Admin admin = adminService.findBy("adminName", adminName);
-        System.out.println(admin);
         if (BCryptUtils.match(adminPassword, admin.getAdminPassword())) {
             return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
         } else {

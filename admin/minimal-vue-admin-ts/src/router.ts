@@ -75,7 +75,7 @@ export default new Router({
       children: [
         {
           path: 'index',
-          component: () => import(/* webpackChunkName: "form" */ '@/views/form/index.vue'),
+          component: () => import('@/views/table/form/index.vue'),
           meta: {
             title: 'Form',
             icon: 'form'
@@ -86,18 +86,52 @@ export default new Router({
     {
       path: '/editor',
       component: Layout,
-      redirect: '/editor/menu1',
+      redirect: '/editor/posts',
       meta: {
         title: '作者',
         icon: 'nested'
       },
       children: [
         {
-          path: '作品管理',
-          component: () => import(/* webpackChunkName: "menu1" */ '@/views/posts/index.vue'),
-          redirect: '/posts/menu1/menu1-1',
-          meta: {title: 'Menu1'},
-        }
+          path: 'posts',
+          component: () => import('@/views/table/posts/index.vue'),
+          meta: {title: '作品管理'}
+        },
+        {
+          path: 'comments',
+          component: () => import('@/views/table/comments/index.vue'),
+          meta: {
+            title: '评论管理'
+          }
+        },
+        {
+          path: 'users',
+          component: () => import('@/views/table/users/index.vue'),
+          meta: {
+            title: '用户管理'
+          }
+        },
+        {
+          path: 'tags',
+          component: () => import('@/views/table/tags/index.vue'),
+          meta: {
+            title: '标签管理'
+          }
+        },
+        {
+          path: 'sizes',
+          component: () => import('@/views/table/sizes/index.vue'),
+          meta: {
+            title: '尺寸管理'
+          }
+        },
+        {
+          path: 'logs',
+          component: () => import('@/views/table/logs/index.vue'),
+          meta: {
+            title: '日志管理'
+          }
+        },
       ]
     },
     {
@@ -116,7 +150,7 @@ export default new Router({
     {
       path: '*',
       redirect: '/404',
-      meta: {hidden: true}
+      meta: { hidden: true }
     }
   ]
 })

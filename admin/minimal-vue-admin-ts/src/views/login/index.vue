@@ -20,7 +20,7 @@
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
+          v-model="loginForm.adminName"
           name="username"
           type="text"
           autocomplete="on"
@@ -35,7 +35,7 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="loginForm.adminPassword"
           :type="passwordType"
           placeholder="管理员密码"
           name="password"
@@ -92,13 +92,13 @@ export default class extends Vue {
   }
   // 登录表单
   private loginForm = {
-    username: '',
-    password: ''
+    adminName: '',
+    adminPassword: ''
   }
   // 登录规则
   private loginRules = {
-    username: [{ validator: this.validateUsername, trigger: 'blur' }],
-    password: [{ validator: this.validatePassword, trigger: 'blur' }]
+    adminName: [{ validator: this.validateUsername, trigger: 'blur' }],
+    adminPassword: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
   private passwordType = 'password'
   private loading = false
@@ -106,7 +106,7 @@ export default class extends Vue {
   private redirect?: string
   private otherQuery: Dictionary<string> = {}
 
-  // j监视器
+  // 监视器
   @Watch('$route', { immediate: true })
   private onRouteChange(route: Route) {
     const query = route.query as Dictionary<string>
@@ -118,10 +118,10 @@ export default class extends Vue {
 
   // 移动监视器
   mounted() {
-    if (this.loginForm.username === '') {
-      (this.$refs.username as Input).focus()
-    } else if (this.loginForm.password === '') {
-      (this.$refs.password as Input).focus()
+    if (this.loginForm.adminName === '') {
+      (this.$refs.adminName as Input).focus()
+    } else if (this.loginForm.adminPassword === '') {
+      (this.$refs.adminPassword as Input).focus()
     }
   }
 
@@ -133,7 +133,7 @@ export default class extends Vue {
       this.passwordType = 'password'
     }
     this.$nextTick(() => {
-      (this.$refs.password as Input).focus()
+      (this.$refs.adminPassword as Input).focus()
     })
   }
 
@@ -151,6 +151,7 @@ export default class extends Vue {
         setTimeout(() => {
           this.loading = false
         }, 0.5 * 1000)
+        return true
       } else {
         return false
       }
@@ -214,7 +215,8 @@ export default class extends Vue {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: $loginBg;
+  background: $loginBg;
+  /*background-image: ;*/
 
   .login-form {
     position: relative;

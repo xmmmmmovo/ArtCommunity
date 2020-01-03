@@ -96,15 +96,27 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         });
     }
 
+    /**
+     * 跨域相关代码
+     * */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        //TODO:解决跨域问题
-        //registry.addMapping("/**");
+        registry.addMapping("/**")
+                //放行哪些原始域
+                .allowedOrigins("*")
+                //是否发送Cookie信息
+                .allowCredentials(true)
+                //放行哪些原始域(请求方式)
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                //放行哪些原始域(头部信息)
+                .allowedHeaders("*")
+                //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+                .exposedHeaders("Header1", "Header2");
     }
 
     private void responseResult(HttpServletResponse response, Result result) {
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-type", "application/json;charset=UTF-8");
+//        response.setHeader("Content-type", "application/json;charset=UTF-8");
         response.setStatus(200);
         try {
             response.getWriter().write(JSON.toJSONString(result));

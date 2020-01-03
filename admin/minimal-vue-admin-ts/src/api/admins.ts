@@ -10,7 +10,7 @@ export const getUserInfo = (data: any) =>
 export const login = (data: any) =>
   request({
     url: '/admin/login',
-    method: 'post',
+    method: 'POST',
     data
   })
 
