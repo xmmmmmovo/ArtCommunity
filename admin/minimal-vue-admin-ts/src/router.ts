@@ -1,18 +1,8 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import Router, {RouteConfig} from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 Vue.use(Router)
-
-/*
-  redirect:                      if set to 'noredirect', no redirect action will be trigger when clicking the breadcrumb
-  meta: {
-    title: 'title'               the name showed in subMenu and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon showed in the sidebar
-    breadcrumb: false            if false, the item will be hidden in breadcrumb (default is true)
-    hidden: true                 if true, this route will not show in the sidebar (default is false)
-  }
-*/
 
 export default new Router({
   // mode: 'history',  // Enable this if you need.
@@ -45,10 +35,9 @@ export default new Router({
       children: [
         {
           path: 'dashboard',
-          component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+          component: () => import('@/views/dashboard/index.vue'),
           meta: {
             title: '主界面',
-            icon: 'user',
             hidden: true
           }
         },
@@ -57,11 +46,10 @@ export default new Router({
     {
       path: '/admin',
       component: Layout,
-      redirect: '/editor',
       children: [
         {
           path: 'admin-editor',
-          component: () => import(/* webpackChunkName: "admins" */ '@/views/admins/index.vue'),
+          component: () => import('@/views/admins/index.vue'),
           meta: {
             title: '管理员管理',
             icon: 'admin'

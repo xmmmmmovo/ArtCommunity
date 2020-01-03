@@ -1,5 +1,5 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, logout, getUserInfo } from '@/api/admins'
+import { login, getUserInfo } from '@/api/admins'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
@@ -97,7 +97,6 @@ class Admin extends VuexModule implements IAdminState {
     if (this.token === '') {
       throw Error('LogOut: token is undefined!')
     }
-    await logout()
     removeToken()
     this.SET_TOKEN('')
     this.SET_ROLES([])

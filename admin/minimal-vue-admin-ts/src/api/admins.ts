@@ -13,10 +13,3 @@ export const login = (data: any) =>
     method: 'POST',
     data
   })
-
-
-export const logout = () =>
-  request({
-    url: '/admin/logout',
-    method: 'post'
-  })

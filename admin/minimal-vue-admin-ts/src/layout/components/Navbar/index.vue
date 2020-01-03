@@ -25,7 +25,7 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <a>
-              欢迎您！
+              欢迎您！{{name}}
             </a>
           </el-dropdown-item>
           <router-link to="/">
@@ -70,6 +70,10 @@ export default class extends Vue {
 
   get avatar() {
     return AdminModule.avatar
+  }
+
+  get name() {
+    return AdminModule.name
   }
 
   private toggleSideBar() {
