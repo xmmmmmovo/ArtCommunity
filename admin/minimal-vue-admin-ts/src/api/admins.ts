@@ -21,6 +21,12 @@ export const createAdmin = (params: any) =>
     params
   })
 
+export const updateAdmin = (params: any) =>
+  request({
+    url: '/articles',
+    method: 'get',
+    params
+  })
 
 export const defaultAdminData = (params: any) =>
   request({

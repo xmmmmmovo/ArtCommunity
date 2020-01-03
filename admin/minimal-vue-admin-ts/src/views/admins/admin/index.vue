@@ -1,63 +1,6 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
-        v-model="listQuery.title"
-        :placeholder="$t('table.title')"
-        style="width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-select
-        v-model="listQuery.importance"
-        :placeholder="$t('table.importance')"
-        clearable
-        style="width: 120px"
-        class="filter-item"
-      >
-        <el-option
-          v-for="item in importanceOptions"
-          :key="item"
-          :label="item"
-          :value="item"
-        />
-      </el-select>
-      <el-select
-        v-model="listQuery.type"
-        :placeholder="$t('table.type')"
-        clearable
-        class="filter-item"
-        style="width: 130px"
-      >
-        <el-option
-          v-for="item in calendarTypeOptions"
-          :key="item.key"
-          :label="item.display_name+'('+item.key+')'"
-          :value="item.key"
-        />
-      </el-select>
-      <el-select
-        v-model="listQuery.sort"
-        style="width: 140px"
-        class="filter-item"
-        @change="handleFilter"
-      >
-        <el-option
-          v-for="item in sortOptions"
-          :key="item.key"
-          :label="item.label"
-          :value="item.key"
-        />
-      </el-select>
-      <el-button
-        v-waves
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >
-        {{ $t('table.search') }}
-      </el-button>
       <el-button
         class="filter-item"
         style="margin-left: 10px;"
@@ -77,14 +20,6 @@
       >
         {{ $t('table.export') }}
       </el-button>
-      <el-checkbox
-        v-model="showReviewer"
-        class="filter-item"
-        style="margin-left:15px;"
-        @change="tableKey=tableKey+1"
-      >
-        {{ $t('table.reviewer') }}
-      </el-checkbox>
     </div>
 
     <el-table
@@ -140,16 +75,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        v-if="showReviewer"
-        :label="$t('table.reviewer')"
-        width="110px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <span style="color:red;">{{ scope.row.reviewer }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
         :label="$t('table.importance')"
         width="105px"
       >
@@ -162,6 +87,7 @@
           />
         </template>
       </el-table-column>
+
       <el-table-column
         :label="$t('table.readings')"
         align="center"
@@ -176,6 +102,7 @@
           <span v-else>0</span>
         </template>
       </el-table-column>
+
       <el-table-column
         :label="$t('table.status')"
         class-name="status-col"
@@ -228,6 +155,7 @@
       </el-table-column>
     </el-table>
 
+<!--    分页相关-->
     <pagination
       v-show="total>0"
       :total="total"
@@ -236,6 +164,7 @@
       @pagination="getList"
     />
 
+<!--    修改用的dialog-->
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
@@ -365,34 +294,16 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
-import { getArticles, getPageviews, createArticle, updateArticle, defaultArticleData } from '@/api/articles'
+import { getAdmins, getAdminPageviews, createAdmin, updateAdmin, defaultAdminData, deleteAdmin } from '@/api/admins'
 import { IArticleData } from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 
-const calendarTypeOptions = [
-  { key: 'CN', display_name: 'China' },
-  { key: 'US', display_name: 'USA' },
-  { key: 'JP', display_name: 'Japan' },
-  { key: 'EU', display_name: 'Eurozone' }
-]
-
-// arr to obj, such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc: { [key: string]: string }, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {}) as { [key: string]: string }
-
 @Component({
   name: 'AdminsTable',
   components: {
     Pagination
-  },
-  filters: {
-    typeFilter: (type: string) => {
-      return calendarTypeKeyValue[type]
-    }
   }
 })
 export default class extends Vue {
@@ -402,19 +313,8 @@ export default class extends Vue {
   private listLoading = true
   private listQuery = {
     page: 1,
-    limit: 20,
-    importance: undefined,
-    title: undefined,
-    type: undefined,
-    sort: '+id'
+    limit: 20
   }
-  private importanceOptions = [1, 2, 3]
-  private calendarTypeOptions = calendarTypeOptions
-  private sortOptions = [
-    { label: 'ID Ascending', key: '+id' },
-    { label: 'ID Descending', key: '-id' }
-  ]
-  private statusOptions = ['published', 'draft', 'deleted']
   private showReviewer = false
   private dialogFormVisible = false
   private dialogStatus = ''
@@ -430,7 +330,7 @@ export default class extends Vue {
     title: [{ required: true, message: 'title is required', trigger: 'blur' }]
   }
   private downloadLoading = false
-  private tempArticleData = defaultArticleData
+  private tempArticleData = defaultAdminData
 
   created() {
     this.getList()
@@ -438,7 +338,7 @@ export default class extends Vue {
 
   private async getList() {
     this.listLoading = true
-    const { data } = await getArticles(this.listQuery)
+    const { data } = await getAdmins(this.listQuery)
     this.list = data.items
     this.total = data.total
     // Just to simulate the time of the request
@@ -460,29 +360,8 @@ export default class extends Vue {
     row.status = status
   }
 
-  private sortChange(data: any) {
-    const { prop, order } = data
-    if (prop === 'id') {
-      this.sortByID(order)
-    }
-  }
-
-  private sortByID(order: string) {
-    if (order === 'ascending') {
-      this.listQuery.sort = '+id'
-    } else {
-      this.listQuery.sort = '-id'
-    }
-    this.handleFilter()
-  }
-
-  private getSortClass(key: string) {
-    const sort = this.listQuery.sort
-    return sort === `+${key}` ? 'ascending' : sort === `-${key}` ? 'descending' : ''
-  }
-
   private resetTempArticleData() {
-    this.tempArticleData = cloneDeep(defaultArticleData)
+    this.tempArticleData = cloneDeep(defaultAdminData)
   }
 
   private handleCreate() {
