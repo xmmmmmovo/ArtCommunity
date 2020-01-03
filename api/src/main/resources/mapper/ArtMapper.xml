@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nuc.course.db.dao.ArtMapper">
+  <resultMap id="BaseResultMap" type="org.nuc.course.model.Art">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="art_name" jdbcType="VARCHAR" property="artName" />
+    <result column="art_author" jdbcType="BIGINT" property="artAuthor" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="art_size" jdbcType="BIGINT" property="artSize" />
+    <result column="art_tag" jdbcType="VARCHAR" property="artTag" />
+    <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum" />
+    <result column="art_commit_num" jdbcType="BIGINT" property="artCommitNum" />
+    <result column="art_content" jdbcType="VARCHAR" property="artContent" />
+    <result column="art_pic_url" jdbcType="VARCHAR" property="artPicUrl" />
+  </resultMap>
+</mapper>

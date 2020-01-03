@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-01-03 11:19:44
+-- 生成日期： 2020-01-03 17:38:06
 -- 服务器版本： 5.7.26-log
 -- PHP 版本： 7.0.33
 
@@ -33,39 +33,44 @@ CREATE TABLE `admin` (
   `admin_name` varchar(30) NOT NULL,
   `admin_email` varchar(50) NOT NULL,
   `admin_password` varchar(300) NOT NULL,
-  `admin_avatar` varchar(100) DEFAULT NULL,
+  `admin_avatar` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
   `register_time` datetime NOT NULL,
   `token` varchar(36) DEFAULT NULL,
   `roles` char(10) NOT NULL DEFAULT 'editor'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- 转存表中的数据 `admin`
---
-
-INSERT INTO `admin` (`id`, `admin_name`, `admin_email`, `admin_password`, `admin_avatar`, `register_time`, `token`, `roles`) VALUES
-(3, 'zha', 'zha', '$2a$10$g.Nos0uXTXk8eZ/RAQe5KOWgIwpxtDapr2SMszgioFaoYnMs17T8u', NULL, '2020-01-02 03:12:35', '_Y6XAt6qTaeiAmm6f97wCA', 'editor'),
-(5, 'zhaa', 'zha', '$2a$10$VHaK.5w8yHWIGBRRCuQWnuxeyGA.EubbEqRBsVJkbLAT1hIvIfy6q', NULL, '2020-01-02 03:35:11', 'K9IDEMY1S9GJ8J4awRdIaA', 'editor'),
-(6, 'zhaaa', 'zha', '$2a$10$ELJag0soE4fanTRFPkgEkuhZ5s.JYyFMsDzIVwyWOVFzrK6DkoOSm', NULL, '2020-01-02 08:24:17', '1sGCvS32TNOqsdsrJxQSRQ', 'editor');
-
 -- --------------------------------------------------------
 
 --
--- 表的结构 `arts`
+-- 表的结构 `art`
 --
 
-CREATE TABLE `arts` (
+CREATE TABLE `art` (
   `id` bigint(20) NOT NULL,
   `art_name` varchar(50) NOT NULL,
   `art_author` bigint(20) NOT NULL,
   `create_time` datetime NOT NULL,
   `modified_time` datetime NOT NULL,
   `art_size` bigint(20) DEFAULT NULL,
-  `art_tag` int(11) DEFAULT NULL,
+  `art_tag` varchar(20) DEFAULT NULL,
   `art_like_num` bigint(20) NOT NULL DEFAULT '0',
   `art_commit_num` bigint(20) NOT NULL DEFAULT '0',
   `art_content` varchar(400) NOT NULL DEFAULT '什么也没说',
-  `art_pic_url` varchar(100) NOT NULL
+  `art_pic_url` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `article`
+--
+
+CREATE TABLE `article` (
+  `id` bigint(20) NOT NULL,
+  `article_content` text NOT NULL,
+  `article_front` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
+  `article_title` varchar(100) NOT NULL,
+  `create_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -138,19 +143,8 @@ CREATE TABLE `user` (
   `user_password` varchar(300) NOT NULL,
   `user_bio` varchar(200) DEFAULT '这个人什么都没写',
   `token` varchar(36) NOT NULL,
-  `user_avatar` varchar(100) DEFAULT NULL
+  `user_avatar` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 转存表中的数据 `user`
---
-
-INSERT INTO `user` (`id`, `register_time`, `user_name`, `user_email`, `user_password`, `user_bio`, `token`, `user_avatar`) VALUES
-(1, '2020-01-02 02:12:09', '11', '1@1.com', '$2a$10$PbT9MIkITTHhIce8Ou7t5eMKslZzO19PAfPxyZ2yGyIF6t1ZvRX62', '这个人什么都没写', 'lOIUo2qxTVaFvP-r-vSFwQ', NULL),
-(3, '2020-01-02 02:20:27', '11', '11@1.com', '$2a$10$0ha3oNieMoK7XZ9EqGyXsO0Py/uVT1UhnmDrqExLb63lNYDJFhLZK', '这个人什么都没写', '4yjVrFpYTp6vrSPPs3G4Tg', NULL),
-(5, '2020-01-02 02:28:49', '11', '111@1.com', '$2a$10$8hrCfM3aguBWnWy9vLTVLeuGfBnX0uQiUS1C9t0jIsUcVKIIQAB3u', '这个人什么都没写', 'M94PUFz3S6O80rRVKmUUnA', NULL),
-(6, '2020-01-02 03:10:35', '11', '1111@1.com', '$2a$10$Tq4DKXNkiLT.FwFQ2BeKk..lT7tFi0N7CV0vClmzOq/88vJVJW6eC', '这个人什么都没写', 'WrdaHdVbRSqpoQkCkFeccQ', NULL),
-(9, '2020-01-02 08:24:51', '11', '111111@1.com', '$2a$10$kH7gw0y0T6goZX8np8/nPOuJv6UAruHawaoTdg47FhzFOW9Nm4a9y', '这个人什么都没写', 'Ni19oEVmQ_iygDJVSW-_Nw', NULL);
 
 --
 -- 转储表的索引
@@ -164,11 +158,18 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `admin_admin_name_uindex` (`admin_name`);
 
 --
--- 表的索引 `arts`
+-- 表的索引 `art`
 --
-ALTER TABLE `arts`
+ALTER TABLE `art`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `arts_user_id_fk` (`art_author`);
+  ADD KEY `arts_user_id_fk` (`art_author`),
+  ADD KEY `art_size_id_fk` (`art_size`);
+
+--
+-- 表的索引 `article`
+--
+ALTER TABLE `article`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 表的索引 `comment`
@@ -215,9 +216,15 @@ ALTER TABLE `admin`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- 使用表AUTO_INCREMENT `arts`
+-- 使用表AUTO_INCREMENT `art`
 --
-ALTER TABLE `arts`
+ALTER TABLE `art`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `article`
+--
+ALTER TABLE `article`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -255,9 +262,10 @@ ALTER TABLE `user`
 --
 
 --
--- 限制表 `arts`
+-- 限制表 `art`
 --
-ALTER TABLE `arts`
+ALTER TABLE `art`
+  ADD CONSTRAINT `art_size_id_fk` FOREIGN KEY (`art_size`) REFERENCES `size` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `arts_user_id_fk` FOREIGN KEY (`art_author`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
