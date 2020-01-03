@@ -14,6 +14,7 @@ export const login = (data: any) =>
     data
   })
 
+
 export const logout = () =>
   request({
     url: '/admin/logout',

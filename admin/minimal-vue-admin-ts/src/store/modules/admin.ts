@@ -42,7 +42,10 @@ class Admin extends VuexModule implements IAdminState {
   public async Login(userInfo: { adminName: string, adminPassword: string }) {
     let { adminName, adminPassword } = userInfo
     adminName = adminName.trim()
-    const { data } = await login({ 'adminName':adminName, 'adminPassword':adminPassword })
+    let formData = new FormData()
+    formData.append("adminName", adminName)
+    formData.append("adminPassword", adminPassword)
+    const { data } = await login(formData)
     setToken(data.data.token)
     this.SET_TOKEN(data.data.token)
   }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Qs from 'qs'
 import { Message, MessageBox } from 'element-ui'
 import { AdminModule } from '@/store/modules/admin'
 
@@ -7,23 +8,22 @@ const service = axios.create({
   timeout: 5000
 })
 
-service.interceptors.request.use(
-  (config) => {
-    // Add X-Access-Token header to every request, you can add other custom headers here
-    if (AdminModule.token) {
-      config.headers['X-Access-Token'] = AdminModule.token
-    }
-    return config
-  },
-  (error) => {
-    Promise.reject(error)
-  }
-)
+// Request interceptors
+// service.interceptors.request.use(
+//   (config) => {
+//     config.headers['Content-Type'] = 'multipart/form-data'
+//     return config
+//   },
+//   (error) => {
+//     Promise.reject(error)
+//   }
+// )
 
 // Response interceptors
 service.interceptors.response.use(
   (response) => {
     const res = response.data
+    console.log(response.data)
     if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
@@ -32,8 +32,8 @@ service.interceptors.response.use(
       })
       if (res.code === 500 || res.code === 400) {
         MessageBox.confirm(
-          '你已被登出，可以取消继续留在该页面，或者重新登录',
-          '确定登出',
+          '用户出错',
+          '用户出现错误',
           {
             confirmButtonText: '重新登录',
             cancelButtonText: '取消',
