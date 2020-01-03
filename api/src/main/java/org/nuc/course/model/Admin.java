@@ -25,6 +25,8 @@ public class Admin {
 
     private String token;
 
+    private String roles;
+
     /**
      * @return id
      */
@@ -123,16 +125,17 @@ public class Admin {
         this.token = token;
     }
 
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", adminName='" + adminName + '\'' +
-                ", adminEmail='" + adminEmail + '\'' +
-                ", adminPassword='" + adminPassword + '\'' +
-                ", adminAvatar='" + adminAvatar + '\'' +
-                ", registerTime=" + registerTime +
-                ", token='" + token + '\'' +
-                '}';
+    /**
+     * @return roles
+     */
+    public String getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles
+     */
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

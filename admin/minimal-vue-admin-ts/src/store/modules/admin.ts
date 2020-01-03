@@ -5,6 +5,7 @@ import store from '@/store'
 
 // admin接口
 export interface IAdminState {
+  id: bigint
   token: string
   name: string
   avatar: string
@@ -13,10 +14,16 @@ export interface IAdminState {
 
 @Module({ dynamic: true, store, name: 'user' })
 class Admin extends VuexModule implements IAdminState {
+  public id = BigInt(0)
   public token = getToken() || ''
   public name = ''
   public avatar = ''
   public roles: string[] = []
+
+  @Mutation
+  private SET_ID(id: bigint) {
+    this.id = id
+  }
 
   @Mutation
   private SET_TOKEN(token: string) {
@@ -46,8 +53,11 @@ class Admin extends VuexModule implements IAdminState {
     formData.append("adminName", adminName)
     formData.append("adminPassword", adminPassword)
     const { data } = await login(formData)
-    setToken(data.data.token)
-    this.SET_TOKEN(data.data.token)
+    setToken(data.token)
+    this.SET_TOKEN(data.token)
+    this.SET_NAME(data.adminName)
+    this.SET_AVATAR(data.avatar)
+    this.SET_ID(data.id)
   }
 
   @Action

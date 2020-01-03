@@ -12,5 +12,6 @@
     <result column="admin_avatar" jdbcType="VARCHAR" property="adminAvatar" />
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="roles" jdbcType="CHAR" property="roles" />
   </resultMap>
 </mapper>

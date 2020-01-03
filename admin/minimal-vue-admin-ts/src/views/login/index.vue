@@ -14,31 +14,31 @@
         </h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="adminName">
         <span class="svg-container">
           <svg-icon name="user" />
         </span>
         <el-input
-          ref="username"
+          ref="adminName"
           v-model="loginForm.adminName"
-          name="username"
+          name="adminName"
           type="text"
           autocomplete="on"
-          placeholder="管理员邮箱"
+          placeholder="管理员姓名"
         />
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item prop="adminPassword">
         <span class="svg-container">
           <svg-icon name="password" />
         </span>
         <el-input
           :key="passwordType"
-          ref="password"
+          ref="adminPassword"
           v-model="loginForm.adminPassword"
           :type="passwordType"
           placeholder="管理员密码"
-          name="password"
+          name="adminPassword"
           autocomplete="on"
           @keyup.enter.native="handleLogin"
         />
@@ -68,20 +68,11 @@ import { Route } from 'vue-router'
 import { Dictionary } from 'vuex'
 import { Form as ElForm, Input } from 'element-ui'
 import { AdminModule } from '@/store/modules/admin'
-import { isValidUsername } from '@/utils/validate'
 
 @Component({
   name: 'Login'
 })
 export default class extends Vue {
-  // 验证用户名
-  private validateUsername = (rule: any, value: string, callback: Function) => {
-    if (!isValidUsername(value)) {
-      callback(new Error('请确认管理员邮箱'))
-    } else {
-      callback()
-    }
-  }
   // 验证密码
   private validatePassword = (rule: any, value: string, callback: Function) => {
     if (value.length < 6) {
@@ -97,7 +88,6 @@ export default class extends Vue {
   }
   // 登录规则
   private loginRules = {
-    adminName: [{ validator: this.validateUsername, trigger: 'blur' }],
     adminPassword: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
   private passwordType = 'password'
@@ -151,7 +141,6 @@ export default class extends Vue {
         setTimeout(() => {
           this.loading = false
         }, 0.5 * 1000)
-        return true
       } else {
         return false
       }

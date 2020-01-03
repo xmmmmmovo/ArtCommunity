@@ -1,11 +1,10 @@
 package org.nuc.course.db.service;
-
-import org.nuc.course.db.service.Service;
 import org.nuc.course.model.Admin;
+import org.nuc.course.db.service.Service;
 
 
 /**
- * Created by xmmmmmovo on 2020/01/02.
+ * Created by xmmmmmovo on 2020/01/03.
  */
 public interface AdminService extends Service<Admin> {
 
