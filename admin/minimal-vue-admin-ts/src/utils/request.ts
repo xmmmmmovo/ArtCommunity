@@ -39,7 +39,6 @@ service.interceptors.response.use(
             type: 'warning'
           }
         ).then(() => {
-          AdminModule.ResetToken()
           location.reload() // To prevent bugs from vue-router
         })
       }

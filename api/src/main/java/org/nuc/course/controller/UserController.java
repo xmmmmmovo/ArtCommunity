@@ -7,13 +7,11 @@ import org.nuc.course.model.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nuc.course.utils.BCryptUtils;
-import org.nuc.course.utils.DTOUtils;
 import org.nuc.course.utils.DateUtils;
 import org.nuc.course.utils.IdUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +29,7 @@ public class UserController {
         user.setRegisterTime(DateUtils.getTimeStamp());
         user.setUserPassword(BCryptUtils.encode(user.getUserPassword()));
         userService.save(user);
-        return ResultGenerator.genSuccessResult(DTOUtils.userToDTO(user));
+        return ResultGenerator.genSuccessResult(user);
     }
 
     @DeleteMapping("/delete")
@@ -55,12 +53,13 @@ public class UserController {
     @PostMapping("/token_detail")
     public Result detailByToken(@RequestParam String token) {
         User user = userService.findBy("token", token);
-        return ResultGenerator.genSuccessResult(DTOUtils.userToDTO(user));
+        return ResultGenerator.genSuccessResult(user);
     }
 
     @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page,
-                       @RequestParam(defaultValue = "0") Integer size) {
+                       @RequestParam(defaultValue = "0") Integer size,
+                       @RequestParam String name) {
         PageHelper.startPage(page, size);
         List<User> list = userService.findAll();
         PageInfo pageInfo = new PageInfo(list);

@@ -19,42 +19,42 @@ export const defaultAdminData: IAdminData = {
   id: BigInt(0),
   adminName: '',
   adminEmail: '',
-  adminAvatar: '',
+  adminAvatar: 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
   registerTime: '',
   roles: ''
 }
 
-export const getAdmins = (params: any) =>
+export const getAdmins = (data: any) =>
   request({
     url: '/admin/list',
     method: 'GET',
-    params
+    data
   })
 
-export const getAdminPageviews = (params: any) =>
+export const getAdminDetail = (data: any) =>
   request({
-    url: '/articles',
-    method: 'get',
-    params
+    url: '/admin/detail',
+    method: 'GET',
+    data
   })
 
-export const createAdmin = (params: any) =>
+export const createAdmin = (data: any) =>
   request({
     url: '/admin/add',
     method: 'POST',
-    params
+    data
   })
 
-export const updateAdmin = (params: any) =>
+export const updateAdmin = (data: any) =>
   request({
     url: '/admin/update',
     method: 'PATCH',
-    params
+    data
   })
 
-export const deleteAdmin = (params: any) =>
+export const deleteAdmin = (data: any) =>
   request({
     url: '/admin/delete',
     method: 'DELETE',
-    params
+    data
   })

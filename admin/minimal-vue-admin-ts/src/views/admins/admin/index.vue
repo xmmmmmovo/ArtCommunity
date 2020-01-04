@@ -132,100 +132,100 @@
     />
 
 
-    <!--    修改用的dialog-->
-    <!--    <el-dialog-->
-    <!--      :title="textMap[dialogStatus]"-->
-    <!--      :visible.sync="dialogFormVisible"-->
-    <!--    >-->
-    <!--      <el-form-->
-    <!--        ref="dataForm"-->
-    <!--        :rules="rules"-->
-    <!--        :model="tempAdminData"-->
-    <!--        label-position="left"-->
-    <!--        label-width="100px"-->
-    <!--        style="width: 400px; margin-left:50px;"-->
-    <!--      >-->
-    <!--        <el-form-item-->
-    <!--          :label="管理员编号"-->
-    <!--        >-->
-    <!--          <span v-model="tempArticleData.id" />-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item-->
-    <!--          :label="管理员姓名"-->
-    <!--          :prop="adminName"-->
-    <!--        >-->
-    <!--          <el-input v-model="tempArticleData.adminName" />-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item-->
-    <!--          :label="管理员邮箱"-->
-    <!--          :prop="adminEmail"-->
-    <!--        >-->
-    <!--          <el-input v-model="tempArticleData.adminEmail" />-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item-->
-    <!--          v-if="dialogStatus==='create'"-->
-    <!--          :label="管理员密码"-->
-    <!--        >-->
-    <!--          <el-input v-model="password" />-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item-->
-    <!--          :label="权限"-->
-    <!--          prop="roles"-->
-    <!--        >-->
-    <!--          <el-select-->
-    <!--            v-model="tempArticleData.type"-->
-    <!--            class="filter-item"-->
-    <!--            placeholder="Please select"-->
-    <!--          >-->
-    <!--            <el-option-->
-    <!--              :key="admin"-->
-    <!--              :label="admin"-->
-    <!--              :value="admin"-->
-    <!--            />-->
-    <!--            <el-option-->
-    <!--              :key="editor"-->
-    <!--              :label="editor"-->
-    <!--              :value="editor"-->
-    <!--            >-->
-    <!--            </el-option>-->
-    <!--          </el-select>-->
-    <!--        </el-form-item>-->
-    <!--        <el-form-item-->
-    <!--          :label="管理员头像"-->
-    <!--        >-->
-    <!--          <el-image-->
-    <!--            :src="tempAdminData.adminAvatar"-->
-    <!--            :fit="contain"-->
-    <!--            @click="toggleShow"-->
-    <!--          />-->
-    <!--          <el-dialog-->
-    <!--            v-model="showImageUpload"-->
-    <!--            field="avatar"-->
-    <!--            :width="300"-->
-    <!--            :height="300"-->
-    <!--            :params="params"-->
-    <!--            :headers="headers"-->
-    <!--            url="https://httpbin.org/post"-->
-    <!--            @close="onClose"-->
-    <!--            @crop-upload-success="onCropUploadSuccess"-->
-    <!--          />-->
-    <!--        </el-form-item>-->
-    <!--      </el-form>-->
-    <!--      <div-->
-    <!--        slot="footer"-->
-    <!--        class="dialog-footer"-->
-    <!--      >-->
-    <!--        <el-button @click="dialogFormVisible = false">-->
-    <!--          取消-->
-    <!--        </el-button>-->
-    <!--        <el-button-->
-    <!--          type="primary"-->
-    <!--          @click="dialogStatus==='create'?createData():updateData()"-->
-    <!--        >-->
-    <!--          确定-->
-    <!--        </el-button>-->
-    <!--      </div>-->
-    <!--    </el-dialog>-->
+<!--        修改用的dialog-->
+        <el-dialog
+          :title="textMap[dialogStatus]"
+          :visible.sync="dialogFormVisible"
+        >
+          <el-form
+            ref="dataForm"
+            :rules="rules"
+            :model="tempAdminData"
+            label-position="left"
+            label-width="100px"
+            style="width: 400px; margin-left:50px;"
+          >
+            <el-form-item
+              label="管理员编号"
+            >
+              <span v-model="tempAdminData.id" />
+            </el-form-item>
+            <el-form-item
+              label="管理员姓名"
+              prop="adminName"
+            >
+              <el-input v-model="tempAdminData.adminName" />
+            </el-form-item>
+            <el-form-item
+              label="管理员邮箱"
+              prop="adminEmail"
+            >
+              <el-input v-model="tempAdminData.adminEmail" />
+            </el-form-item>
+            <el-form-item
+              v-if="dialogStatus==='create'"
+              label="管理员密码"
+            >
+              <el-input v-model="password" />
+            </el-form-item>
+            <el-form-item
+              label="权限"
+              prop="roles"
+            >
+              <el-select
+                v-model="tempAdminData.roles"
+                class="filter-item"
+                placeholder="admin"
+              >
+                <el-option
+                  key="admin"
+                  label="admin"
+                  value="admin"
+                />
+                <el-option
+                  key="editor"
+                  label="editor"
+                  value="editor"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item
+              label="管理员头像"
+            >
+              <el-image
+                :src="tempAdminData.adminAvatar"
+                :fit="contain"
+                @click="toggleShow"
+              />
+              <el-dialog
+                v-model="showImageUpload"
+                field="avatar"
+                :width="300"
+                :height="300"
+                :params="params"
+                :headers="headers"
+                url="https://httpbin.org/post"
+                @close="onClose"
+                @crop-upload-success="onCropUploadSuccess"
+              />
+            </el-form-item>
+          </el-form>
+          <div
+            slot="footer"
+            class="dialog-footer"
+          >
+            <el-button @click="dialogFormVisible = false">
+              取消
+            </el-button>
+            <el-button
+              type="primary"
+              @click="dialogStatus==='create'?createData():updateData()"
+            >
+              确定
+            </el-button>
+          </div>
+        </el-dialog>
 
   </div>
 </template>
@@ -234,7 +234,15 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
-import {getAdmins, getAdminPageviews, createAdmin, updateAdmin, deleteAdmin, defaultAdminData} from '@/api/admins'
+import {
+  getAdmins,
+  createAdmin,
+  getAdminDetail,
+  updateAdmin,
+  deleteAdmin,
+  defaultAdminData,
+  getUserInfo
+} from '@/api/admins'
 import {IAdminData, IArticleData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
@@ -263,8 +271,8 @@ export default class extends Vue {
   private dialogStatus = ''
   private showImageUpload = false
   private rules = {
-    adminName: [{ required: true, message: 'type is required', trigger: 'change' }],
-    adminEmail: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
+    adminName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
+    adminEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
   private tempAdminData = defaultAdminData
@@ -339,19 +347,23 @@ export default class extends Vue {
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        let { id, ...articleData } = this.tempAdminData
+        let { id, ...Data } = this.tempAdminData
         let formData = new FormData()
-        formData.append('adminName', articleData.adminName)
-        formData.append('adminName', articleData.adminName)
-        formData.append('adminName', articleData.adminName)
-        const { data } = await createAdmin({ article: articleData })
-        this.list.unshift(data.article)
+        formData.append('adminName', Data.adminName)
+        formData.append('adminEmail', Data.adminEmail)
+        formData.append('adminPassword', this.password)
+        formData.append('adminAvatar', Data.adminAvatar)
+        formData.append('roles', Data.roles)
+        let datas = await createAdmin(formData)
+        datas = datas.data
+        console.log(datas)
+        this.list.unshift(datas)
         this.dialogFormVisible = false
+        this.password = ''
         this.$notify({
           title: '成功',
           message: '创建成功',
-          type: 'success',
-          duration: 2000
+          type: 'success'
         })
       }
     })
@@ -404,6 +416,13 @@ export default class extends Vue {
       let formData = new FormData()
       formData.append('id', this.tempAdminData.id.toString())
       const { data } = await deleteAdmin(formData)
+      for (const v of this.list) {
+        if (v.id == this.tempAdminData.id) {
+          const index = this.list.indexOf(v)
+          this.list.splice(index, 1)
+          break
+        }
+      }
       this.$notify({
         title: '成功',
         message: '删除成功',

@@ -137,4 +137,18 @@ public class Admin {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", adminName='" + adminName + '\'' +
+                ", adminEmail='" + adminEmail + '\'' +
+                ", adminPassword='" + adminPassword + '\'' +
+                ", adminAvatar='" + adminAvatar + '\'' +
+                ", registerTime=" + registerTime +
+                ", token='" + token + '\'' +
+                ", roles='" + roles + '\'' +
+                '}';
+    }
 }

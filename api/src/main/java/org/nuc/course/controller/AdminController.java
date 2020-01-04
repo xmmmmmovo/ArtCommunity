@@ -4,19 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
-import org.nuc.course.core.ServiceException;
 import org.nuc.course.db.service.AdminService;
 import org.nuc.course.model.Admin;
-import org.nuc.course.model.User;
 import org.nuc.course.utils.BCryptUtils;
-import org.nuc.course.utils.DTOUtils;
 import org.nuc.course.utils.DateUtils;
 import org.nuc.course.utils.IdUtils;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,7 +29,7 @@ public class AdminController {
         admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
         admin.setRegisterTime(DateUtils.getTimeStamp());
         adminService.save(admin);
-        return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
+        return ResultGenerator.genSuccessResult(admin);
     }
 
     @DeleteMapping("/delete")
@@ -50,15 +45,21 @@ public class AdminController {
     }
 
     @GetMapping("/detail")
-    public Result detail(@RequestParam Long id) {
-        Admin admin = adminService.findById(id);
+    public Result detail(@RequestParam String id) {
+        Admin admin = adminService.findById(Long.parseLong(id));
+        return ResultGenerator.genSuccessResult(admin);
+    }
+
+    @GetMapping("/detail_all_token")
+    public Result detailTokenAll(@RequestParam String token) {
+        Admin admin = adminService.findBy("token", token);
         return ResultGenerator.genSuccessResult(admin);
     }
 
     @PostMapping("/token_detail")
     public Result detailByToken(@RequestParam String token) {
         Admin admin = adminService.findBy("token", token);
-        return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
+        return ResultGenerator.genSuccessResult(admin);
     }
 
     @PostMapping("/login")
@@ -68,7 +69,7 @@ public class AdminController {
     ) {
         Admin admin = adminService.findBy("adminName", adminName);
         if (BCryptUtils.match(adminPassword, admin.getAdminPassword())) {
-            return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
+            return ResultGenerator.genSuccessResult(admin);
         } else {
             return ResultGenerator.genFailResult("账号密码错误, 请检查");
         }
@@ -80,10 +81,16 @@ public class AdminController {
     @GetMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size
+            @RequestParam(defaultValue = "0") Integer size,
+            @RequestParam String name
     ) {
         PageHelper.startPage(page, size);
-        List<Admin> list = adminService.findAll();
+        List<Admin> list;
+        if (name == null) {
+            list = adminService.findAll();
+        } else {
+            list = adminService.findByAndReturnList("adminName", name);
+        }
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
