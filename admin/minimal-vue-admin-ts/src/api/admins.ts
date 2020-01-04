@@ -40,21 +40,21 @@ export const getAdminPageviews = (params: any) =>
 
 export const createAdmin = (params: any) =>
   request({
-    url: '/articles',
-    method: 'get',
+    url: '/admin/add',
+    method: 'POST',
     params
   })
 
 export const updateAdmin = (params: any) =>
   request({
-    url: '/articles',
-    method: 'get',
+    url: '/admin/update',
+    method: 'PATCH',
     params
   })
 
 export const deleteAdmin = (params: any) =>
   request({
-    url: '/articles',
-    method: 'get',
+    url: '/admin/delete',
+    method: 'DELETE',
     params
   })

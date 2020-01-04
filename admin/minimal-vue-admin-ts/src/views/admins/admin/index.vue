@@ -122,7 +122,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(row,'deleted')"
+            @click="deleteData(row)"
           >
             删除
           </el-button>
@@ -153,13 +153,31 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item
+          :label="管理员编号"
+        >
+          <span v-model="tempArticleData.id" />
+        </el-form-item>
+        <el-form-item
           :label="管理员姓名"
+          :prop="adminName"
         >
           <el-input v-model="tempArticleData.adminName" />
         </el-form-item>
         <el-form-item
+          :label="管理员邮箱"
+          :prop="adminEmail"
+        >
+          <el-input v-model="tempArticleData.adminEmail" />
+        </el-form-item>
+        <el-form-item
+          v-if="dialogStatus==='create'"
+          :label="管理员密码"
+        >
+          <el-input v-model="password" />
+        </el-form-item>
+        <el-form-item
           :label="权限"
-          prop="type"
+          prop="roles"
         >
           <el-select
             v-model="tempArticleData.type"
@@ -180,27 +198,23 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          :label="$t('table.date')"
-          prop="timestamp"
+          :label="管理员头像"
         >
-          <el-date-picker
-            v-model="tempArticleData.timestamp"
-            type="datetime"
-            placeholder="Please pick a date"
+          <el-image
+            :src="tempAdminData.adminAvatar"
+            :fit="contain"
+            @click="toggleShow"
           />
-        </el-form-item>
-        <el-form-item
-          :label="$t('table.title')"
-          prop="title"
-        >
-          <el-input v-model="tempArticleData.title" />
-        </el-form-item>
-        <el-form-item :label="$t('table.remark')">
-          <el-input
-            v-model="tempArticleData.abstractContent"
-            :autosize="{minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="Please input"
+          <avatar-upload
+            v-model="showImageUpload"
+            field="avatar"
+            :width="300"
+            :height="300"
+            :params="params"
+            :headers="headers"
+            url="https://httpbin.org/post"
+            @close="onClose"
+            @crop-upload-success="onCropUploadSuccess"
           />
         </el-form-item>
       </el-form>
@@ -220,36 +234,6 @@
       </div>
     </el-dialog>
 
-    <el-dialog
-      :visible.sync="dialogPageviewsVisible"
-      title="Reading statistics"
-    >
-      <el-table
-        :data="pageviewsData"
-        border
-        fit
-        highlight-current-row
-        style="width: 100%"
-      >
-        <el-table-column
-          prop="key"
-          label="Channel"
-        />
-        <el-table-column
-          prop="pageviews"
-          label="Pageviews"
-        />
-      </el-table>
-      <span
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          type="primary"
-          @click="dialogPageviewsVisible = false"
-        >{{ $t('table.confirm') }}</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -279,20 +263,32 @@ export default class extends Vue {
     size: 20
   }
   private textMap = {
-    update: 'Edit',
-    create: 'Create'
+    update: '编辑',
+    create: '创建'
   }
   private dialogFormVisible = false
   private dialogStatus = ''
-  private dialogPageviewsVisible = false
-  private pageviewsData = []
+  private showImageUpload = false
   private rules = {
-    type: [{ required: true, message: 'type is required', trigger: 'change' }],
-    timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
-    title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+    adminName: [{ required: true, message: 'type is required', trigger: 'change' }],
+    adminEmail: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
   }
   private downloadLoading = false
   private tempAdminData = defaultAdminData
+  private password = ''
+
+  private onCropUploadSuccess(jsonData: any, field: string) {
+    this.showImageUpload = false
+    this.tempAdminData.adminAvatar = jsonData.files[field]
+  }
+
+  private onClose() {
+    this.showImageUpload = false
+  }
+
+  private toggleShow() {
+    this.showImageUpload = !this.showImageUpload
+  }
 
   created() {
     this.getList()
@@ -325,21 +321,12 @@ export default class extends Vue {
     row.status = status
   }
 
-  private resetTempArticleData() {
-    this.tempArticleData = cloneDeep(defaultAdminData)
+  private resetTempData() {
+    this.tempAdminData = cloneDeep(defaultAdminData)
   }
 
   private handleCreate() {
-    this.resetTempArticleData()
-    this.dialogStatus = 'create'
-    this.dialogFormVisible = true
-    this.$nextTick(() => {
-      (this.$refs['dataForm'] as Form).clearValidate()
-    })
-  }
-
-  private handleDelete() {
-    this.resetTempArticleData()
+    this.resetTempData()
     this.dialogStatus = 'create'
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -351,9 +338,12 @@ export default class extends Vue {
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        let { id, ...articleData } = this.tempArticleData
-        articleData.author = 'vue-typescript-admin'
-        const { data } = await createArticle({ article: articleData })
+        let { id, ...articleData } = this.tempAdminData
+        let formData = new FormData()
+        formData.append('adminName', articleData.adminName)
+        formData.append('adminName', articleData.adminName)
+        formData.append('adminName', articleData.adminName)
+        const { data } = await createAdmin({ article: articleData })
         this.list.unshift(data.article)
         this.dialogFormVisible = false
         this.$notify({
@@ -367,7 +357,7 @@ export default class extends Vue {
   }
 
   private handleUpdate(row: any) {
-    this.tempArticleData = Object.assign({}, row)
+    this.tempAdminData = Object.assign({}, row)
     this.dialogStatus = 'update'
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -378,29 +368,45 @@ export default class extends Vue {
   private updateData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        // const { data } = await updateAdmin(tempData.id, { article: tempData })
-        // for (const v of this.list) {
-        //   if (v.id === data.article.id) {
-        //     const index = this.list.indexOf(v)
-        //     this.list.splice(index, 1, data.article)
-        //     break
-        //   }
-        // }
+        const { data } = await updateAdmin(tempData.id, { article: tempData })
+        for (const v of this.list) {
+          if (v.id === data.article.id) {
+            const index = this.list.indexOf(v)
+            this.list.splice(index, 1, data.article)
+            break
+          }
+        }
         this.dialogFormVisible = false
         this.$notify({
           title: '成功',
           message: '更新成功',
-          type: 'success',
-          duration: 2000
+          type: 'success'
         })
       }
     })
   }
 
-  private async handleGetPageviews(pageviews: string) {
-    const { data } = await getAdminPageviews({ /* Your params here */ })
-    this.pageviewsData = data.pageviews
-    this.dialogPageviewsVisible = true
+  private deleteData(row: any) {
+    this.$alert('请确认是否删除', '确认删除', {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning'
+      }).then(async () => {
+      this.tempAdminData = Object.assign({}, row)
+      let formData = new FormData()
+      formData.append('id', this.tempAdminData.id.toString())
+      const { data } = await deleteAdmin(formData)
+      this.$notify({
+        title: '成功',
+        message: '删除成功',
+        type: 'success'
+      })
+    }).catch(() => {
+      this.$message({
+        type: 'info',
+        message: '已取消删除'
+      })
+    })
   }
 
   private handleDownload() {

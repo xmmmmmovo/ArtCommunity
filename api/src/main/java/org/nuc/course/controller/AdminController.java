@@ -38,7 +38,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
+    public Result delete(@RequestParam Long id) {
         adminService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
@@ -50,7 +50,7 @@ public class AdminController {
     }
 
     @GetMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
+    public Result detail(@RequestParam Long id) {
         Admin admin = adminService.findById(id);
         return ResultGenerator.genSuccessResult(admin);
     }

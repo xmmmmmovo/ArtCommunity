@@ -31,10 +31,10 @@ service.interceptors.response.use(
       })
       if (res.code === 500 || res.code === 400) {
         MessageBox.confirm(
-          '用户信息出错',
-          '用户出现错误',
+          '输入信息出错',
+          '错误',
           {
-            confirmButtonText: '重新登录',
+            confirmButtonText: '重试',
             cancelButtonText: '取消',
             type: 'warning'
           }
