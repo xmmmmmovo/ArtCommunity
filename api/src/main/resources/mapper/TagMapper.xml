@@ -9,5 +9,6 @@
     <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="usage_count" jdbcType="BIGINT" property="usageCount" />
+    <result column="tag_describe" jdbcType="VARCHAR" property="tagDescribe" />
   </resultMap>
 </mapper>

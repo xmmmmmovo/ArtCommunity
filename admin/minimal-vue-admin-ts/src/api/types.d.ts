@@ -15,3 +15,12 @@ export interface IArticleData {
   type: string
   pageviews: number
 }
+
+export interface IAdminData {
+  id: number
+  adminName: string
+  adminEmail: string
+  adminAvatar: string
+  registerTime: string
+  roles: string
+}

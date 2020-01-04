@@ -13,5 +13,6 @@
     <result column="user_bio" jdbcType="VARCHAR" property="userBio" />
     <result column="token" jdbcType="VARCHAR" property="token" />
     <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="user_sex" jdbcType="CHAR" property="userSex" />
   </resultMap>
 </mapper>

@@ -11,7 +11,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
     <result column="art_size" jdbcType="BIGINT" property="artSize" />
-    <result column="art_tag" jdbcType="VARCHAR" property="artTag" />
+    <result column="art_tag" jdbcType="BIGINT" property="artTag" />
     <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum" />
     <result column="art_commit_num" jdbcType="BIGINT" property="artCommitNum" />
     <result column="art_content" jdbcType="VARCHAR" property="artContent" />

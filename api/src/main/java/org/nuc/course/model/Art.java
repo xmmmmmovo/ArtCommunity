@@ -24,7 +24,7 @@ public class Art {
     private Long artSize;
 
     @Column(name = "art_tag")
-    private String artTag;
+    private Long artTag;
 
     @Column(name = "art_like_num")
     private Long artLikeNum;
@@ -125,14 +125,14 @@ public class Art {
     /**
      * @return art_tag
      */
-    public String getArtTag() {
+    public Long getArtTag() {
         return artTag;
     }
 
     /**
      * @param artTag
      */
-    public void setArtTag(String artTag) {
+    public void setArtTag(Long artTag) {
         this.artTag = artTag;
     }
 

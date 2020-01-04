@@ -30,7 +30,6 @@
       fit
       highlight-current-row
       style="width: 100%;"
-      @sort-change="sortChange"
     >
       <el-table-column
         :label="$t('table.id')"
@@ -44,6 +43,7 @@
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
+
       <el-table-column
         :label="$t('table.date')"
         width="180px"
@@ -294,7 +294,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
-import { getAdmins, getAdminPageviews, createAdmin, updateAdmin, defaultAdminData, deleteAdmin } from '@/api/admins'
+import {getAdmins, getAdminPageviews, createAdmin, updateAdmin, deleteAdmin, defaultAdminData} from '@/api/admins'
 import { IArticleData } from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
@@ -313,7 +313,7 @@ export default class extends Vue {
   private listLoading = true
   private listQuery = {
     page: 1,
-    limit: 20
+    size: 20
   }
   private showReviewer = false
   private dialogFormVisible = false
@@ -373,6 +373,7 @@ export default class extends Vue {
     })
   }
 
+  // 创建新用户
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
@@ -426,7 +427,7 @@ export default class extends Vue {
   }
 
   private async handleGetPageviews(pageviews: string) {
-    const { data } = await getPageviews({ /* Your params here */ })
+    const { data } = await getAdminPageviews({ /* Your params here */ })
     this.pageviewsData = data.pageviews
     this.dialogPageviewsVisible = true
   }

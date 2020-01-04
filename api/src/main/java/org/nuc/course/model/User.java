@@ -28,6 +28,9 @@ public class User {
     @Column(name = "user_avatar")
     private String userAvatar;
 
+    @Column(name = "user_sex")
+    private String userSex;
+
     /**
      * @return id
      */
@@ -138,5 +141,19 @@ public class User {
      */
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
+    }
+
+    /**
+     * @return user_sex
+     */
+    public String getUserSex() {
+        return userSex;
+    }
+
+    /**
+     * @param userSex
+     */
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 }

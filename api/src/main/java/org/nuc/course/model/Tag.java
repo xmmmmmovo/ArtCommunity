@@ -17,6 +17,9 @@ public class Tag {
     @Column(name = "usage_count")
     private Long usageCount;
 
+    @Column(name = "tag_describe")
+    private String tagDescribe;
+
     /**
      * @return id
      */
@@ -71,5 +74,19 @@ public class Tag {
      */
     public void setUsageCount(Long usageCount) {
         this.usageCount = usageCount;
+    }
+
+    /**
+     * @return tag_describe
+     */
+    public String getTagDescribe() {
+        return tagDescribe;
+    }
+
+    /**
+     * @param tagDescribe
+     */
+    public void setTagDescribe(String tagDescribe) {
+        this.tagDescribe = tagDescribe;
     }
 }
