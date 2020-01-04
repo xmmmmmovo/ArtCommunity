@@ -17,10 +17,10 @@ export interface IArticleData {
 }
 
 export interface IAdminData {
-  id: number
+  id: bigint
   adminName: string
   adminEmail: string
   adminAvatar: string
-  registerTime: string
+  registerTime: string | number
   roles: string
 }

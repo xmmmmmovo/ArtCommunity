@@ -16,7 +16,7 @@ export const login = (data: any) =>
   })
 
 export const defaultAdminData: IAdminData = {
-  id: 0,
+  id: BigInt(0),
   adminName: '',
   adminEmail: '',
   adminAvatar: '',

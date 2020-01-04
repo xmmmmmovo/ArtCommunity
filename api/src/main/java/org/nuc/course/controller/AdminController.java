@@ -46,7 +46,7 @@ public class AdminController {
     @PatchMapping("/update")
     public Result update(Admin admin) {
         adminService.update(admin);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(admin);
     }
 
     @GetMapping("/detail")

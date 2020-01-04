@@ -39,7 +39,6 @@
     </div>
 
     <el-table
-      :key="tableKey"
       v-loading="listLoading"
       :data="list"
       border
@@ -48,9 +47,7 @@
       style="width: 100%;"
     >
       <el-table-column
-        :label="id"
-        prop="id"
-        sortable="custom"
+        label="id"
         align="center"
         width="80"
       >
@@ -60,25 +57,21 @@
       </el-table-column>
 
       <el-table-column
-        :label="registerTime"
-        width="180px"
+        label="registerTime"
         align="center"
+        :formatter="dateFormater"
+        prop="registerTime"
       >
-        <template slot-scope="scope">
-          <span>{{ scope.row.registerTime }}</span>
-        </template>
       </el-table-column>
       <el-table-column
-        :label="adminName"
-        min-width="150px"
+        label="adminName"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.adminName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="adminEmail"
-        width="180px"
+        label="adminEmail"
         align="center"
       >
         <template slot-scope="scope">
@@ -86,8 +79,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        :label="adminAvatar"
-        width="105px"
+        label="adminAvatar"
+        width="130px"
       >
         <template slot-scope="scope">
           <el-image
@@ -98,15 +91,14 @@
         </template>
       </el-table-column>
       <el-table-column
-        :label="roles"
-        width="105px"
+        label="roles"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.roles }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="操作"
+        label="操作"
         align="center"
         width="230"
         class-name="fixed-width"
@@ -139,100 +131,101 @@
       @pagination="getList"
     />
 
-<!--    修改用的dialog-->
-    <el-dialog
-      :title="textMap[dialogStatus]"
-      :visible.sync="dialogFormVisible"
-    >
-      <el-form
-        ref="dataForm"
-        :rules="rules"
-        :model="tempAdminData"
-        label-position="left"
-        label-width="100px"
-        style="width: 400px; margin-left:50px;"
-      >
-        <el-form-item
-          :label="管理员编号"
-        >
-          <span v-model="tempArticleData.id" />
-        </el-form-item>
-        <el-form-item
-          :label="管理员姓名"
-          :prop="adminName"
-        >
-          <el-input v-model="tempArticleData.adminName" />
-        </el-form-item>
-        <el-form-item
-          :label="管理员邮箱"
-          :prop="adminEmail"
-        >
-          <el-input v-model="tempArticleData.adminEmail" />
-        </el-form-item>
-        <el-form-item
-          v-if="dialogStatus==='create'"
-          :label="管理员密码"
-        >
-          <el-input v-model="password" />
-        </el-form-item>
-        <el-form-item
-          :label="权限"
-          prop="roles"
-        >
-          <el-select
-            v-model="tempArticleData.type"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              :key="admin"
-              :label="admin"
-              :value="admin"
-            />
-            <el-option
-              :key="editor"
-              :label="editor"
-              :value="editor"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="管理员头像"
-        >
-          <el-image
-            :src="tempAdminData.adminAvatar"
-            :fit="contain"
-            @click="toggleShow"
-          />
-          <avatar-upload
-            v-model="showImageUpload"
-            field="avatar"
-            :width="300"
-            :height="300"
-            :params="params"
-            :headers="headers"
-            url="https://httpbin.org/post"
-            @close="onClose"
-            @crop-upload-success="onCropUploadSuccess"
-          />
-        </el-form-item>
-      </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button @click="dialogFormVisible = false">
-          取消
-        </el-button>
-        <el-button
-          type="primary"
-          @click="dialogStatus==='create'?createData():updateData()"
-        >
-          确定
-        </el-button>
-      </div>
-    </el-dialog>
+
+    <!--    修改用的dialog-->
+    <!--    <el-dialog-->
+    <!--      :title="textMap[dialogStatus]"-->
+    <!--      :visible.sync="dialogFormVisible"-->
+    <!--    >-->
+    <!--      <el-form-->
+    <!--        ref="dataForm"-->
+    <!--        :rules="rules"-->
+    <!--        :model="tempAdminData"-->
+    <!--        label-position="left"-->
+    <!--        label-width="100px"-->
+    <!--        style="width: 400px; margin-left:50px;"-->
+    <!--      >-->
+    <!--        <el-form-item-->
+    <!--          :label="管理员编号"-->
+    <!--        >-->
+    <!--          <span v-model="tempArticleData.id" />-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item-->
+    <!--          :label="管理员姓名"-->
+    <!--          :prop="adminName"-->
+    <!--        >-->
+    <!--          <el-input v-model="tempArticleData.adminName" />-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item-->
+    <!--          :label="管理员邮箱"-->
+    <!--          :prop="adminEmail"-->
+    <!--        >-->
+    <!--          <el-input v-model="tempArticleData.adminEmail" />-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item-->
+    <!--          v-if="dialogStatus==='create'"-->
+    <!--          :label="管理员密码"-->
+    <!--        >-->
+    <!--          <el-input v-model="password" />-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item-->
+    <!--          :label="权限"-->
+    <!--          prop="roles"-->
+    <!--        >-->
+    <!--          <el-select-->
+    <!--            v-model="tempArticleData.type"-->
+    <!--            class="filter-item"-->
+    <!--            placeholder="Please select"-->
+    <!--          >-->
+    <!--            <el-option-->
+    <!--              :key="admin"-->
+    <!--              :label="admin"-->
+    <!--              :value="admin"-->
+    <!--            />-->
+    <!--            <el-option-->
+    <!--              :key="editor"-->
+    <!--              :label="editor"-->
+    <!--              :value="editor"-->
+    <!--            >-->
+    <!--            </el-option>-->
+    <!--          </el-select>-->
+    <!--        </el-form-item>-->
+    <!--        <el-form-item-->
+    <!--          :label="管理员头像"-->
+    <!--        >-->
+    <!--          <el-image-->
+    <!--            :src="tempAdminData.adminAvatar"-->
+    <!--            :fit="contain"-->
+    <!--            @click="toggleShow"-->
+    <!--          />-->
+    <!--          <el-dialog-->
+    <!--            v-model="showImageUpload"-->
+    <!--            field="avatar"-->
+    <!--            :width="300"-->
+    <!--            :height="300"-->
+    <!--            :params="params"-->
+    <!--            :headers="headers"-->
+    <!--            url="https://httpbin.org/post"-->
+    <!--            @close="onClose"-->
+    <!--            @crop-upload-success="onCropUploadSuccess"-->
+    <!--          />-->
+    <!--        </el-form-item>-->
+    <!--      </el-form>-->
+    <!--      <div-->
+    <!--        slot="footer"-->
+    <!--        class="dialog-footer"-->
+    <!--      >-->
+    <!--        <el-button @click="dialogFormVisible = false">-->
+    <!--          取消-->
+    <!--        </el-button>-->
+    <!--        <el-button-->
+    <!--          type="primary"-->
+    <!--          @click="dialogStatus==='create'?createData():updateData()"-->
+    <!--        >-->
+    <!--          确定-->
+    <!--        </el-button>-->
+    <!--      </div>-->
+    <!--    </el-dialog>-->
 
   </div>
 </template>
@@ -242,10 +235,11 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
 import {getAdmins, getAdminPageviews, createAdmin, updateAdmin, deleteAdmin, defaultAdminData} from '@/api/admins'
-import { IArticleData } from '@/api/types'
+import {IAdminData, IArticleData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
+import * as moment from 'moment'
 
 @Component({
   name: 'AdminsTable',
@@ -254,8 +248,7 @@ import Pagination from '@/components/Pagination/index.vue'
   }
 })
 export default class extends Vue {
-  private tableKey = 0
-  private list: IArticleData[] = []
+  private list: IAdminData[] = []
   private total = 0
   private listLoading = true
   private listQuery = {
@@ -288,6 +281,14 @@ export default class extends Vue {
 
   private toggleShow() {
     this.showImageUpload = !this.showImageUpload
+  }
+
+  private dateFormater(row: any, column: any) {
+    var date = row[column.property];
+    if (date == undefined) {
+      return "";
+    }
+    return moment(date).format("YYYY年MM月DD日 HH:mm:ss");
   }
 
   created() {
@@ -368,11 +369,18 @@ export default class extends Vue {
   private updateData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        const { data } = await updateAdmin(tempData.id, { article: tempData })
+        let formData = new FormData()
+        formData.append('id', this.tempAdminData.id.toString())
+        formData.append('adminName', this.tempAdminData.adminName)
+        formData.append('adminEmail', this.tempAdminData.adminEmail)
+        formData.append('roles', this.tempAdminData.roles)
+        formData.append('adminAvatar', this.tempAdminData.adminAvatar)
+        const { data } = await updateAdmin(formData)
+
         for (const v of this.list) {
-          if (v.id === data.article.id) {
+          if (v.id == data.id) {
             const index = this.list.indexOf(v)
-            this.list.splice(index, 1, data.article)
+            this.list.splice(index, 1, data)
             break
           }
         }
@@ -419,3 +427,11 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+</style>

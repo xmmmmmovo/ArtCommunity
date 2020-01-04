@@ -2196,7 +2196,7 @@ babel-register@^6.26.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
-babel-runtime@6.x, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+babel-runtime@6.x, babel-runtime@^6.11.6, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
@@ -3226,6 +3226,13 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/core-util-is/download/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
+
+cos-js-sdk-v5@^0.5.22:
+  version "0.5.22"
+  resolved "https://registry.npm.taobao.org/cos-js-sdk-v5/download/cos-js-sdk-v5-0.5.22.tgz#ff2d330047e23688afb8d8f64606f1b09d9fb28b"
+  integrity sha1-/y0zAEfiNoivuNj2RgbxsJ2fsos=
+  dependencies:
+    xmldom "^0.1.27"
 
 cosmiconfig@^5.0.0:
   version "5.2.1"
@@ -7982,7 +7989,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.
   dependencies:
     minimist "0.0.8"
 
-moment@2.24.0:
+moment@2.24.0, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.24.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha1-DQVdU/UFKqZTyfbraLtdEr9cK1s=
@@ -11506,6 +11513,13 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
   integrity sha1-J1b0bLMlgFTF9HI96K5+hzAqHM8=
 
+vue-image-crop-upload@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.npm.taobao.org/vue-image-crop-upload/download/vue-image-crop-upload-2.5.0.tgz#2dcf499e5b4944bc5077fc30b5f24d5e977f313c"
+  integrity sha1-Lc9JnltJRLxQd/wwtfJNXpd/MTw=
+  dependencies:
+    babel-runtime "^6.11.6"
+
 vue-jest@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npm.taobao.org/vue-jest/download/vue-jest-3.0.4.tgz#b6a2b0d874968f26fa775ac901903fece531e08b"
@@ -12069,6 +12083,11 @@ xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/xml-name-validator/download/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha1-auc+Bt5NjG5H+fsYH3jWSK1FfGo=
+
+xmldom@^0.1.27:
+  version "0.1.31"
+  resolved "https://registry.npm.taobao.org/xmldom/download/xmldom-0.1.31.tgz#b76c9a1bd9f0a9737e5a72dc37231cf38375e2ff"
+  integrity sha1-t2yaG9nwqXN+WnLcNyMc84N14v8=
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
