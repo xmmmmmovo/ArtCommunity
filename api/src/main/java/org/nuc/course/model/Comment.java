@@ -1,6 +1,5 @@
 package org.nuc.course.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class Comment {
@@ -18,7 +17,7 @@ public class Comment {
     private Long parentId;
 
     @Column(name = "comment_time")
-    private Date commentTime;
+    private Long commentTime;
 
     @Column(name = "comment_like_count")
     private Long commentLikeCount;
@@ -85,14 +84,14 @@ public class Comment {
     /**
      * @return comment_time
      */
-    public Date getCommentTime() {
+    public Long getCommentTime() {
         return commentTime;
     }
 
     /**
      * @param commentTime
      */
-    public void setCommentTime(Date commentTime) {
+    public void setCommentTime(Long commentTime) {
         this.commentTime = commentTime;
     }
 

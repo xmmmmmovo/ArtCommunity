@@ -1,6 +1,5 @@
 package org.nuc.course.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class Tag {
@@ -10,9 +9,6 @@ public class Tag {
 
     @Column(name = "tag_name")
     private String tagName;
-
-    @Column(name = "register_time")
-    private Date registerTime;
 
     @Column(name = "usage_count")
     private Long usageCount;
@@ -46,20 +42,6 @@ public class Tag {
      */
     public void setTagName(String tagName) {
         this.tagName = tagName;
-    }
-
-    /**
-     * @return register_time
-     */
-    public Date getRegisterTime() {
-        return registerTime;
-    }
-
-    /**
-     * @param registerTime
-     */
-    public void setRegisterTime(Date registerTime) {
-        this.registerTime = registerTime;
     }
 
     /**

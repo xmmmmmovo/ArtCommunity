@@ -19,6 +19,9 @@ public class Log {
     @Column(name = "operate_type")
     private String operateType;
 
+    @Column(name = "operate_time")
+    private Long operateTime;
+
     /**
      * @return id
      */
@@ -87,5 +90,19 @@ public class Log {
      */
     public void setOperateType(String operateType) {
         this.operateType = operateType;
+    }
+
+    /**
+     * @return operate_time
+     */
+    public Long getOperateTime() {
+        return operateTime;
+    }
+
+    /**
+     * @param operateTime
+     */
+    public void setOperateTime(Long operateTime) {
+        this.operateTime = operateTime;
     }
 }

@@ -10,5 +10,6 @@
     <result column="operator_identity" jdbcType="CHAR" property="operatorIdentity" />
     <result column="operate_content" jdbcType="VARCHAR" property="operateContent" />
     <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operate_time" jdbcType="BIGINT" property="operateTime" />
   </resultMap>
 </mapper>

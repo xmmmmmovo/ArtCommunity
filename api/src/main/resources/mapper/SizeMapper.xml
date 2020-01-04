@@ -8,6 +8,5 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="length" jdbcType="INTEGER" property="length" />
     <result column="height" jdbcType="INTEGER" property="height" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 </mapper>

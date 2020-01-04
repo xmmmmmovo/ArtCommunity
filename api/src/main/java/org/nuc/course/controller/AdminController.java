@@ -10,6 +10,7 @@ import org.nuc.course.model.Admin;
 import org.nuc.course.model.User;
 import org.nuc.course.utils.BCryptUtils;
 import org.nuc.course.utils.DTOUtils;
+import org.nuc.course.utils.DateUtils;
 import org.nuc.course.utils.IdUtils;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
@@ -31,7 +32,7 @@ public class AdminController {
     public Result add(Admin admin) {
         admin.setToken(IdUtils.uuid64());
         admin.setAdminPassword(BCryptUtils.encode(admin.getAdminPassword()));
-        admin.setRegisterTime(new Date());
+        admin.setRegisterTime(DateUtils.getTimeStamp());
         adminService.save(admin);
         return ResultGenerator.genSuccessResult(DTOUtils.adminToDTO(admin));
     }

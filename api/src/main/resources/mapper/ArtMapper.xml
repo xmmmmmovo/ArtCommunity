@@ -8,8 +8,8 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="art_name" jdbcType="VARCHAR" property="artName" />
     <result column="art_author" jdbcType="BIGINT" property="artAuthor" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="modified_time" jdbcType="BIGINT" property="modifiedTime" />
     <result column="art_size" jdbcType="BIGINT" property="artSize" />
     <result column="art_tag" jdbcType="BIGINT" property="artTag" />
     <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum" />

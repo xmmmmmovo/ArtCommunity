@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-01-04 16:19:52
+-- 生成日期： 2020-01-04 18:43:00
 -- 服务器版本： 5.7.26-log
 -- PHP 版本： 7.0.33
 
@@ -34,10 +34,19 @@ CREATE TABLE `admin` (
   `admin_email` varchar(50) NOT NULL,
   `admin_password` varchar(300) NOT NULL,
   `admin_avatar` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
-  `register_time` datetime NOT NULL,
+  `register_time` bigint(20) NOT NULL,
   `token` varchar(36) DEFAULT NULL,
   `roles` char(10) NOT NULL DEFAULT 'editor'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 转存表中的数据 `admin`
+--
+
+INSERT INTO `admin` (`id`, `admin_name`, `admin_email`, `admin_password`, `admin_avatar`, `register_time`, `token`, `roles`) VALUES
+(7, 'zha', 'zha', '$2a$10$dcn.O.ZOtPt3nGUDWC/VL.LSiyUMX592QPYdPeEtQZADs1q6QSZXa', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', 20200103035802, 'vkc355tVR4mkNAeqcVnd0A', 'editor'),
+(8, 'admin', 'admin', '$2a$10$SSuZ3SgsVmnIcGvppImvHONVass.GNQRr2EIJM6wichtzXnytJzlG', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', 20200103042726, '7WjQ6GtJS7qlPVilljc59w', 'admin'),
+(9, 'te', 'test', '$2a$10$mfG1.V/uY7i3FZa4uG3OcuqXuaftFg91/rU8XaMvh6QDG2JV7fbYG', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', 20200104030741, 'X72pta8dS46kg12vBao-BQ', 'editor');
 
 -- --------------------------------------------------------
 
@@ -49,8 +58,8 @@ CREATE TABLE `art` (
   `id` bigint(20) NOT NULL,
   `art_name` varchar(50) NOT NULL,
   `art_author` bigint(20) NOT NULL,
-  `create_time` datetime NOT NULL,
-  `modified_time` datetime NOT NULL,
+  `create_time` bigint(20) NOT NULL,
+  `modified_time` bigint(20) NOT NULL,
   `art_size` bigint(20) DEFAULT NULL,
   `art_tag` bigint(20) NOT NULL,
   `art_like_num` bigint(20) NOT NULL DEFAULT '0',
@@ -70,7 +79,7 @@ CREATE TABLE `article` (
   `article_content` text NOT NULL,
   `article_front` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
   `article_title` varchar(100) NOT NULL,
-  `create_time` datetime NOT NULL,
+  `create_time` bigint(20) NOT NULL,
   `article_author` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -85,7 +94,7 @@ CREATE TABLE `comment` (
   `comment_by` bigint(20) NOT NULL,
   `comment_content` varchar(300) NOT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
-  `comment_time` datetime NOT NULL,
+  `comment_time` bigint(20) NOT NULL,
   `comment_like_count` bigint(20) NOT NULL DEFAULT '0',
   `comment_count` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -101,7 +110,8 @@ CREATE TABLE `log` (
   `operator_id` bigint(20) NOT NULL,
   `operator_identity` char(10) NOT NULL,
   `operate_content` varchar(100) NOT NULL,
-  `operate_type` varchar(20) NOT NULL
+  `operate_type` varchar(20) NOT NULL,
+  `operate_time` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -113,8 +123,7 @@ CREATE TABLE `log` (
 CREATE TABLE `size` (
   `id` bigint(20) NOT NULL,
   `length` int(11) NOT NULL,
-  `height` int(11) NOT NULL,
-  `create_time` datetime NOT NULL
+  `height` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -126,7 +135,6 @@ CREATE TABLE `size` (
 CREATE TABLE `tag` (
   `id` bigint(20) NOT NULL,
   `tag_name` varchar(20) NOT NULL,
-  `register_time` datetime NOT NULL,
   `usage_count` bigint(20) DEFAULT '0',
   `tag_describe` varchar(1000) NOT NULL DEFAULT 'null'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -139,7 +147,7 @@ CREATE TABLE `tag` (
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `register_time` datetime NOT NULL,
+  `register_time` bigint(20) NOT NULL,
   `user_name` varchar(30) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(300) NOT NULL,
@@ -218,7 +226,7 @@ ALTER TABLE `user`
 -- 使用表AUTO_INCREMENT `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- 使用表AUTO_INCREMENT `art`
@@ -260,7 +268,7 @@ ALTER TABLE `tag`
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 
 --
 -- 限制导出的表

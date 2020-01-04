@@ -26,8 +26,8 @@ export const defaultAdminData: IAdminData = {
 
 export const getAdmins = (params: any) =>
   request({
-    url: '/articles',
-    method: 'get',
+    url: '/admin/list',
+    method: 'GET',
     params
   })
 

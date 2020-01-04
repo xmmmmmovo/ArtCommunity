@@ -22,6 +22,10 @@ public class DateUtils {
     private DateUtils() {
     }
 
+    public static Long getTimeStamp() {
+        return System.currentTimeMillis();
+    }
+
     /**
      * 现在时间（年）
      *

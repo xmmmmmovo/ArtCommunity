@@ -8,7 +8,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="article_front" jdbcType="VARCHAR" property="articleFront" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="article_author" jdbcType="BIGINT" property="articleAuthor" />
     <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
   </resultMap>

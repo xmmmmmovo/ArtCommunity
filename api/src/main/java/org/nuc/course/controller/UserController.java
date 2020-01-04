@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nuc.course.utils.BCryptUtils;
 import org.nuc.course.utils.DTOUtils;
+import org.nuc.course.utils.DateUtils;
 import org.nuc.course.utils.IdUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class UserController {
     @PostMapping("/add")
     public Result add(User user) {
         user.setToken(IdUtils.uuid64());
-        user.setRegisterTime(new Date());
+        user.setRegisterTime(DateUtils.getTimeStamp());
         user.setUserPassword(BCryptUtils.encode(user.getUserPassword()));
         userService.save(user);
         return ResultGenerator.genSuccessResult(DTOUtils.userToDTO(user));

@@ -1,6 +1,5 @@
 package org.nuc.course.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class User {
@@ -9,7 +8,7 @@ public class User {
     private Long id;
 
     @Column(name = "register_time")
-    private Date registerTime;
+    private Long registerTime;
 
     @Column(name = "user_name")
     private String userName;
@@ -48,14 +47,14 @@ public class User {
     /**
      * @return register_time
      */
-    public Date getRegisterTime() {
+    public Long getRegisterTime() {
         return registerTime;
     }
 
     /**
      * @param registerTime
      */
-    public void setRegisterTime(Date registerTime) {
+    public void setRegisterTime(Long registerTime) {
         this.registerTime = registerTime;
     }
 

@@ -1,6 +1,5 @@
 package org.nuc.course.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class Art {
@@ -15,10 +14,10 @@ public class Art {
     private Long artAuthor;
 
     @Column(name = "create_time")
-    private Date createTime;
+    private Long createTime;
 
     @Column(name = "modified_time")
-    private Date modifiedTime;
+    private Long modifiedTime;
 
     @Column(name = "art_size")
     private Long artSize;
@@ -83,28 +82,28 @@ public class Art {
     /**
      * @return create_time
      */
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
     /**
      * @param createTime
      */
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
     /**
      * @return modified_time
      */
-    public Date getModifiedTime() {
+    public Long getModifiedTime() {
         return modifiedTime;
     }
 
     /**
      * @param modifiedTime
      */
-    public void setModifiedTime(Date modifiedTime) {
+    public void setModifiedTime(Long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 

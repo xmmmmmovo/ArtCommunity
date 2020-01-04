@@ -4,7 +4,7 @@ import org.nuc.course.db.service.Service;
 
 
 /**
- * Created by xmmmmmovo on 2020/01/03.
+ * Created by xmmmmmovo on 2020/01/04.
  */
 public interface AdminService extends Service<Admin> {
 

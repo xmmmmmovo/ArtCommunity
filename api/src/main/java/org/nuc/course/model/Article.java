@@ -1,6 +1,5 @@
 package org.nuc.course.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class Article {
@@ -15,7 +14,7 @@ public class Article {
     private String articleTitle;
 
     @Column(name = "create_time")
-    private Date createTime;
+    private Long createTime;
 
     @Column(name = "article_author")
     private Long articleAuthor;
@@ -68,14 +67,14 @@ public class Article {
     /**
      * @return create_time
      */
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
     /**
      * @param createTime
      */
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

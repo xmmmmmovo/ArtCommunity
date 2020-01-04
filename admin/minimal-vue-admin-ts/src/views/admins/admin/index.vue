@@ -1,6 +1,22 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
+      <el-input
+        v-model="listQuery.title"
+        :placeholder="搜索管理员名"
+        style="width: 200px;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"
+      />
+      <el-button
+        v-waves
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+      >
+        搜索
+      </el-button>
       <el-button
         class="filter-item"
         style="margin-left: 10px;"
@@ -8,7 +24,7 @@
         icon="el-icon-edit"
         @click="handleCreate"
       >
-        {{ $t('table.add') }}
+        添加
       </el-button>
       <el-button
         v-waves
@@ -18,7 +34,7 @@
         icon="el-icon-download"
         @click="handleDownload"
       >
-        {{ $t('table.export') }}
+        导出
       </el-button>
     </div>
 
@@ -32,12 +48,11 @@
       style="width: 100%;"
     >
       <el-table-column
-        :label="$t('table.id')"
+        :label="id"
         prop="id"
         sortable="custom"
         align="center"
         width="80"
-        :class-name="getSortClass('id')"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -45,77 +60,53 @@
       </el-table-column>
 
       <el-table-column
-        :label="$t('table.date')"
+        :label="registerTime"
         width="180px"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime }}</span>
+          <span>{{ scope.row.registerTime }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('table.title')"
+        :label="adminName"
         min-width="150px"
       >
-        <template slot-scope="{row}">
-          <span
-            class="link-type"
-            @click="handleUpdate(row)"
-          >{{ row.title }}</span>
-          <el-tag>{{ row.type | typeFilter }}</el-tag>
+        <template slot-scope="scope">
+          <span>{{ scope.row.adminName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('table.author')"
+        :label="adminEmail"
         width="180px"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.adminEmail }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('table.importance')"
+        :label="adminAvatar"
         width="105px"
       >
         <template slot-scope="scope">
-          <svg-icon
-            v-for="n in +scope.row.importance"
-            :key="n"
-            name="star"
-            class="meta-item__icon"
-          />
+          <el-image
+            :fit="contain"
+            :src='scope.row.adminAvatar'
+          >
+          </el-image>
         </template>
       </el-table-column>
-
       <el-table-column
-        :label="$t('table.readings')"
-        align="center"
-        width="95"
+        :label="roles"
+        width="105px"
       >
-        <template slot-scope="{row}">
-          <span
-            v-if="row.pageviews"
-            class="link-type"
-            @click="handleGetPageviews(row.pageviews)"
-          >{{ row.pageviews }}</span>
-          <span v-else>0</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        :label="$t('table.status')"
-        class-name="status-col"
-        width="100"
-      >
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | articleStatusFilter">
-            {{ row.status }}
-          </el-tag>
+        <template slot-scope="scope">
+          <span>{{ scope.row.roles }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('table.actions')"
+        :label="操作"
         align="center"
         width="230"
         class-name="fixed-width"
@@ -126,30 +117,14 @@
             size="mini"
             @click="handleUpdate(row)"
           >
-            {{ $t('table.edit') }}
+            编辑
           </el-button>
           <el-button
-            v-if="row.status!=='published'"
-            size="mini"
-            type="success"
-            @click="handleModifyStatus(row,'published')"
-          >
-            {{ $t('table.publish') }}
-          </el-button>
-          <el-button
-            v-if="row.status!=='draft'"
-            size="mini"
-            @click="handleModifyStatus(row,'draft')"
-          >
-            {{ $t('table.draft') }}
-          </el-button>
-          <el-button
-            v-if="row.status!=='deleted'"
             size="mini"
             type="danger"
-            @click="handleModifyStatus(row,'deleted')"
+            @click="handleDelete(row,'deleted')"
           >
-            {{ $t('table.delete') }}
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -172,13 +147,18 @@
       <el-form
         ref="dataForm"
         :rules="rules"
-        :model="tempArticleData"
+        :model="tempAdminData"
         label-position="left"
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item
-          :label="$t('table.type')"
+          :label="管理员姓名"
+        >
+          <el-input v-model="tempArticleData.adminName" />
+        </el-form-item>
+        <el-form-item
+          :label="权限"
           prop="type"
         >
           <el-select
@@ -187,11 +167,16 @@
             placeholder="Please select"
           >
             <el-option
-              v-for="item in calendarTypeOptions"
-              :key="item.key"
-              :label="item.display_name"
-              :value="item.key"
+              :key="admin"
+              :label="admin"
+              :value="admin"
             />
+            <el-option
+              :key="editor"
+              :label="editor"
+              :value="editor"
+            >
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item
@@ -210,28 +195,6 @@
         >
           <el-input v-model="tempArticleData.title" />
         </el-form-item>
-        <el-form-item :label="$t('table.status')">
-          <el-select
-            v-model="tempArticleData.status"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              v-for="item in statusOptions"
-              :key="item"
-              :label="item"
-              :value="item"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('table.importance')">
-          <el-rate
-            v-model="tempArticleData.importance"
-            :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-            :max="3"
-            style="margin-top:8px;"
-          />
-        </el-form-item>
         <el-form-item :label="$t('table.remark')">
           <el-input
             v-model="tempArticleData.abstractContent"
@@ -246,13 +209,13 @@
         class="dialog-footer"
       >
         <el-button @click="dialogFormVisible = false">
-          {{ $t('table.cancel') }}
+          取消
         </el-button>
         <el-button
           type="primary"
           @click="dialogStatus==='create'?createData():updateData()"
         >
-          {{ $t('table.confirm') }}
+          确定
         </el-button>
       </div>
     </el-dialog>
@@ -315,13 +278,12 @@ export default class extends Vue {
     page: 1,
     size: 20
   }
-  private showReviewer = false
-  private dialogFormVisible = false
-  private dialogStatus = ''
   private textMap = {
     update: 'Edit',
     create: 'Create'
   }
+  private dialogFormVisible = false
+  private dialogStatus = ''
   private dialogPageviewsVisible = false
   private pageviewsData = []
   private rules = {
@@ -330,7 +292,7 @@ export default class extends Vue {
     title: [{ required: true, message: 'title is required', trigger: 'blur' }]
   }
   private downloadLoading = false
-  private tempArticleData = defaultAdminData
+  private tempAdminData = defaultAdminData
 
   created() {
     this.getList()
@@ -338,8 +300,11 @@ export default class extends Vue {
 
   private async getList() {
     this.listLoading = true
-    const { data } = await getAdmins(this.listQuery)
-    this.list = data.items
+    let formData = new FormData()
+    formData.append('page', this.listQuery.page.toString())
+    formData.append('size', this.listQuery.size.toString())
+    const { data } = await getAdmins(formData)
+    this.list = data.list
     this.total = data.total
     // Just to simulate the time of the request
     setTimeout(() => {
@@ -373,6 +338,15 @@ export default class extends Vue {
     })
   }
 
+  private handleDelete() {
+    this.resetTempArticleData()
+    this.dialogStatus = 'create'
+    this.dialogFormVisible = true
+    this.$nextTick(() => {
+      (this.$refs['dataForm'] as Form).clearValidate()
+    })
+  }
+
   // 创建新用户
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
@@ -394,7 +368,6 @@ export default class extends Vue {
 
   private handleUpdate(row: any) {
     this.tempArticleData = Object.assign({}, row)
-    this.tempArticleData.timestamp = +new Date(this.tempArticleData.timestamp)
     this.dialogStatus = 'update'
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -405,16 +378,14 @@ export default class extends Vue {
   private updateData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        const tempData = Object.assign({}, this.tempArticleData)
-        tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-        const { data } = await updateArticle(tempData.id, { article: tempData })
-        for (const v of this.list) {
-          if (v.id === data.article.id) {
-            const index = this.list.indexOf(v)
-            this.list.splice(index, 1, data.article)
-            break
-          }
-        }
+        // const { data } = await updateAdmin(tempData.id, { article: tempData })
+        // for (const v of this.list) {
+        //   if (v.id === data.article.id) {
+        //     const index = this.list.indexOf(v)
+        //     this.list.splice(index, 1, data.article)
+        //     break
+        //   }
+        // }
         this.dialogFormVisible = false
         this.$notify({
           title: '成功',
@@ -434,8 +405,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-    const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+    const tHeader = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
+    const filterVal = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false

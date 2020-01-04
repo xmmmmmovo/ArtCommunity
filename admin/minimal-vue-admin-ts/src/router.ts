@@ -58,25 +58,11 @@ export default new Router({
       ]
     },
     {
-      path: '/form',
-      component: Layout,
-      children: [
-        {
-          path: 'index',
-          component: () => import('@/views/table/form/index.vue'),
-          meta: {
-            title: 'Form',
-            icon: 'form'
-          }
-        }
-      ]
-    },
-    {
       path: '/editor',
       component: Layout,
       redirect: '/editor/posts',
       meta: {
-        title: '作者',
+        title: '作者相关',
         icon: 'nested'
       },
       children: [
@@ -120,17 +106,11 @@ export default new Router({
             title: '日志管理'
           }
         },
-      ]
-    },
-    {
-      path: '作者链接',
-      component: Layout,
-      children: [
         {
-          path: 'https://github.com/xmmmmmovo',
+          path: 'articles',
+          component: () => import('@/views/table/articles/index.vue'),
           meta: {
-            title: '作者链接',
-            icon: 'link'
+            title: '文章管理'
           }
         }
       ]
