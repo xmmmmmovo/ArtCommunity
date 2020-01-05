@@ -7,5 +7,4 @@ import org.nuc.course.db.service.Service;
  * Created by xmmmmmovo on 2020/01/04.
  */
 public interface ArticleService extends Service<Article> {
-
 }

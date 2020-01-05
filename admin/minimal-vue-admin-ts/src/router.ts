@@ -46,13 +46,23 @@ export default new Router({
     {
       path: '/admin',
       component: Layout,
+      meta: {
+        title: '管理员相关',
+        icon: 'admin'
+      },
       children: [
         {
           path: 'admin-editor',
           component: () => import('@/views/admins/index.vue'),
           meta: {
             title: '管理员管理',
-            icon: 'admin'
+          }
+        },
+        {
+          path: 'logs',
+          component: () => import('@/views/table/logs/index.vue'),
+          meta: {
+            title: '日志管理'
           }
         }
       ]
@@ -67,9 +77,11 @@ export default new Router({
       },
       children: [
         {
-          path: 'posts',
-          component: () => import('@/views/table/posts/index.vue'),
-          meta: {title: '作品管理'}
+          path: 'arts',
+          component: () => import('@/views/table/arts/index.vue'),
+          meta: {
+            title: '作品管理'
+          }
         },
         {
           path: 'comments',
@@ -97,13 +109,6 @@ export default new Router({
           component: () => import('@/views/table/sizes/index.vue'),
           meta: {
             title: '尺寸管理'
-          }
-        },
-        {
-          path: 'logs',
-          component: () => import('@/views/table/logs/index.vue'),
-          meta: {
-            title: '日志管理'
           }
         },
         {

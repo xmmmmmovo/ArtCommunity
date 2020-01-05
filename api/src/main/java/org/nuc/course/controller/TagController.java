@@ -5,10 +5,8 @@ import org.nuc.course.model.Tag;
 import org.nuc.course.db.service.TagService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,29 +22,32 @@ public class TagController {
 
     @PostMapping("/add")
     public Result add(Tag tag) {
+        if (tag.getUsageCount() == null) {
+            tag.setUsageCount((long) 0);
+        }
         tagService.save(tag);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(tag);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestParam Long id) {
         tagService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public Result update(Tag tag) {
         tagService.update(tag);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(tag);
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public Result detail(@RequestParam Long id) {
         Tag tag = tagService.findById(id);
         return ResultGenerator.genSuccessResult(tag);
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Tag> list = tagService.findAll();

@@ -41,7 +41,7 @@ public class UserController {
     @PatchMapping("/update")
     public Result update(User user) {
         userService.update(user);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(user);
     }
 
     @GetMapping("/detail")
@@ -59,7 +59,7 @@ public class UserController {
     @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page,
                        @RequestParam(defaultValue = "0") Integer size,
-                       @RequestParam String name) {
+                       @RequestParam(defaultValue = "") String name) {
         PageHelper.startPage(page, size);
         List<User> list = userService.findAll();
         PageInfo pageInfo = new PageInfo(list);

@@ -1,14 +1,14 @@
 package org.nuc.course.controller;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
+import org.nuc.course.model.Admin;
 import org.nuc.course.model.Size;
 import org.nuc.course.db.service.SizeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.nuc.course.model.User;
+import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,28 +25,28 @@ public class SizeController {
     @PostMapping("/add")
     public Result add(Size size) {
         sizeService.save(size);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(size);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestParam Long id) {
         sizeService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public Result update(Size size) {
         sizeService.update(size);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(size);
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public Result detail(@RequestParam Long id) {
         Size size = sizeService.findById(id);
         return ResultGenerator.genSuccessResult(size);
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Size> list = sizeService.findAll();

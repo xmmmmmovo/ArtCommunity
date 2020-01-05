@@ -24,3 +24,26 @@ export interface IAdminData {
   registerTime: string | number
   roles: string
 }
+
+export interface ISizeData {
+  id: bigint,
+  length: number,
+  height: number
+}
+
+export interface ITagData {
+  id: bigint,
+  tagName: string,
+  usageCount: number,
+  tagDescribe: string
+}
+
+export interface IUserData {
+  id: bigint
+  userName: string
+  userEmail: string
+  userAvatar: string
+  registerTime: string | number
+  userBio: string
+  userSex: string
+}
