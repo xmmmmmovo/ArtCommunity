@@ -1,6 +1,7 @@
 package org.nuc.course.db.service.impl;
 
 import org.nuc.course.db.dao.ArticleMapper;
+import org.nuc.course.dto.ArticleDTO;
 import org.nuc.course.model.Article;
 import org.nuc.course.db.service.ArticleService;
 import org.nuc.course.db.service.AbstractService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -19,4 +21,8 @@ public class ArticleServiceImpl extends AbstractService<Article> implements Arti
     @Resource
     private ArticleMapper articleMapper;
 
+    @Override
+    public List<ArticleDTO> findAllList() {
+        return articleMapper.findAllDTO();
+    }
 }

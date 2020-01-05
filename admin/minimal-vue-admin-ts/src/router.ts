@@ -29,16 +29,13 @@ export default new Router({
       path: '/',
       component: Layout,
       redirect: '/dashboard',
-      meta: {
-        hidden: true
-      },
       children: [
         {
           path: 'dashboard',
           component: () => import('@/views/dashboard/index.vue'),
           meta: {
             title: '主界面',
-            hidden: true
+            icon: 'dashboard'
           }
         },
       ]
@@ -48,7 +45,6 @@ export default new Router({
       component: Layout,
       meta: {
         title: '管理员相关',
-        icon: 'admin'
       },
       children: [
         {
@@ -56,13 +52,7 @@ export default new Router({
           component: () => import('@/views/admins/index.vue'),
           meta: {
             title: '管理员管理',
-          }
-        },
-        {
-          path: 'logs',
-          component: () => import('@/views/table/logs/index.vue'),
-          meta: {
-            title: '日志管理'
+            icon: 'admin'
           }
         }
       ]

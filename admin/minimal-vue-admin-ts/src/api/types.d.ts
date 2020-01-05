@@ -37,4 +37,5 @@ export interface IArticleData {
   articleTitle: string
   createTime: string
   articleAuthor: bigint
+  userName: string
 }

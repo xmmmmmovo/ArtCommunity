@@ -7,7 +7,8 @@ export const defaultArticleData: IArticleData = {
   articleAuthor: BigInt(0),
   articleFront: 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
   articleTitle: '',
-  createTime: ''
+  createTime: '',
+  userName: ''
 }
 
 export const getArticles = (data: any) =>

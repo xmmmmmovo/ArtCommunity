@@ -464,8 +464,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['id', 'userName', 'userEmail', 'registerTime', 'roles']
-    const filterVal = ['id', 'userName', 'userEmail', 'registerTime', 'roles']
+    const tHeader = ['id', 'userName', 'userEmail', 'registerTime']
+    const filterVal = ['id', 'userName', 'userEmail', 'registerTime']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false

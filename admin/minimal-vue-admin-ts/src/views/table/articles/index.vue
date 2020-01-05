@@ -64,37 +64,30 @@
       >
       </el-table-column>
       <el-table-column
-        label="articleName"
+        label="articleTitle"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.articleName }}</span>
+          <span>{{ scope.row.articleTitle }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="articleEmail"
+        label="articleAuthor"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.articleEmail }}</span>
+          <span>{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="articleAvatar"
+        label="articleFront"
         width="130px"
       >
         <template slot-scope="scope">
           <el-image
             :fit="contain"
-            :src='scope.row.articleAvatar'
+            :src='scope.row.articleFront'
           >
           </el-image>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="roles"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.roles }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -146,52 +139,30 @@
             style="width: 400px; margin-left:50px;"
           >
             <el-form-item
-              label="管理员编号"
+              label="文章题目"
+              prop="articleTitle"
             >
-              <span v-model="tempArticleData.id" />
+              <el-input v-model="tempArticleData.articleTitle" />
             </el-form-item>
             <el-form-item
-              label="管理员姓名"
-              prop="articleName"
-            >
-              <el-input v-model="tempArticleData.articleName" />
-            </el-form-item>
-            <el-form-item
-              label="管理员邮箱"
-              prop="articleEmail"
-            >
-              <el-input v-model="tempArticleData.articleEmail" />
-            </el-form-item>
-            <el-form-item
-              v-if="dialogStatus==='create'"
-              label="管理员密码"
-            >
-              <el-input v-model="password" />
-            </el-form-item>
-            <el-form-item
-              label="权限"
-              prop="roles"
+              label="文章作者"
+              prop="articleAuthor"
             >
               <el-select
-                v-model="tempArticleData.roles"
+                v-model="tempArticleData.articleAuthor"
                 class="filter-item"
-                placeholder="article"
+                placeholder="作者名"
               >
                 <el-option
-                  key="article"
-                  label="article"
-                  value="article"
+                  v-for="item in userList"
+                  :key="item.id"
+                  :label="item.userEmail"
+                  :value="item.id"
                 />
-                <el-option
-                  key="editor"
-                  label="editor"
-                  value="editor"
-                >
-                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item
-              label="管理员头像"
+              label="文章封面"
             >
               <el-upload
                 class="avatar-uploader"
@@ -200,9 +171,20 @@
                 :data="postData"
                 :on-success="onCropUploadSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img v-if="tempArticleData.articleAvatar" :src="tempArticleData.articleAvatar" class="avatar">
+                <img v-if="tempArticleData.articleFront" :src="tempArticleData.articleFront" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
+            </el-form-item>
+            <el-form-item
+              label="文章内容"
+              prop="articleContent"
+            >
+              <el-input
+                v-model="tempArticleData.articleContent"
+                :autosize="{minRows: 3, maxRows: 5}"
+                type="textarea"
+                placeholder="请在此输入"
+              />
             </el-form-item>
           </el-form>
           <div
@@ -235,7 +217,6 @@ import {
   updateArticle,
   deleteArticle,
   defaultArticleData,
-  getUserInfo
 } from '@/api/articles'
 import {
   getUsersAll
@@ -243,7 +224,7 @@ import {
 import {
   getToken
 } from '@/api/token'
-import {IArticleData, IArticleData, IUserData} from '@/api/types'
+import { IArticleData, IUserData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
@@ -259,7 +240,6 @@ import {genUpToken} from "@/utils/token";
 export default class extends Vue {
   private list: IArticleData[] = []
   private userList: IUserData[] = []
-  private userMap = {}
   private total = 0
   private listLoading = true
   private listQuery = {
@@ -273,8 +253,8 @@ export default class extends Vue {
   private dialogFormVisible = false
   private dialogStatus = ''
   private rules = {
-    articleName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    articleEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    articleTitle: [{ required: true, message: '名字是必须的', trigger: 'change' }],
+    articleAuthor: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
   private tempArticleData = defaultArticleData
@@ -287,7 +267,7 @@ export default class extends Vue {
 
 
   private onCropUploadSuccess(res: any, file: any) {
-    this.tempArticleData.articleAvatar = this.backUrl + res.key
+    this.tempArticleData.articleFront = this.backUrl + res.key
   }
 
   private beforeAvatarUpload(file: any) {
@@ -377,11 +357,10 @@ export default class extends Vue {
       if (valid) {
         let { id, ...Data } = this.tempArticleData
         let formData = new FormData()
-        formData.append('articleName', Data.articleName)
-        formData.append('articleEmail', Data.articleEmail)
-        formData.append('articlePassword', this.password)
-        formData.append('articleAvatar', Data.articleAvatar)
-        formData.append('roles', Data.roles)
+        formData.append('articleTitle', Data.articleTitle)
+        formData.append('articleContent', Data.articleContent)
+        formData.append('articleAuthor', Data.articleAuthor.toString())
+        formData.append('articleFront', Data.articleFront)
         let datas = await createArticle(formData)
         datas = datas.data
         console.log(datas)
@@ -411,10 +390,10 @@ export default class extends Vue {
       if (valid) {
         let formData = new FormData()
         formData.append('id', this.tempArticleData.id.toString())
-        formData.append('articleName', this.tempArticleData.articleName)
-        formData.append('articleEmail', this.tempArticleData.articleEmail)
-        formData.append('roles', this.tempArticleData.roles)
-        formData.append('articleAvatar', this.tempArticleData.articleAvatar)
+        formData.append('articleTitle', this.tempArticleData.articleTitle)
+        formData.append('articleContent', this.tempArticleData.articleContent)
+        formData.append('articleFront', this.tempArticleData.articleFront)
+        formData.append('articleAuthor', this.tempArticleData.articleAuthor.toString())
         const { data } = await updateArticle(formData)
 
         for (const v of this.list) {
@@ -466,8 +445,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['id', 'articleName', 'articleEmail', 'registerTime', 'roles']
-    const filterVal = ['id', 'articleName', 'articleEmail', 'registerTime', 'roles']
+    const tHeader = ['id', 'articleTitle', 'articleContent', 'userName']
+    const filterVal = ['id', 'articleTitle', 'articleContent', 'userName']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false
