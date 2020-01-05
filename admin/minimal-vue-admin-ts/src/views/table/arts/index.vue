@@ -146,13 +146,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="roles"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.roles }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
         label="操作"
         align="center"
         width="230"
@@ -209,12 +202,12 @@
 
             <el-form-item
               label="作者名"
-              prop="articleAuthor"
+              prop="artAuthor"
             >
               <el-select
-                v-model="tempArticleData.articleAuthor"
+                v-model="tempArtData.artAuthor"
                 class="filter-item"
-                placeholder="{{tempArticleData.articleAuthor}}"
+                :placeholder="tempArtData.userName"
               >
                 <el-option
                   v-for="item in userList"
@@ -227,24 +220,35 @@
 
             <el-form-item
               label="作品类型"
-              prop="userName"
+              prop="artTag"
             >
-              <el-input v-model="tempArtData.userName" />
+              <el-select
+                v-model="tempArtData.artTag"
+                class="filter-item"
+                :placeholder="tempArtData.tagName"
+              >
+                <el-option
+                  v-for="item in tagList"
+                  :key="item.id"
+                  :label="item.tagName"
+                  :value="item.id"
+                />
+              </el-select>
             </el-form-item>
 
             <el-form-item
               label="作品尺寸"
-              prop="articleAuthor"
+              prop="artSize"
             >
               <el-select
-                v-model="tempArticleData.articleAuthor"
+                v-model="tempArtData.artSize"
                 class="filter-item"
-                placeholder="{{tempArticleData.articleAuthor}}"
+                :placeholder="'长度' + tempArtData.length + '宽度' +tempArtData.height"
               >
                 <el-option
-                  v-for="item in userList"
+                  v-for="item in sizeList"
                   :key="item.id"
-                  :label="item.userName"
+                  :label="'长度' + item.length + '宽度' +item.height"
                   :value="item.id"
                 />
               </el-select>
@@ -261,14 +265,14 @@
                 :data="postData"
                 :on-success="onCropUploadSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img v-if="tempArtData.artAvatar" :src="tempArtData.artAvatar" class="avatar">
+                <img v-if="tempArtData.artPicUrl" :src="tempArtData.artPicUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
 
             <el-form-item
               label="作品描述"
-              prop="articleContent"
+              prop="artContent"
             >
               <el-input
                 v-model="tempArtData.artContent"
@@ -293,7 +297,6 @@
             </el-button>
           </div>
         </el-dialog>
-
   </div>
 </template>
 
@@ -317,6 +320,9 @@ import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import * as moment from 'moment'
+import {getUsersAll} from "@/api/users";
+import {getSizesAll} from "@/api/sizes";
+import {getTagsAll} from "@/api/tags";
 
 @Component({
   name: 'ArtsTable',
@@ -343,11 +349,12 @@ export default class extends Vue {
   private dialogStatus = ''
   private rules = {
     artName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    artEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    artAuthor: [{ required: true, message: '作者是必须的', trigger: 'change' }],
+    artTag: [{ required: true, message: '标签是必须的', trigger: 'change' }],
+    artSize: [{ required: true, message: '尺寸是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
   private tempArtData = defaultArtData
-  private password = ''
   private postData = {
     key: '',
     token: ''
@@ -386,6 +393,20 @@ export default class extends Vue {
   created() {
     this.getList()
     this.genToken()
+    this.getNeedData()
+  }
+
+  private async getNeedData() {
+    let data = await getUsersAll()
+    this.userList = data.data
+    console.log(this.userList)
+
+    data = await getSizesAll()
+    this.sizeList = data.data
+
+    data = await getTagsAll()
+    this.tagList = data.data
+    console.log(this.tagList)
   }
 
   private async genToken() {
@@ -440,16 +461,16 @@ export default class extends Vue {
         let { id, ...Data } = this.tempArtData
         let formData = new FormData()
         formData.append('artName', Data.artName)
-        formData.append('artEmail', Data.artEmail)
-        formData.append('artPassword', this.password)
-        formData.append('artAvatar', Data.artAvatar)
-        formData.append('roles', Data.roles)
+        formData.append('artAuthor', Data.artAuthor.toString())
+        formData.append('artSize', Data.artSize.toString())
+        formData.append('artTag', Data.artTag.toString())
+        formData.append('artContent', Data.artContent)
+        formData.append('artPicUrl', Data.artPicUrl)
         let datas = await createArt(formData)
         datas = datas.data
         console.log(datas)
         this.list.unshift(datas)
         this.dialogFormVisible = false
-        this.password = ''
         this.$notify({
           title: '成功',
           message: '创建成功',
@@ -474,9 +495,14 @@ export default class extends Vue {
         let formData = new FormData()
         formData.append('id', this.tempArtData.id.toString())
         formData.append('artName', this.tempArtData.artName)
-        formData.append('artEmail', this.tempArtData.artEmail)
-        formData.append('roles', this.tempArtData.roles)
-        formData.append('artAvatar', this.tempArtData.artAvatar)
+        formData.append('artAuthor', this.tempArtData.artAuthor.toString())
+        formData.append('modifiedTime', Date.parse(new Date().toString()).toString())
+        formData.append('artSize', this.tempArtData.artSize.toString())
+        formData.append('artTag', this.tempArtData.artTag.toString())
+        formData.append('artContent', this.tempArtData.artContent)
+        formData.append('artPicUrl', this.tempArtData.artPicUrl)
+        console.log(this.tempArtData)
+
         const { data } = await updateArt(formData)
 
         for (const v of this.list) {

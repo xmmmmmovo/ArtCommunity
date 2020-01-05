@@ -26,8 +26,8 @@ public class ArtController {
         art.setCreateTime(DateUtils.getTimeStamp());
         art.setModifiedTime(DateUtils.getTimeStamp());
         artService.save(art);
-        art = artService.findById(art.getId());
-        return ResultGenerator.genSuccessResult(art);
+        ArtDTO artDTO = artService.findADTO(art.getId());
+        return ResultGenerator.genSuccessResult(artDTO);
     }
 
     @DeleteMapping("/delete")
@@ -39,7 +39,8 @@ public class ArtController {
     @PatchMapping("/update")
     public Result update(Art art) {
         artService.update(art);
-        return ResultGenerator.genSuccessResult(art);
+        ArtDTO artDTO = artService.findADTO(art.getId());
+        return ResultGenerator.genSuccessResult(artDTO);
     }
 
     @GetMapping("/detail")

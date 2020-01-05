@@ -25,4 +25,9 @@ public class ArtServiceImpl extends AbstractService<Art> implements ArtService {
     public List<ArtDTO> findAllList() {
         return artMapper.findAllDTO();
     }
+
+    @Override
+    public ArtDTO findADTO(Long id) {
+        return artMapper.findIdDTO(id);
+    }
 }

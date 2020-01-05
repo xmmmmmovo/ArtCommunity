@@ -14,6 +14,12 @@ export const getSizes = (data: any) =>
     data
   })
 
+export const getSizesAll = () =>
+  request({
+    url: '/size/all',
+    method: 'GET'
+  })
+
 export const getSizeDetail = (data: any) =>
   request({
     url: '/size/detail',

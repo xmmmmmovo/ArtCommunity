@@ -26,8 +26,8 @@ public class ArticleController {
     public Result add(Article article) {
         article.setCreateTime(DateUtils.getTimeStamp());
         articleService.save(article);
-        article = articleService.findById(article.getId());
-        return ResultGenerator.genSuccessResult(article);
+        ArticleDTO articleDTO = articleService.findADTO(article.getId());
+        return ResultGenerator.genSuccessResult(articleDTO);
     }
 
     @DeleteMapping("/delete")
@@ -39,13 +39,14 @@ public class ArticleController {
     @PatchMapping("/update")
     public Result update(Article article) {
         articleService.update(article);
-        return ResultGenerator.genSuccessResult(article);
+        ArticleDTO articleDTO = articleService.findADTO(article.getId());
+        return ResultGenerator.genSuccessResult(articleDTO);
     }
 
     @GetMapping("/detail")
     public Result detail(@RequestParam Long id) {
-        Article article = articleService.findById(id);
-        return ResultGenerator.genSuccessResult(article);
+        ArticleDTO articleDTO = articleService.findADTO(id);
+        return ResultGenerator.genSuccessResult(articleDTO);
     }
 
     @GetMapping("/list")

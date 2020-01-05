@@ -25,4 +25,9 @@ public class ArticleServiceImpl extends AbstractService<Article> implements Arti
     public List<ArticleDTO> findAllList() {
         return articleMapper.findAllDTO();
     }
+
+    @Override
+    public ArticleDTO findADTO(Long id) {
+        return articleMapper.findIdDTO(id);
+    }
 }

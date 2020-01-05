@@ -53,4 +53,10 @@ public class SizeController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @GetMapping("/all")
+    public Result all() {
+        List<Size> list = sizeService.findAll();
+        return ResultGenerator.genSuccessResult(list);
+    }
 }

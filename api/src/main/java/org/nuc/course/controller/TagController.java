@@ -5,6 +5,7 @@ import org.nuc.course.model.Tag;
 import org.nuc.course.db.service.TagService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.nuc.course.model.User;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +54,11 @@ public class TagController {
         List<Tag> list = tagService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @GetMapping("/all")
+    public Result all() {
+        List<Tag> list = tagService.findAll();
+        return ResultGenerator.genSuccessResult(list);
     }
 }

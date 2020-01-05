@@ -15,6 +15,12 @@ export const getTags = (data: any) =>
     data
   })
 
+export const getTagsAll = () =>
+  request({
+    url: '/tag/all',
+    method: 'GET'
+  })
+
 export const getTagDetail = (data: any) =>
   request({
     url: '/tag/detail',
