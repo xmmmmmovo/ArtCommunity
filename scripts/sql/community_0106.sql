@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-01-05 18:15:15
+-- 生成日期： 2020-01-06 00:49:26
 -- 服务器版本： 5.7.26-log
 -- PHP 版本： 7.0.33
 
@@ -75,7 +75,7 @@ CREATE TABLE `art` (
   `art_size` bigint(20) DEFAULT NULL,
   `art_tag` bigint(20) NOT NULL,
   `art_like_num` bigint(20) NOT NULL DEFAULT '0',
-  `art_commit_num` bigint(20) NOT NULL DEFAULT '0',
+  `art_comment_num` bigint(20) NOT NULL DEFAULT '0',
   `art_content` varchar(400) NOT NULL DEFAULT '什么也没说',
   `art_pic_url` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -94,6 +94,13 @@ CREATE TABLE `article` (
   `create_time` bigint(20) NOT NULL,
   `article_author` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 转存表中的数据 `article`
+--
+
+INSERT INTO `article` (`id`, `article_content`, `article_front`, `article_title`, `create_time`, `article_author`) VALUES
+(1, '1111', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', '111', 1578226706922, 1011);
 
 -- --------------------------------------------------------
 
@@ -114,21 +121,6 @@ CREATE TABLE `comment` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `log`
---
-
-CREATE TABLE `log` (
-  `id` bigint(20) NOT NULL,
-  `operator_id` bigint(20) NOT NULL,
-  `operator_identity` char(10) NOT NULL,
-  `operate_content` varchar(100) NOT NULL,
-  `operate_type` varchar(20) NOT NULL,
-  `operate_time` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `size`
 --
 
@@ -144,7 +136,8 @@ CREATE TABLE `size` (
 
 INSERT INTO `size` (`id`, `length`, `height`) VALUES
 (1, 1920, 1080),
-(5, 640, 480);
+(5, 640, 480),
+(6, 324, 23432);
 
 -- --------------------------------------------------------
 
@@ -169,7 +162,8 @@ INSERT INTO `tag` (`id`, `tag_name`, `usage_count`, `tag_describe`) VALUES
 (4, '摄影', 0, 'Photography helps people to see.自从1839年这项技术问世以来，摄影已成为一种必不可少的艺术媒介，它使艺术家能够捕捉街头短暂的瞬间，构建虚构的世界来迷惑观众并呈现新的抽象形式。'),
 (5, '战后', 0, '战后的艺术史时期大约在1945年至1970年之间，包括一些20世纪最具标志性和最受欢迎的艺术活动，包括抽象表现主义、波普艺术和极简主义。'),
 (6, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。'),
-(7, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。');
+(7, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。'),
+(8, 'dg', 0, 'dfgdgdg');
 
 -- --------------------------------------------------------
 
@@ -233,13 +227,6 @@ ALTER TABLE `comment`
   ADD KEY `comment_user_id_fk_2` (`parent_id`);
 
 --
--- 表的索引 `log`
---
-ALTER TABLE `log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `log_user_id_fk` (`operator_id`);
-
---
 -- 表的索引 `size`
 --
 ALTER TABLE `size`
@@ -256,7 +243,8 @@ ALTER TABLE `tag`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_user_email_uindex` (`user_email`);
+  ADD UNIQUE KEY `user_user_email_uindex` (`user_email`),
+  ADD UNIQUE KEY `user_user_name_uindex` (`user_name`);
 
 --
 -- 在导出的表使用AUTO_INCREMENT
@@ -278,7 +266,7 @@ ALTER TABLE `art`
 -- 使用表AUTO_INCREMENT `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `comment`
@@ -287,22 +275,16 @@ ALTER TABLE `comment`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `log`
---
-ALTER TABLE `log`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- 使用表AUTO_INCREMENT `size`
 --
 ALTER TABLE `size`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `user`
@@ -334,13 +316,6 @@ ALTER TABLE `article`
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_user_id_fk` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `comment_user_id_fk_2` FOREIGN KEY (`parent_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-
---
--- 限制表 `log`
---
-ALTER TABLE `log`
-  ADD CONSTRAINT `log_admin_id_fk` FOREIGN KEY (`operator_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `log_user_id_fk` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

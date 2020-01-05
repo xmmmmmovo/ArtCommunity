@@ -1,14 +1,13 @@
 package org.nuc.course.controller;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
+import org.nuc.course.dto.ArtDTO;
 import org.nuc.course.model.Art;
 import org.nuc.course.db.service.ArtService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.nuc.course.utils.DateUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,32 +23,37 @@ public class ArtController {
 
     @PostMapping("/add")
     public Result add(Art art) {
+        art.setCreateTime(DateUtils.getTimeStamp());
+        art.setModifiedTime(DateUtils.getTimeStamp());
         artService.save(art);
-        return ResultGenerator.genSuccessResult();
+        art = artService.findById(art.getId());
+        return ResultGenerator.genSuccessResult(art);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result delete(@RequestParam Long id) {
         artService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public Result update(Art art) {
         artService.update(art);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(art);
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public Result detail(@RequestParam Long id) {
         Art art = artService.findById(id);
         return ResultGenerator.genSuccessResult(art);
     }
 
-    @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @GetMapping("/list")
+    public Result list(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<Art> list = artService.findAll();
+        List<ArtDTO> list = artService.findAllList();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

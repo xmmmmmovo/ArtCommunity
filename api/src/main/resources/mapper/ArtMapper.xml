@@ -13,7 +13,7 @@
     <result column="art_size" jdbcType="BIGINT" property="artSize" />
     <result column="art_tag" jdbcType="BIGINT" property="artTag" />
     <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum" />
-    <result column="art_commit_num" jdbcType="BIGINT" property="artCommitNum" />
+    <result column="art_comment_num" jdbcType="BIGINT" property="artCommentNum" />
     <result column="art_content" jdbcType="VARCHAR" property="artContent" />
     <result column="art_pic_url" jdbcType="VARCHAR" property="artPicUrl" />
   </resultMap>

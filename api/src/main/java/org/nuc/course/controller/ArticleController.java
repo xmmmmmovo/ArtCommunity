@@ -26,6 +26,7 @@ public class ArticleController {
     public Result add(Article article) {
         article.setCreateTime(DateUtils.getTimeStamp());
         articleService.save(article);
+        article = articleService.findById(article.getId());
         return ResultGenerator.genSuccessResult(article);
     }
 

@@ -29,6 +29,7 @@ public class UserController {
         user.setRegisterTime(DateUtils.getTimeStamp());
         user.setUserPassword(BCryptUtils.encode(user.getUserPassword()));
         userService.save(user);
+        user = userService.findById(user.getId());
         return ResultGenerator.genSuccessResult(user);
     }
 

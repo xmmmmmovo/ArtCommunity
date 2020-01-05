@@ -28,8 +28,8 @@ public class Art {
     @Column(name = "art_like_num")
     private Long artLikeNum;
 
-    @Column(name = "art_commit_num")
-    private Long artCommitNum;
+    @Column(name = "art_comment_num")
+    private Long artCommentNum;
 
     @Column(name = "art_content")
     private String artContent;
@@ -152,15 +152,15 @@ public class Art {
     /**
      * @return art_commit_num
      */
-    public Long getArtCommitNum() {
-        return artCommitNum;
+    public Long getArtCommentNum() {
+        return artCommentNum;
     }
 
     /**
-     * @param artCommitNum
+     * @param artCommentNum
      */
-    public void setArtCommitNum(Long artCommitNum) {
-        this.artCommitNum = artCommitNum;
+    public void setArtCommentNum(Long artCommentNum) {
+        this.artCommentNum = artCommentNum;
     }
 
     /**

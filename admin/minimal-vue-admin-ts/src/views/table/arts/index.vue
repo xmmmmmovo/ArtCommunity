@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-input
         v-model="listQuery.title"
-        :placeholder="搜索管理员名"
+        :placeholder="搜索作品名"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="handleFilter"

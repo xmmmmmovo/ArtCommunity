@@ -25,7 +25,8 @@ public class CommentController {
     @PostMapping("/add")
     public Result add(Comment comment) {
         commentService.save(comment);
-        return ResultGenerator.genSuccessResult();
+        comment = commentService.findById(comment.getId());
+        return ResultGenerator.genSuccessResult(comment);
     }
 
     @PostMapping("/delete")
