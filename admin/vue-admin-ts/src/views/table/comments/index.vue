@@ -46,27 +46,11 @@
         </template>
       </el-table-column>
       <el-table-column
-        min-width="250px"
-        label="Title"
+        label="commentContent"
+        align="center"
       >
-        <template slot-scope="{row}">
-          <template v-if="row.edit">
-            <el-input
-              v-model="row.commentContent"
-              class="edit-input"
-              size="small"
-            />
-            <el-button
-              class="cancel-btn"
-              size="small"
-              icon="el-icon-refresh"
-              type="warning"
-              @click="cancelEdit(row)"
-            >
-              cancel
-            </el-button>
-          </template>
-          <span v-else>{{ row.commentContent }}</span>
+        <template slot-scope="scope">
+          <span>{{ scope.row.commentContent }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -102,25 +86,13 @@
       >
         <template slot-scope="{row}">
           <el-button
-            v-if="row.edit"
-            type="success"
-            size="small"
-            icon="el-icon-circle-check-outline"
-            @click="confirmEdit(row)"
-          >
-            Ok
-          </el-button>
-          <el-button
-            v-else
             type="primary"
-            size="small"
-            icon="el-icon-edit"
-            @click="row.edit=!row.edit"
+            size="mini"
+            @click="handleUpdate(row)"
           >
             Edit
           </el-button>
           <el-button
-            v-else
             size="mini"
             type="danger"
             @click="deleteData(row)"
@@ -139,6 +111,42 @@
       :limit.sync="listQuery.limit"
       @pagination="getList"
     />
+
+    <!--        修改用的dialog-->
+    <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+    >
+      <el-form
+        ref="dataForm"
+        :rules="rules"
+        :model="tempCommentData"
+        label-position="left"
+        label-width="100px"
+        style="width: 400px; margin-left:50px;"
+      >
+        <el-form-item
+          label="内容"
+          prop="commentContent"
+        >
+          <el-input v-model="tempCommentData.commentContent" />
+        </el-form-item>
+      </el-form>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button
+          type="primary"
+          @click="dialogStatus==='create'?createData():updateData()"
+        >
+          确定
+        </el-button>
+      </div>
+    </el-dialog>
 
   </div>
 </template>
@@ -164,7 +172,7 @@ import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import * as moment from 'moment'
 import da from "element-ui/src/locale/lang/da";
-import row from "element-ui/packages/row/src/row";
+import {updateArticle} from "@/api/articles";
 
 @Component({
   name: 'CommentsTable',
@@ -187,33 +195,10 @@ export default class extends Vue {
   private dialogFormVisible = false
   private dialogStatus = ''
   private rules = {
-    commentName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    commentEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    commentContent: [{ required: true, message: '这个必须的', trigger: 'change' }],
   }
   private downloadLoading = false
   private tempCommentData = defaultCommentData
-  private password = ''
-  private postData = {
-    key: '',
-    token: ''
-  }
-  private backUrl = 'http://q3lynq058.bkt.clouddn.com/'
-
-
-  private beforeAvatarUpload(file: any) {
-    this.postData.key = file.name;
-    const isJPG = file.type === "image/jpeg";
-    const isPNG = file.type === "image/png";
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isJPG && !isPNG) {
-      this.$message.error("图片只能是 JPG/PNG 格式!");
-      return false;
-    }
-    if (!isLt2M) {
-      this.$message.error("图片大小不能超过 2MB!");
-      return false;
-    }
-  }
 
 
   private dateFormater(row: any, column: any) {
@@ -234,26 +219,12 @@ export default class extends Vue {
     formData.append('page', this.listQuery.page.toString())
     formData.append('size', this.listQuery.size.toString())
     const { data } = await getComments(formData)
-    const items = data.items
-    this.list = items.map((v: any) => {
-      this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
-      v.originalTitle = v.commentContent // will be used when user click the cancel botton
-      return v
-    })
+    this.list = data.list
     this.total = data.total
     // Just to simulate the time of the request
     setTimeout(() => {
       this.listLoading = false
     }, 0.5 * 1000)
-  }
-
-  private cancelEdit(row: any) {
-    row.commentContent = row.originalTitle
-    row.edit = false
-    this.$message({
-      message: 'The title has been restored to the original value',
-      type: 'warning'
-    })
   }
 
   private handleFilter() {
@@ -269,20 +240,21 @@ export default class extends Vue {
     row.status = status
   }
 
-  private async confirmEdit(row: any) {
-    row.edit = false
-    row.originalTitle = row.commentContent
-    this.updateData(row)
-    this.$message({
-      message: 'The title has been edited',
-      type: 'success'
+  private handleUpdate(row: any) {
+    this.tempCommentData = Object.assign({}, row)
+    this.dialogStatus = 'update'
+    this.dialogFormVisible = true
+    this.$nextTick(() => {
+      (this.$refs['dataForm'] as Form).clearValidate()
     })
   }
 
-  private async updateData(temp: any) {
+  private updateData() {
+    (this.$refs['dataForm'] as Form).validate(async(valid) => {
+      if (valid) {
         let formData = new FormData()
-        formData.append('id', temp.id.toString())
-        formData.append('commentContent', temp.commentContent)
+        formData.append('id', this.tempCommentData.id.toString())
+        formData.append('commentContent', this.tempCommentData.commentContent)
         const { data } = await updateComment(formData)
 
         for (const v of this.list) {
@@ -291,6 +263,7 @@ export default class extends Vue {
             this.list.splice(index, 1, data)
             break
           }
+        }
         this.dialogFormVisible = false
         this.$notify({
           title: '成功',
@@ -298,6 +271,7 @@ export default class extends Vue {
           type: 'success'
         })
       }
+    })
   }
 
   private deleteData(row: any) {

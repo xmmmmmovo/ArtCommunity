@@ -105,4 +105,16 @@ public class Article {
     public void setArticleContent(String articleContent) {
         this.articleContent = articleContent;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", articleFront='" + articleFront + '\'' +
+                ", articleTitle='" + articleTitle + '\'' +
+                ", createTime=" + createTime +
+                ", articleAuthor=" + articleAuthor +
+                ", articleContent='" + articleContent + '\'' +
+                '}';
+    }
 }

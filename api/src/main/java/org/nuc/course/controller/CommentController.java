@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by xmmmmmovo on 2020/01/04.
-*/
+ * Created by xmmmmmovo on 2020/01/04.
+ */
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -38,7 +38,8 @@ public class CommentController {
     @PatchMapping("/update")
     public Result update(Comment comment) {
         commentService.update(comment);
-        return ResultGenerator.genSuccessResult();
+        CommentDTO commentDTO = commentService.findADTO(comment.getId());
+        return ResultGenerator.genSuccessResult(commentDTO);
     }
 
     @GetMapping("/detail")

@@ -40,7 +40,7 @@ public class ArticleController {
     public Result update(Article article) {
         articleService.update(article);
         ArticleDTO articleDTO = articleService.findADTO(article.getId());
-        return ResultGenerator.genSuccessResult(articleDTO);
+        return ResultGenerator.genSuccessResult(article);
     }
 
     @GetMapping("/detail")

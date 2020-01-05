@@ -1,8 +1,11 @@
 package org.nuc.course.dto;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
+@Data
 public class CommentDTO {
     @Id
     private Long id;
