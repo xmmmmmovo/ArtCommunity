@@ -18,6 +18,12 @@ export const getUsers = (data: any) =>
     data
   })
 
+export const getUsersAll = () =>
+  request({
+    url: '/user/all',
+    method: 'GET'
+  })
+
 export const getUserDetail = (data: any) =>
   request({
     url: '/user/detail',

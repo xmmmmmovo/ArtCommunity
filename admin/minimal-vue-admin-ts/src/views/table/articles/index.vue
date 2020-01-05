@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-input
         v-model="listQuery.title"
-        :placeholder="搜索管理员名"
+        :placeholder="搜索文章标题名"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="handleFilter"
@@ -57,10 +57,10 @@
       </el-table-column>
 
       <el-table-column
-        label="registerTime"
+        label="createTime"
         align="center"
         :formatter="dateFormater"
-        prop="registerTime"
+        prop="createTime"
       >
       </el-table-column>
       <el-table-column
@@ -238,9 +238,12 @@ import {
   getUserInfo
 } from '@/api/admins'
 import {
+  getUsersAll
+} from "@/api/users";
+import {
   getToken
 } from '@/api/token'
-import {IAdminData, IArticleData} from '@/api/types'
+import {IAdminData, IArticleData, IUserData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
@@ -255,6 +258,8 @@ import {genUpToken} from "@/utils/token";
 })
 export default class extends Vue {
   private list: IAdminData[] = []
+  private userList: IUserData[] = []
+  private userMap = {}
   private total = 0
   private listLoading = true
   private listQuery = {
@@ -312,6 +317,13 @@ export default class extends Vue {
   created() {
     this.getList()
     this.genToken()
+    this.getUsers()
+  }
+
+  private async getUsers() {
+    const { data } = await getUsersAll()
+    this.userList = data
+    console.log(this.userList)
   }
 
   private async genToken() {

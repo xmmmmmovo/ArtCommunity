@@ -1,21 +1,3 @@
-export interface IArticleData {
-  id: number
-  status: string
-  title: string
-  abstractContent: string
-  fullContent: string
-  sourceURL: string
-  imageURL: string
-  timestamp: string | number
-  platforms: string[]
-  disableComment: boolean
-  importance: number
-  author: string
-  reviewer: string
-  type: string
-  pageviews: number
-}
-
 export interface IAdminData {
   id: bigint
   adminName: string
@@ -46,4 +28,13 @@ export interface IUserData {
   registerTime: string | number
   userBio: string
   userSex: string
+}
+
+export interface IArticleData {
+  id: bigint
+  articleContent: string
+  articleFront: string
+  articleTitle: string
+  createTime: string
+  articleAuthor: bigint
 }

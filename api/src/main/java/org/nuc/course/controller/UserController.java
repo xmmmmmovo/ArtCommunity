@@ -65,4 +65,10 @@ public class UserController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @GetMapping("/all")
+    public Result all() {
+        List<User> list = userService.findAll();
+        return ResultGenerator.genSuccessResult(list);
+    }
 }
