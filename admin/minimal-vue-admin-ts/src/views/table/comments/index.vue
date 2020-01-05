@@ -1,31 +1,6 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
-        v-model="listQuery.title"
-        :placeholder="搜索管理员名"
-        style="width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleFilter"
-      />
-      <el-button
-        v-waves
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >
-        搜索
-      </el-button>
-      <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="handleCreate"
-      >
-        添加
-      </el-button>
       <el-button
         v-waves
         :loading="downloadLoading"
@@ -57,46 +32,68 @@
       </el-table-column>
 
       <el-table-column
-        label="registerTime"
+        label="commentTime"
         align="center"
         :formatter="dateFormater"
-        prop="registerTime"
+        prop="commentTime"
       >
       </el-table-column>
       <el-table-column
-        label="adminName"
+        label="userName"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminName }}</span>
+          <span>{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        min-width="250px"
+        label="Title"
+      >
+        <template slot-scope="{row}">
+          <template v-if="row.edit">
+            <el-input
+              v-model="row.commentContent"
+              class="edit-input"
+              size="small"
+            />
+            <el-button
+              class="cancel-btn"
+              size="small"
+              icon="el-icon-refresh"
+              type="warning"
+              @click="cancelEdit(row)"
+            >
+              cancel
+            </el-button>
+          </template>
+          <span v-else>{{ row.commentContent }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="artId"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminEmail }}</span>
+          <span>{{ scope.row.artId }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminAvatar"
-        width="130px"
+        label="artName"
+        align="center"
       >
         <template slot-scope="scope">
-          <el-image
-            :fit="contain"
-            :src='scope.row.adminAvatar'
-          >
-          </el-image>
+          <span>{{ scope.row.artName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="roles"
+        label="commentLikeCount"
+        align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.roles }}</span>
+          <span>{{ scope.row.commentLikeCount }}</span>
         </template>
       </el-table-column>
+
       <el-table-column
         label="操作"
         align="center"
@@ -105,13 +102,25 @@
       >
         <template slot-scope="{row}">
           <el-button
-            type="primary"
-            size="mini"
-            @click="handleUpdate(row)"
+            v-if="row.edit"
+            type="success"
+            size="small"
+            icon="el-icon-circle-check-outline"
+            @click="confirmEdit(row)"
           >
-            编辑
+            Ok
           </el-button>
           <el-button
+            v-else
+            type="primary"
+            size="small"
+            icon="el-icon-edit"
+            @click="row.edit=!row.edit"
+          >
+            Edit
+          </el-button>
+          <el-button
+            v-else
             size="mini"
             type="danger"
             @click="deleteData(row)"
@@ -131,96 +140,6 @@
       @pagination="getList"
     />
 
-
-<!--        修改用的dialog-->
-        <el-dialog
-          :title="textMap[dialogStatus]"
-          :visible.sync="dialogFormVisible"
-        >
-          <el-form
-            ref="dataForm"
-            :rules="rules"
-            :model="tempAdminData"
-            label-position="left"
-            label-width="100px"
-            style="width: 400px; margin-left:50px;"
-          >
-            <el-form-item
-              label="管理员编号"
-            >
-              <span v-model="tempAdminData.id" />
-            </el-form-item>
-            <el-form-item
-              label="管理员姓名"
-              prop="adminName"
-            >
-              <el-input v-model="tempAdminData.adminName" />
-            </el-form-item>
-            <el-form-item
-              label="管理员邮箱"
-              prop="adminEmail"
-            >
-              <el-input v-model="tempAdminData.adminEmail" />
-            </el-form-item>
-            <el-form-item
-              v-if="dialogStatus==='create'"
-              label="管理员密码"
-            >
-              <el-input v-model="password" />
-            </el-form-item>
-            <el-form-item
-              label="权限"
-              prop="roles"
-            >
-              <el-select
-                v-model="tempAdminData.roles"
-                class="filter-item"
-                placeholder="admin"
-              >
-                <el-option
-                  key="admin"
-                  label="admin"
-                  value="admin"
-                />
-                <el-option
-                  key="editor"
-                  label="editor"
-                  value="editor"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item
-              label="管理员头像"
-            >
-              <el-upload
-                class="avatar-uploader"
-                action="https://upload-z1.qiniup.com"
-                :show-file-list="false"
-                :data="postData"
-                :on-success="onCropUploadSuccess"
-                :before-upload="beforeAvatarUpload">
-                <img v-if="tempAdminData.adminAvatar" :src="tempAdminData.adminAvatar" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload>
-            </el-form-item>
-          </el-form>
-          <div
-            slot="footer"
-            class="dialog-footer"
-          >
-            <el-button @click="dialogFormVisible = false">
-              取消
-            </el-button>
-            <el-button
-              type="primary"
-              @click="dialogStatus==='create'?createData():updateData()"
-            >
-              确定
-            </el-button>
-          </div>
-        </el-dialog>
-
   </div>
 </template>
 
@@ -229,32 +148,32 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
 import {
-  getAdmins,
-  createAdmin,
-  getAdminDetail,
-  updateAdmin,
-  deleteAdmin,
-  defaultAdminData,
-  getUserInfo
-} from '@/api/admins'
+  getComments,
+  createComment,
+  getCommentDetail,
+  updateComment,
+  deleteComment,
+  defaultCommentData,
+} from '@/api/comments'
 import {
   getToken
 } from '@/api/token'
-import {IAdminData, IArticleData} from '@/api/types'
+import {ICommentData, IArticleData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import * as moment from 'moment'
-import {genUpToken} from "@/utils/token";
+import da from "element-ui/src/locale/lang/da";
+import row from "element-ui/packages/row/src/row";
 
 @Component({
-  name: 'AdminsTable',
+  name: 'CommentsTable',
   components: {
     Pagination
   }
 })
 export default class extends Vue {
-  private list: IAdminData[] = []
+  private list: ICommentData[] = []
   private total = 0
   private listLoading = true
   private listQuery = {
@@ -268,11 +187,11 @@ export default class extends Vue {
   private dialogFormVisible = false
   private dialogStatus = ''
   private rules = {
-    adminName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    adminEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    commentName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
+    commentEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
-  private tempAdminData = defaultAdminData
+  private tempCommentData = defaultCommentData
   private password = ''
   private postData = {
     key: '',
@@ -280,10 +199,6 @@ export default class extends Vue {
   }
   private backUrl = 'http://q3lynq058.bkt.clouddn.com/'
 
-
-  private onCropUploadSuccess(res: any, file: any) {
-    this.tempAdminData.adminAvatar = this.backUrl + res.key
-  }
 
   private beforeAvatarUpload(file: any) {
     this.postData.key = file.name;
@@ -311,12 +226,6 @@ export default class extends Vue {
 
   created() {
     this.getList()
-    this.genToken()
-  }
-
-  private async genToken() {
-    let data = await getToken()
-    this.postData.token = data.data
   }
 
   private async getList() {
@@ -324,13 +233,27 @@ export default class extends Vue {
     let formData = new FormData()
     formData.append('page', this.listQuery.page.toString())
     formData.append('size', this.listQuery.size.toString())
-    const { data } = await getAdmins(formData)
-    this.list = data.list
+    const { data } = await getComments(formData)
+    const items = data.items
+    this.list = items.map((v: any) => {
+      this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
+      v.originalTitle = v.commentContent // will be used when user click the cancel botton
+      return v
+    })
     this.total = data.total
     // Just to simulate the time of the request
     setTimeout(() => {
       this.listLoading = false
     }, 0.5 * 1000)
+  }
+
+  private cancelEdit(row: any) {
+    row.commentContent = row.originalTitle
+    row.edit = false
+    this.$message({
+      message: 'The title has been restored to the original value',
+      type: 'warning'
+    })
   }
 
   private handleFilter() {
@@ -346,64 +269,21 @@ export default class extends Vue {
     row.status = status
   }
 
-  private resetTempData() {
-    this.tempAdminData = cloneDeep(defaultAdminData)
-  }
-
-  private handleCreate() {
-    this.resetTempData()
-    this.dialogStatus = 'create'
-    this.dialogFormVisible = true
-    this.$nextTick(() => {
-      (this.$refs['dataForm'] as Form).clearValidate()
+  private async confirmEdit(row: any) {
+    row.edit = false
+    row.originalTitle = row.commentContent
+    this.updateData(row)
+    this.$message({
+      message: 'The title has been edited',
+      type: 'success'
     })
   }
 
-  // 创建新用户
-  private createData() {
-    (this.$refs['dataForm'] as Form).validate(async(valid) => {
-      if (valid) {
-        let { id, ...Data } = this.tempAdminData
+  private async updateData(temp: any) {
         let formData = new FormData()
-        formData.append('adminName', Data.adminName)
-        formData.append('adminEmail', Data.adminEmail)
-        formData.append('adminPassword', this.password)
-        formData.append('adminAvatar', Data.adminAvatar)
-        formData.append('roles', Data.roles)
-        let datas = await createAdmin(formData)
-        datas = datas.data
-        console.log(datas)
-        this.list.unshift(datas)
-        this.dialogFormVisible = false
-        this.password = ''
-        this.$notify({
-          title: '成功',
-          message: '创建成功',
-          type: 'success'
-        })
-      }
-    })
-  }
-
-  private handleUpdate(row: any) {
-    this.tempAdminData = Object.assign({}, row)
-    this.dialogStatus = 'update'
-    this.dialogFormVisible = true
-    this.$nextTick(() => {
-      (this.$refs['dataForm'] as Form).clearValidate()
-    })
-  }
-
-  private updateData() {
-    (this.$refs['dataForm'] as Form).validate(async(valid) => {
-      if (valid) {
-        let formData = new FormData()
-        formData.append('id', this.tempAdminData.id.toString())
-        formData.append('adminName', this.tempAdminData.adminName)
-        formData.append('adminEmail', this.tempAdminData.adminEmail)
-        formData.append('roles', this.tempAdminData.roles)
-        formData.append('adminAvatar', this.tempAdminData.adminAvatar)
-        const { data } = await updateAdmin(formData)
+        formData.append('id', temp.id.toString())
+        formData.append('commentContent', temp.commentContent)
+        const { data } = await updateComment(formData)
 
         for (const v of this.list) {
           if (v.id == data.id) {
@@ -411,7 +291,6 @@ export default class extends Vue {
             this.list.splice(index, 1, data)
             break
           }
-        }
         this.dialogFormVisible = false
         this.$notify({
           title: '成功',
@@ -419,7 +298,6 @@ export default class extends Vue {
           type: 'success'
         })
       }
-    })
   }
 
   private deleteData(row: any) {
@@ -428,12 +306,12 @@ export default class extends Vue {
       cancelButtonText: '取消',
       type: 'warning'
       }).then(async () => {
-      this.tempAdminData = Object.assign({}, row)
+      this.tempCommentData = Object.assign({}, row)
       let formData = new FormData()
-      formData.append('id', this.tempAdminData.id.toString())
-      const { data } = await deleteAdmin(formData)
+      formData.append('id', this.tempCommentData.id.toString())
+      const { data } = await deleteComment(formData)
       for (const v of this.list) {
-        if (v.id == this.tempAdminData.id) {
+        if (v.id == this.tempCommentData.id) {
           const index = this.list.indexOf(v)
           this.list.splice(index, 1)
           break
@@ -454,8 +332,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
-    const filterVal = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
+    const tHeader = ['id', 'commentName', 'commentEmail', 'registerTime', 'roles']
+    const filterVal = ['id', 'commentName', 'commentEmail', 'registerTime', 'roles']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false

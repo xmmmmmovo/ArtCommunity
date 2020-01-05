@@ -11,6 +11,5 @@
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="comment_time" jdbcType="BIGINT" property="commentTime" />
     <result column="comment_like_count" jdbcType="BIGINT" property="commentLikeCount" />
-    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
   </resultMap>
 </mapper>

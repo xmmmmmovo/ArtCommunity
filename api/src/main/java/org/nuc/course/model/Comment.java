@@ -22,9 +22,6 @@ public class Comment {
     @Column(name = "comment_like_count")
     private Long commentLikeCount;
 
-    @Column(name = "comment_count")
-    private Integer commentCount;
-
     /**
      * @return id
      */
@@ -107,19 +104,5 @@ public class Comment {
      */
     public void setCommentLikeCount(Long commentLikeCount) {
         this.commentLikeCount = commentLikeCount;
-    }
-
-    /**
-     * @return comment_count
-     */
-    public Integer getCommentCount() {
-        return commentCount;
-    }
-
-    /**
-     * @param commentCount
-     */
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
     }
 }

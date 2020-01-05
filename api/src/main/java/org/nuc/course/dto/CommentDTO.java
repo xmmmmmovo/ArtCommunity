@@ -10,6 +10,7 @@ public class CommentDTO {
     private String userName;
     private String commentContent;
     private Long parentId;
+    private Long artId;
     private String artName;
     private Long commentTime;
     private Long commentLikeCount;

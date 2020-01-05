@@ -1,4 +1,5 @@
 package org.nuc.course.db.service;
+import org.nuc.course.dto.ArticleDTO;
 import org.nuc.course.dto.CommentDTO;
 import org.nuc.course.model.Comment;
 import org.nuc.course.db.service.Service;
@@ -11,4 +12,5 @@ import java.util.List;
  */
 public interface CommentService extends Service<Comment> {
     List<CommentDTO> findAllList();
+    CommentDTO findADTO(Long id);
 }

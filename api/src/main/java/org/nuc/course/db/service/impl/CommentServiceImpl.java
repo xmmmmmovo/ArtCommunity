@@ -25,4 +25,9 @@ public class CommentServiceImpl extends AbstractService<Comment> implements Comm
     public List<CommentDTO> findAllList() {
         return commentMapper.findAllDTO();
     }
+
+    @Override
+    public CommentDTO findADTO(Long id) {
+        return commentMapper.findIdDTO(id);
+    }
 }

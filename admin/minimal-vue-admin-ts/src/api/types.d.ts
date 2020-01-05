@@ -41,19 +41,31 @@ export interface IArticleData {
 }
 
 export interface IArtData {
-  id: bigint;
-  artName: string;
-  createTime: bigint;
-  modifiedTime: bigint;
-  artAuthor: bigint;
-  userName: string;
-  artSize: bigint;
-  length: string;
-  height: string;
-  artTag: bigint;
-  tagName: string;
-  artLikeNum: bigint;
-  artCommentNum: bigint;
-  artContent: string;
-  artPicUrl: string;
+  id: bigint
+  artName: string
+  createTime: bigint
+  modifiedTime: bigint
+  artAuthor: bigint
+  userName: string
+  artSize: bigint
+  length: string
+  height: string
+  artTag: bigint
+  tagName: string
+  artLikeNum: bigint
+  artCommentNum: bigint
+  artContent: string
+  artPicUrl: string
+}
+
+export interface ICommentData {
+  id: bigint
+  commentBy: bigint
+  userName: string
+  commentContent: string
+  parentId: bigint
+  artId: bigint
+  artName: string
+  commentTime: bigint
+  commentLikeCount: bigint
 }

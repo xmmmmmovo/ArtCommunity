@@ -6,6 +6,7 @@ import org.nuc.course.model.Comment;
 import org.nuc.course.db.service.CommentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.nuc.course.utils.DateUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,9 +23,10 @@ public class CommentController {
 
     @PostMapping("/add")
     public Result add(Comment comment) {
+        comment.setCommentTime(DateUtils.getTimeStamp());
         commentService.save(comment);
-        comment = commentService.findById(comment.getId());
-        return ResultGenerator.genSuccessResult(comment);
+        CommentDTO commentDTO = commentService.findADTO(comment.getId());
+        return ResultGenerator.genSuccessResult(commentDTO);
     }
 
     @DeleteMapping("/delete")
