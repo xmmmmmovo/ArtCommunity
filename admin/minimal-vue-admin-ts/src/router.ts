@@ -49,7 +49,7 @@ export default new Router({
       children: [
         {
           path: 'admin-editor',
-          component: () => import('@/views/admins/admin/index.vue'),
+          component: () => import('@/views/admins/index.vue'),
           meta: {
             title: '管理员管理',
             icon: 'admin'

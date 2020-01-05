@@ -78,7 +78,7 @@ class Admin extends VuexModule implements IAdminState {
     if (!data) {
       throw Error('验证失败！请重新登录')
     }
-    let role: string = data.role
+    let role: string = data.roles
     let roles: string[] = []
     if (role === 'admin') {
       roles.push('admin', 'editor')

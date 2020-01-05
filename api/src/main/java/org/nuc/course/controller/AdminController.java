@@ -1,5 +1,6 @@
 package org.nuc.course.controller;
 
+import com.alibaba.druid.sql.visitor.functions.Isnull;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nuc.course.core.Result;
@@ -82,11 +83,11 @@ public class AdminController {
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,
-            @RequestParam String name
+            @RequestParam(defaultValue = "") String name
     ) {
         PageHelper.startPage(page, size);
         List<Admin> list;
-        if (name == null) {
+        if (name.equals("")) {
             list = adminService.findAll();
         } else {
             list = adminService.findByAndReturnList("adminName", name);

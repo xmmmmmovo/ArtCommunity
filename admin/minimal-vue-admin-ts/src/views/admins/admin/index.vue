@@ -193,22 +193,16 @@
             <el-form-item
               label="管理员头像"
             >
-              <el-image
-                :src="tempAdminData.adminAvatar"
-                :fit="contain"
-                @click="toggleShow"
-              />
-              <el-dialog
-                v-model="showImageUpload"
-                field="avatar"
-                :width="300"
-                :height="300"
-                :params="params"
-                :headers="headers"
-                url="https://httpbin.org/post"
-                @close="onClose"
-                @crop-upload-success="onCropUploadSuccess"
-              />
+              <el-upload
+                class="avatar-uploader"
+                action="https://upload-z1.qiniup.com"
+                :show-file-list="false"
+                :data="postData"
+                :on-success="onCropUploadSuccess"
+                :before-upload="beforeAvatarUpload">
+                <img v-if="tempAdminData.adminAvatar" :src="tempAdminData.adminAvatar" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
             </el-form-item>
           </el-form>
           <div
@@ -243,11 +237,15 @@ import {
   defaultAdminData,
   getUserInfo
 } from '@/api/admins'
+import {
+  getToken
+} from '@/api/token'
 import {IAdminData, IArticleData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import * as moment from 'moment'
+import {genUpToken} from "@/utils/token";
 
 @Component({
   name: 'AdminsTable',
@@ -269,7 +267,6 @@ export default class extends Vue {
   }
   private dialogFormVisible = false
   private dialogStatus = ''
-  private showImageUpload = false
   private rules = {
     adminName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
     adminEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
@@ -277,19 +274,32 @@ export default class extends Vue {
   private downloadLoading = false
   private tempAdminData = defaultAdminData
   private password = ''
+  private postData = {
+    key: '',
+    token: ''
+  }
+  private backUrl = 'http://q3lynq058.bkt.clouddn.com/'
 
-  private onCropUploadSuccess(jsonData: any, field: string) {
-    this.showImageUpload = false
-    this.tempAdminData.adminAvatar = jsonData.files[field]
+
+  private onCropUploadSuccess(res: any, file: any) {
+    this.tempAdminData.adminAvatar = this.backUrl + res.key
   }
 
-  private onClose() {
-    this.showImageUpload = false
+  private beforeAvatarUpload(file: any) {
+    this.postData.key = file.name;
+    const isJPG = file.type === "image/jpeg";
+    const isPNG = file.type === "image/png";
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isJPG && !isPNG) {
+      this.$message.error("图片只能是 JPG/PNG 格式!");
+      return false;
+    }
+    if (!isLt2M) {
+      this.$message.error("图片大小不能超过 2MB!");
+      return false;
+    }
   }
 
-  private toggleShow() {
-    this.showImageUpload = !this.showImageUpload
-  }
 
   private dateFormater(row: any, column: any) {
     var date = row[column.property];
@@ -301,6 +311,12 @@ export default class extends Vue {
 
   created() {
     this.getList()
+    this.genToken()
+  }
+
+  private async genToken() {
+    let data = await getToken()
+    this.postData.token = data.data
   }
 
   private async getList() {
@@ -448,9 +464,27 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
   .avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 </style>
