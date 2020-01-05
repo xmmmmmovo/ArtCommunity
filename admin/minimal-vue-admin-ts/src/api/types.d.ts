@@ -39,3 +39,21 @@ export interface IArticleData {
   articleAuthor: bigint
   userName: string
 }
+
+export interface IArtData {
+  id: bigint;
+  artName: string;
+  createTime: bigint;
+  modifiedTime: bigint;
+  artAuthor: bigint;
+  userName: string;
+  artSize: bigint;
+  length: string;
+  height: string;
+  artTag: bigint;
+  tagName: string;
+  artLikeNum: bigint;
+  artCommentNum: bigint;
+  artContent: string;
+  artPicUrl: string;
+}

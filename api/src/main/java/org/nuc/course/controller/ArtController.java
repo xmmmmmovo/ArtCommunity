@@ -51,7 +51,7 @@ public class ArtController {
     @GetMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
+            @RequestParam(defaultValue = "20") Integer size) {
         PageHelper.startPage(page, size);
         List<ArtDTO> list = artService.findAllList();
         PageInfo pageInfo = new PageInfo(list);

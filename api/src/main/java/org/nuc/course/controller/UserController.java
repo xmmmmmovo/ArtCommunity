@@ -59,8 +59,7 @@ public class UserController {
 
     @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page,
-                       @RequestParam(defaultValue = "0") Integer size,
-                       @RequestParam(defaultValue = "") String name) {
+                       @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<User> list = userService.findAll();
         PageInfo pageInfo = new PageInfo(list);

@@ -57,35 +57,90 @@
       </el-table-column>
 
       <el-table-column
-        label="registerTime"
+        label="createTime"
         align="center"
         :formatter="dateFormater"
-        prop="registerTime"
+        prop="createTime"
       >
       </el-table-column>
       <el-table-column
-        label="adminName"
+        label="modifiedTime"
+        align="center"
+        :formatter="dateFormater"
+        prop="modifiedTime"
+      >
+      </el-table-column>
+      <el-table-column
+        label="artName"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminName }}</span>
+          <span>{{ scope.row.artName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        label="userName"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminEmail }}</span>
+          <span>{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminAvatar"
+        label="length"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.length }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="height"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.height }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="tagName"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.tagName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="artLikeNum"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.artLikeNum }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="artCommentNum"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.artCommentNum }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="artContent"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.artContent }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="artPicUrl"
         width="130px"
       >
         <template slot-scope="scope">
           <el-image
             :fit="contain"
-            :src='scope.row.adminAvatar'
+            :src='scope.row.artPicUrl'
           >
           </el-image>
         </template>
@@ -140,58 +195,64 @@
           <el-form
             ref="dataForm"
             :rules="rules"
-            :model="tempAdminData"
+            :model="tempArtData"
             label-position="left"
             label-width="100px"
             style="width: 400px; margin-left:50px;"
           >
             <el-form-item
-              label="管理员编号"
+              label="作品名"
+              prop="artName"
             >
-              <span v-model="tempAdminData.id" />
+              <el-input v-model="tempArtData.artName" />
             </el-form-item>
+
             <el-form-item
-              label="管理员姓名"
-              prop="adminName"
-            >
-              <el-input v-model="tempAdminData.adminName" />
-            </el-form-item>
-            <el-form-item
-              label="管理员邮箱"
-              prop="adminEmail"
-            >
-              <el-input v-model="tempAdminData.adminEmail" />
-            </el-form-item>
-            <el-form-item
-              v-if="dialogStatus==='create'"
-              label="管理员密码"
-            >
-              <el-input v-model="password" />
-            </el-form-item>
-            <el-form-item
-              label="权限"
-              prop="roles"
+              label="作者名"
+              prop="articleAuthor"
             >
               <el-select
-                v-model="tempAdminData.roles"
+                v-model="tempArticleData.articleAuthor"
                 class="filter-item"
-                placeholder="admin"
+                placeholder="{{tempArticleData.articleAuthor}}"
               >
                 <el-option
-                  key="admin"
-                  label="admin"
-                  value="admin"
+                  v-for="item in userList"
+                  :key="item.id"
+                  :label="item.userName"
+                  :value="item.id"
                 />
-                <el-option
-                  key="editor"
-                  label="editor"
-                  value="editor"
-                >
-                </el-option>
               </el-select>
             </el-form-item>
+
             <el-form-item
-              label="管理员头像"
+              label="作品类型"
+              prop="userName"
+            >
+              <el-input v-model="tempArtData.userName" />
+            </el-form-item>
+
+            <el-form-item
+              label="作品尺寸"
+              prop="articleAuthor"
+            >
+              <el-select
+                v-model="tempArticleData.articleAuthor"
+                class="filter-item"
+                placeholder="{{tempArticleData.articleAuthor}}"
+              >
+                <el-option
+                  v-for="item in userList"
+                  :key="item.id"
+                  :label="item.userName"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+
+
+            <el-form-item
+              label="作品图片"
             >
               <el-upload
                 class="avatar-uploader"
@@ -200,9 +261,21 @@
                 :data="postData"
                 :on-success="onCropUploadSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img v-if="tempAdminData.adminAvatar" :src="tempAdminData.adminAvatar" class="avatar">
+                <img v-if="tempArtData.artAvatar" :src="tempArtData.artAvatar" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
+            </el-form-item>
+
+            <el-form-item
+              label="作品描述"
+              prop="articleContent"
+            >
+              <el-input
+                v-model="tempArtData.artContent"
+                :autosize="{minRows: 3, maxRows: 5}"
+                type="textarea"
+                placeholder="请在此输入"
+              />
             </el-form-item>
           </el-form>
           <div
@@ -229,32 +302,33 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
 import {
-  getAdmins,
-  createAdmin,
-  getAdminDetail,
-  updateAdmin,
-  deleteAdmin,
-  defaultAdminData,
-  getUserInfo
-} from '@/api/admins'
+  getArts,
+  createArt,
+  getArtDetail,
+  updateArt,
+  deleteArt,
+  defaultArtData,
+} from '@/api/arts'
 import {
   getToken
 } from '@/api/token'
-import {IAdminData, IArticleData} from '@/api/types'
+import {IArtData, IArticleData, ISizeData, ITagData, IUserData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import * as moment from 'moment'
-import {genUpToken} from "@/utils/token";
 
 @Component({
-  name: 'AdminsTable',
+  name: 'ArtsTable',
   components: {
     Pagination
   }
 })
 export default class extends Vue {
-  private list: IAdminData[] = []
+  private list: IArtData[] = []
+  private userList: IUserData[] = []
+  private tagList: ITagData[] = []
+  private sizeList: ISizeData[] = []
   private total = 0
   private listLoading = true
   private listQuery = {
@@ -268,11 +342,11 @@ export default class extends Vue {
   private dialogFormVisible = false
   private dialogStatus = ''
   private rules = {
-    adminName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    adminEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    artName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
+    artEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
-  private tempAdminData = defaultAdminData
+  private tempArtData = defaultArtData
   private password = ''
   private postData = {
     key: '',
@@ -282,7 +356,7 @@ export default class extends Vue {
 
 
   private onCropUploadSuccess(res: any, file: any) {
-    this.tempAdminData.adminAvatar = this.backUrl + res.key
+    this.tempArtData.artPicUrl = this.backUrl + res.key
   }
 
   private beforeAvatarUpload(file: any) {
@@ -324,7 +398,7 @@ export default class extends Vue {
     let formData = new FormData()
     formData.append('page', this.listQuery.page.toString())
     formData.append('size', this.listQuery.size.toString())
-    const { data } = await getAdmins(formData)
+    const { data } = await getArts(formData)
     this.list = data.list
     this.total = data.total
     // Just to simulate the time of the request
@@ -347,7 +421,7 @@ export default class extends Vue {
   }
 
   private resetTempData() {
-    this.tempAdminData = cloneDeep(defaultAdminData)
+    this.tempArtData = cloneDeep(defaultArtData)
   }
 
   private handleCreate() {
@@ -363,14 +437,14 @@ export default class extends Vue {
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        let { id, ...Data } = this.tempAdminData
+        let { id, ...Data } = this.tempArtData
         let formData = new FormData()
-        formData.append('adminName', Data.adminName)
-        formData.append('adminEmail', Data.adminEmail)
-        formData.append('adminPassword', this.password)
-        formData.append('adminAvatar', Data.adminAvatar)
+        formData.append('artName', Data.artName)
+        formData.append('artEmail', Data.artEmail)
+        formData.append('artPassword', this.password)
+        formData.append('artAvatar', Data.artAvatar)
         formData.append('roles', Data.roles)
-        let datas = await createAdmin(formData)
+        let datas = await createArt(formData)
         datas = datas.data
         console.log(datas)
         this.list.unshift(datas)
@@ -386,7 +460,7 @@ export default class extends Vue {
   }
 
   private handleUpdate(row: any) {
-    this.tempAdminData = Object.assign({}, row)
+    this.tempArtData = Object.assign({}, row)
     this.dialogStatus = 'update'
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -398,12 +472,12 @@ export default class extends Vue {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
         let formData = new FormData()
-        formData.append('id', this.tempAdminData.id.toString())
-        formData.append('adminName', this.tempAdminData.adminName)
-        formData.append('adminEmail', this.tempAdminData.adminEmail)
-        formData.append('roles', this.tempAdminData.roles)
-        formData.append('adminAvatar', this.tempAdminData.adminAvatar)
-        const { data } = await updateAdmin(formData)
+        formData.append('id', this.tempArtData.id.toString())
+        formData.append('artName', this.tempArtData.artName)
+        formData.append('artEmail', this.tempArtData.artEmail)
+        formData.append('roles', this.tempArtData.roles)
+        formData.append('artAvatar', this.tempArtData.artAvatar)
+        const { data } = await updateArt(formData)
 
         for (const v of this.list) {
           if (v.id == data.id) {
@@ -428,12 +502,12 @@ export default class extends Vue {
       cancelButtonText: '取消',
       type: 'warning'
       }).then(async () => {
-      this.tempAdminData = Object.assign({}, row)
+      this.tempArtData = Object.assign({}, row)
       let formData = new FormData()
-      formData.append('id', this.tempAdminData.id.toString())
-      const { data } = await deleteAdmin(formData)
+      formData.append('id', this.tempArtData.id.toString())
+      const { data } = await deleteArt(formData)
       for (const v of this.list) {
-        if (v.id == this.tempAdminData.id) {
+        if (v.id == this.tempArtData.id) {
           const index = this.list.indexOf(v)
           this.list.splice(index, 1)
           break
@@ -454,8 +528,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
-    const filterVal = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
+    const tHeader = ['id', 'artName', 'artEmail', 'registerTime', 'roles']
+    const filterVal = ['id', 'artName', 'artEmail', 'registerTime', 'roles']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false

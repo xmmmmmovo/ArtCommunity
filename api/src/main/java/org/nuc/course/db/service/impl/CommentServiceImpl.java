@@ -1,6 +1,7 @@
 package org.nuc.course.db.service.impl;
 
 import org.nuc.course.db.dao.CommentMapper;
+import org.nuc.course.dto.CommentDTO;
 import org.nuc.course.model.Comment;
 import org.nuc.course.db.service.CommentService;
 import org.nuc.course.db.service.AbstractService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -19,4 +21,8 @@ public class CommentServiceImpl extends AbstractService<Comment> implements Comm
     @Resource
     private CommentMapper commentMapper;
 
+    @Override
+    public List<CommentDTO> findAllList() {
+        return commentMapper.findAllDTO();
+    }
 }

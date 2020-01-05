@@ -151,7 +151,7 @@
               <el-select
                 v-model="tempArticleData.articleAuthor"
                 class="filter-item"
-                placeholder="作者名"
+                placeholder="{{tempArticleData.articleAuthor}}"
               >
                 <el-option
                   v-for="item in userList"
