@@ -64,28 +64,28 @@
       >
       </el-table-column>
       <el-table-column
-        label="adminName"
+        label="articleName"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminName }}</span>
+          <span>{{ scope.row.articleName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        label="articleEmail"
         align="center"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.adminEmail }}</span>
+          <span>{{ scope.row.articleEmail }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminAvatar"
+        label="articleAvatar"
         width="130px"
       >
         <template slot-scope="scope">
           <el-image
             :fit="contain"
-            :src='scope.row.adminAvatar'
+            :src='scope.row.articleAvatar'
           >
           </el-image>
         </template>
@@ -140,7 +140,7 @@
           <el-form
             ref="dataForm"
             :rules="rules"
-            :model="tempAdminData"
+            :model="tempArticleData"
             label-position="left"
             label-width="100px"
             style="width: 400px; margin-left:50px;"
@@ -148,19 +148,19 @@
             <el-form-item
               label="管理员编号"
             >
-              <span v-model="tempAdminData.id" />
+              <span v-model="tempArticleData.id" />
             </el-form-item>
             <el-form-item
               label="管理员姓名"
-              prop="adminName"
+              prop="articleName"
             >
-              <el-input v-model="tempAdminData.adminName" />
+              <el-input v-model="tempArticleData.articleName" />
             </el-form-item>
             <el-form-item
               label="管理员邮箱"
-              prop="adminEmail"
+              prop="articleEmail"
             >
-              <el-input v-model="tempAdminData.adminEmail" />
+              <el-input v-model="tempArticleData.articleEmail" />
             </el-form-item>
             <el-form-item
               v-if="dialogStatus==='create'"
@@ -173,14 +173,14 @@
               prop="roles"
             >
               <el-select
-                v-model="tempAdminData.roles"
+                v-model="tempArticleData.roles"
                 class="filter-item"
-                placeholder="admin"
+                placeholder="article"
               >
                 <el-option
-                  key="admin"
-                  label="admin"
-                  value="admin"
+                  key="article"
+                  label="article"
+                  value="article"
                 />
                 <el-option
                   key="editor"
@@ -200,7 +200,7 @@
                 :data="postData"
                 :on-success="onCropUploadSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img v-if="tempAdminData.adminAvatar" :src="tempAdminData.adminAvatar" class="avatar">
+                <img v-if="tempArticleData.articleAvatar" :src="tempArticleData.articleAvatar" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
@@ -229,21 +229,21 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Form } from 'element-ui'
 import { cloneDeep } from 'lodash'
 import {
-  getAdmins,
-  createAdmin,
-  getAdminDetail,
-  updateAdmin,
-  deleteAdmin,
-  defaultAdminData,
+  getArticles,
+  createArticle,
+  getArticleDetail,
+  updateArticle,
+  deleteArticle,
+  defaultArticleData,
   getUserInfo
-} from '@/api/admins'
+} from '@/api/articles'
 import {
   getUsersAll
 } from "@/api/users";
 import {
   getToken
 } from '@/api/token'
-import {IAdminData, IArticleData, IUserData} from '@/api/types'
+import {IArticleData, IArticleData, IUserData} from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
@@ -251,13 +251,13 @@ import * as moment from 'moment'
 import {genUpToken} from "@/utils/token";
 
 @Component({
-  name: 'AdminsTable',
+  name: 'ArticlesTable',
   components: {
     Pagination
   }
 })
 export default class extends Vue {
-  private list: IAdminData[] = []
+  private list: IArticleData[] = []
   private userList: IUserData[] = []
   private userMap = {}
   private total = 0
@@ -273,11 +273,11 @@ export default class extends Vue {
   private dialogFormVisible = false
   private dialogStatus = ''
   private rules = {
-    adminName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
-    adminEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
+    articleName: [{ required: true, message: '姓名是必须的', trigger: 'change' }],
+    articleEmail: [{ required: true, message: '邮箱是必须的', trigger: 'change' }],
   }
   private downloadLoading = false
-  private tempAdminData = defaultAdminData
+  private tempArticleData = defaultArticleData
   private password = ''
   private postData = {
     key: '',
@@ -287,7 +287,7 @@ export default class extends Vue {
 
 
   private onCropUploadSuccess(res: any, file: any) {
-    this.tempAdminData.adminAvatar = this.backUrl + res.key
+    this.tempArticleData.articleAvatar = this.backUrl + res.key
   }
 
   private beforeAvatarUpload(file: any) {
@@ -336,7 +336,7 @@ export default class extends Vue {
     let formData = new FormData()
     formData.append('page', this.listQuery.page.toString())
     formData.append('size', this.listQuery.size.toString())
-    const { data } = await getAdmins(formData)
+    const { data } = await getArticles(formData)
     this.list = data.list
     this.total = data.total
     // Just to simulate the time of the request
@@ -359,7 +359,7 @@ export default class extends Vue {
   }
 
   private resetTempData() {
-    this.tempAdminData = cloneDeep(defaultAdminData)
+    this.tempArticleData = cloneDeep(defaultArticleData)
   }
 
   private handleCreate() {
@@ -375,14 +375,14 @@ export default class extends Vue {
   private createData() {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
-        let { id, ...Data } = this.tempAdminData
+        let { id, ...Data } = this.tempArticleData
         let formData = new FormData()
-        formData.append('adminName', Data.adminName)
-        formData.append('adminEmail', Data.adminEmail)
-        formData.append('adminPassword', this.password)
-        formData.append('adminAvatar', Data.adminAvatar)
+        formData.append('articleName', Data.articleName)
+        formData.append('articleEmail', Data.articleEmail)
+        formData.append('articlePassword', this.password)
+        formData.append('articleAvatar', Data.articleAvatar)
         formData.append('roles', Data.roles)
-        let datas = await createAdmin(formData)
+        let datas = await createArticle(formData)
         datas = datas.data
         console.log(datas)
         this.list.unshift(datas)
@@ -398,7 +398,7 @@ export default class extends Vue {
   }
 
   private handleUpdate(row: any) {
-    this.tempAdminData = Object.assign({}, row)
+    this.tempArticleData = Object.assign({}, row)
     this.dialogStatus = 'update'
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -410,12 +410,12 @@ export default class extends Vue {
     (this.$refs['dataForm'] as Form).validate(async(valid) => {
       if (valid) {
         let formData = new FormData()
-        formData.append('id', this.tempAdminData.id.toString())
-        formData.append('adminName', this.tempAdminData.adminName)
-        formData.append('adminEmail', this.tempAdminData.adminEmail)
-        formData.append('roles', this.tempAdminData.roles)
-        formData.append('adminAvatar', this.tempAdminData.adminAvatar)
-        const { data } = await updateAdmin(formData)
+        formData.append('id', this.tempArticleData.id.toString())
+        formData.append('articleName', this.tempArticleData.articleName)
+        formData.append('articleEmail', this.tempArticleData.articleEmail)
+        formData.append('roles', this.tempArticleData.roles)
+        formData.append('articleAvatar', this.tempArticleData.articleAvatar)
+        const { data } = await updateArticle(formData)
 
         for (const v of this.list) {
           if (v.id == data.id) {
@@ -440,12 +440,12 @@ export default class extends Vue {
       cancelButtonText: '取消',
       type: 'warning'
       }).then(async () => {
-      this.tempAdminData = Object.assign({}, row)
+      this.tempArticleData = Object.assign({}, row)
       let formData = new FormData()
-      formData.append('id', this.tempAdminData.id.toString())
-      const { data } = await deleteAdmin(formData)
+      formData.append('id', this.tempArticleData.id.toString())
+      const { data } = await deleteArticle(formData)
       for (const v of this.list) {
-        if (v.id == this.tempAdminData.id) {
+        if (v.id == this.tempArticleData.id) {
           const index = this.list.indexOf(v)
           this.list.splice(index, 1)
           break
@@ -466,8 +466,8 @@ export default class extends Vue {
 
   private handleDownload() {
     this.downloadLoading = true
-    const tHeader = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
-    const filterVal = ['id', 'adminName', 'adminEmail', 'registerTime', 'roles']
+    const tHeader = ['id', 'articleName', 'articleEmail', 'registerTime', 'roles']
+    const filterVal = ['id', 'articleName', 'articleEmail', 'registerTime', 'roles']
     const data = formatJson(filterVal, this.list)
     exportJson2Excel(tHeader, data, 'table-list')
     this.downloadLoading = false
