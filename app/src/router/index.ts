@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
+// 路由
 const routes = [
   {
     path: '/',
