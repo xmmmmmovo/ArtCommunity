@@ -29,6 +29,19 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
+      if (res.code === 500 || res.code === 400) {
+        MessageBox.confirm(
+          '输入信息出错',
+          '错误',
+          {
+            confirmButtonText: '重试',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
+          location.reload() // To prevent bugs from vue-router
+        })
+      }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return response.data
