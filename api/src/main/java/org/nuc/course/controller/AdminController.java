@@ -80,7 +80,7 @@ public class AdminController {
     /**
      * 分页查询
      * */
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,

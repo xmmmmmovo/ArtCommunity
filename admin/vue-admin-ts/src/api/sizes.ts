@@ -10,7 +10,7 @@ export const defaultSizeData: ISizeData = {
 export const getSizes = (data: any) =>
   request({
     url: '/size/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

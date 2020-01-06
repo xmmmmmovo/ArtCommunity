@@ -14,7 +14,7 @@ export const defaultUserData: IUserData = {
 export const getUsers = (data: any) =>
   request({
     url: '/user/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

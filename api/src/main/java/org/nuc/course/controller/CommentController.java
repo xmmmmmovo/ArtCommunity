@@ -48,7 +48,7 @@ public class CommentController {
         return ResultGenerator.genSuccessResult(comment);
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page,
                        @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);

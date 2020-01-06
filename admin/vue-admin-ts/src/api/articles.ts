@@ -14,7 +14,7 @@ export const defaultArticleData: IArticleData = {
 export const getArticles = (data: any) =>
   request({
     url: '/article/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

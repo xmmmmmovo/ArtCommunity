@@ -16,7 +16,7 @@ export const defaultCommentData: ICommentData = {
 export const getComments = (data: any) =>
   request({
     url: '/comment/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

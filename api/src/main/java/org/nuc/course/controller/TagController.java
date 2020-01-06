@@ -48,7 +48,7 @@ public class TagController {
         return ResultGenerator.genSuccessResult(tag);
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Tag> list = tagService.findAll();

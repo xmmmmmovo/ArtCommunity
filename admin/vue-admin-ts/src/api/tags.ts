@@ -11,7 +11,7 @@ export const defaultTagData: ITagData = {
 export const getTags = (data: any) =>
   request({
     url: '/tag/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

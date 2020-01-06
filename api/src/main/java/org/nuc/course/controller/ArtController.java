@@ -49,7 +49,7 @@ public class ArtController {
         return ResultGenerator.genSuccessResult(art);
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "20") Integer size) {

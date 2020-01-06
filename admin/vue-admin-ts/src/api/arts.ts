@@ -22,7 +22,7 @@ export const defaultArtData: IArtData = {
 export const getArts = (data: any) =>
   request({
     url: '/art/list',
-    method: 'GET',
+    method: 'POST',
     data
   })
 
