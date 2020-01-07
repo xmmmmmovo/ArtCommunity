@@ -41,7 +41,7 @@ export const getUsersAll = () =>
 export const getUserDetail = (data: any) =>
   request({
     url: '/user/detail',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

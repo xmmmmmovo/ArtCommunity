@@ -57,7 +57,7 @@
         }
 
         private changeProfileRoute() {
-
+            this.$router.replace('modify-profile')
         }
     }
 </script>

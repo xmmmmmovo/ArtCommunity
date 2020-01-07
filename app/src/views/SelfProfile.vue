@@ -74,6 +74,7 @@
                                             :src="article.articleFront"
                                             max-height="984px"
                                             max-width="484px"
+                                            @click="handleArticleContent(article.id)"
                                     >
                                     </v-img>
                                 </v-col>
@@ -182,10 +183,18 @@
         }
 
         private handleUpdateArticle(id: bigint) {
-            this.$router.replace({path: '/update-article', query: {id: String(id)}})
+            this.$router.push({path: '/update-article', query: {id: String(id)}})
         }
 
         private handleUpdateArt(id: bigint) {
+
+        }
+
+        private handleArticleContent(id: bigint) {
+            this.$router.push({path: '/content-article', query: {id: String(id)}})
+        }
+
+        private handleArtContent(id: bigint) {
 
         }
     }

@@ -39,6 +39,22 @@ const routes = [
         component: () => import('@/views/SelfProfile.vue')
     },
     {
+        path: '/modify-profile',
+        name: '修改个人信息',
+        meta: {
+            title: '修改个人信息'
+        },
+        component: () => import('@/views/ProfileModify.vue')
+    },
+    {
+        path: '/other-profile',
+        name: '他人界面',
+        meta: {
+            title: '他人界面'
+        },
+        component: () => import('@/views/OtherProfile.vue')
+    },
+    {
         path: '/add-article',
         name: '添加文章',
         meta: {
@@ -55,12 +71,28 @@ const routes = [
         component: () => import('@/views/UpdateArticle.vue')
     },
     {
+        path: '/content-article',
+        name: '文章详情',
+        meta: {
+            title: '文章详情'
+        },
+        component: () => import('@/views/ArticleContent.vue')
+    },
+    {
         path: '/add-art',
         name: '添加作品',
         meta: {
             title: '添加作品'
         },
         component: () => import('@/views/AddArt.vue')
+    },
+    {
+        path: '/update-art',
+        name: '修改作品',
+        meta: {
+            title: '修改作品'
+        },
+        component: () => import('@/views/UpdateArt.vue')
     },
     {
         path: '/test',

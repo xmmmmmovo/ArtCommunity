@@ -46,7 +46,7 @@ public class UserController {
         return ResultGenerator.genSuccessResult(user);
     }
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
         User user = userService.findById(id);
         return ResultGenerator.genSuccessResult(user);
