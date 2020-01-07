@@ -3,7 +3,7 @@
         <v-app-bar
                 color="deep-purple accent-4"
         >
-<!--            <img src="./src/assets/logo.png"/>-->
+            <!--            <img src="./src/assets/logo.png"/>-->
 
             <v-toolbar-title>社区本体</v-toolbar-title>
 
@@ -24,12 +24,12 @@
             >
                 文章
             </el-button>
-<!--            <el-button-->
-<!--                    class="btn"-->
-<!--                    type="text"-->
-<!--            >-->
-<!--                点赞排行-->
-<!--            </el-button>-->
+            <!--            <el-button-->
+            <!--                    class="btn"-->
+            <!--                    type="text"-->
+            <!--            >-->
+            <!--                点赞排行-->
+            <!--            </el-button>-->
             <el-button
                     class="btn"
                     type="text"
@@ -54,29 +54,32 @@
             >
                 <div class="avatar-wrapper">
                     <v-avatar tile
-                            :src="avatar+'?imageView2/1/w/40/h/40'"
-                            class="user-avatar"
+                              :src="avatar+'?imageView2/1/w/40/h/40'"
+                              class="user-avatar"
                     />
                     <i class="el-icon-caret-bottom"/>
                 </div>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>
-                        <a>
-                            欢迎您！{{name}}
-                        </a>
-                    </el-dropdown-item>
+                    <router-link to="/my-profile">
+                        <el-dropdown-item>
+                            <a>
+                                欢迎您！{{name}}
+                            </a>
+                        </el-dropdown-item>
+                    </router-link>
+
                     <router-link to="/">
                         <el-dropdown-item
-                                @click="selfRoute"
                         >
                             主页
                         </el-dropdown-item>
                     </router-link>
                     <el-dropdown-item divided>
-            <span
-                    style="display:block;"
-                    @click="logout"
-            >登出</span>
+                    <span
+                            style="display:block;"
+                            @click="logout"
+                    >登出
+                    </span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -122,17 +125,22 @@
         private artRoute() {
 
         }
+
         private articleRoute() {
 
         }
+
         private registerRoute() {
             this.$router.replace('/register')
 
         }
+
         private loginRoute() {
             this.$router.replace('/login')
         }
+
         private selfRoute() {
+            this.$router.replace('/my-profile')
         }
     }
 </script>
@@ -141,6 +149,7 @@
     .btn {
         margin: 1%;
     }
+
     .navbar {
         height: 50px;
         overflow: hidden;

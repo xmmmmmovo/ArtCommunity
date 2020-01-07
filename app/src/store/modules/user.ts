@@ -9,6 +9,7 @@ export interface IUserState {
     name: string
     avatar: string
     bio: string
+    registerTime: string
 }
 
 @Module({ dynamic: true, store, name: 'user' })
@@ -18,6 +19,7 @@ class User extends VuexModule implements IUserState{
     public name = ''
     public avatar = ''
     public bio = ''
+    public registerTime = ''
 
     @Mutation
     private SET_ID(id: bigint) {
@@ -44,6 +46,11 @@ class User extends VuexModule implements IUserState{
         this.bio = bio
     }
 
+    @Mutation
+    private SET_REGISTER_TIME(registerTime: string) {
+        this.registerTime = registerTime
+    }
+
     @Action
     public async Login(userInfo: { userEmail: string, userPassword: string }) {
         let { userEmail, userPassword } = userInfo
@@ -58,6 +65,7 @@ class User extends VuexModule implements IUserState{
         this.SET_AVATAR(data.userAvatar)
         this.SET_ID(data.id)
         this.SET_BIO(data.userBio)
+        this.SET_REGISTER_TIME(data.registerTime)
     }
 
     @Action
@@ -76,6 +84,7 @@ class User extends VuexModule implements IUserState{
         this.SET_AVATAR(data.userAvatar)
         this.SET_ID(data.id)
         this.SET_BIO(data.userBio)
+        this.SET_REGISTER_TIME(data.registerTime)
     }
 
     @Action

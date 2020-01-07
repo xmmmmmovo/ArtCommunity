@@ -31,6 +31,14 @@ const routes = [
         component: () => import('@/views/Register.vue')
     },
     {
+        path: '/my-profile',
+        name: '个人界面',
+        meta: {
+            title: '个人界面'
+        },
+        component: () => import('@/views/SelfProfile.vue')
+    },
+    {
         path: '/test',
         name: '测试',
         meta: {
