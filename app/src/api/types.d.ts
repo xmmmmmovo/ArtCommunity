@@ -69,3 +69,11 @@ export interface ICommentData {
   commentTime: bigint
   commentLikeCount: bigint
 }
+
+export interface ILikeData {
+  id: bigint
+  userId: bigint
+  userName: string
+  artId: bigint
+  likeTime: string
+}

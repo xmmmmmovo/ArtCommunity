@@ -85,7 +85,7 @@
     import NavBar from "@/layout/components/NavBar.vue";
     import {UserModule} from "@/store/modules/user";
     import {parseTime} from "@/utils/index"
-    import {IArtData} from "@/api/types";
+    import {IArtData, IArticleData} from "@/api/types";
     import {getArts} from "@/api/arts";
 
     @Component({
@@ -96,6 +96,8 @@
     })
     export default class App extends Vue {
         private artList: IArtData[] = []
+        private articleList: IArticleData[] = []
+        private likeList: 
 
 
         get name() {
