@@ -3,6 +3,7 @@ package org.nuc.course.controller;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
 import org.nuc.course.dto.ArticleDTO;
+import org.nuc.course.dto.LikeDTO;
 import org.nuc.course.model.Article;
 import org.nuc.course.db.service.ArticleService;
 import com.github.pagehelper.PageHelper;
@@ -56,6 +57,18 @@ public class ArticleController {
     ) {
         PageHelper.startPage(page, size);
         List<ArticleDTO> list = articleService.findAllList();
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PostMapping("/find_user_art_list")
+    public Result listUserList(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size,
+            @RequestParam String token
+    ) {
+        PageHelper.startPage(page, size);
+        List<ArticleDTO> list = articleService.findArticleDTO(token);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

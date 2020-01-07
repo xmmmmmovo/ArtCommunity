@@ -1,6 +1,7 @@
 package org.nuc.course.db.service.impl;
 
 import org.nuc.course.db.dao.LikeListMapper;
+import org.nuc.course.dto.LikeDTO;
 import org.nuc.course.model.LikeList;
 import org.nuc.course.db.service.LikeListService;
 import org.nuc.course.db.service.AbstractService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -18,5 +20,20 @@ import javax.annotation.Resource;
 public class LikeListServiceImpl extends AbstractService<LikeList> implements LikeListService {
     @Resource
     private LikeListMapper likeListMapper;
+
+    @Override
+    public List<LikeDTO> findAllList() {
+        return likeListMapper.findAllDTO();
+    }
+
+    @Override
+    public List<LikeDTO> findLikeDTO(String token) {
+        return likeListMapper.findLikeListDTO(token);
+    }
+
+    @Override
+    public LikeDTO findADTO(Long id) {
+        return likeListMapper.findIdDTO(id);
+    }
 
 }

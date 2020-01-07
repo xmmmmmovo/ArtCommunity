@@ -7,21 +7,7 @@
                 src="http://q3lynq058.bkt.clouddn.com/profile/%E9%A1%B6%E9%83%A8.jpg"
         ></v-img>
         <v-row>
-            <v-col cols="2" style="margin-left: 8%">
-                <h1>
-                    {{name}}
-                </h1>
-                <h3>
-                    入驻社区时间<br>
-                </h3>
-                <h3>
-                    {{registerTime}}
-                </h3>
-
-                <v-btn x-large color="indigo" block outlined style="margin-top: 20%">添加文章</v-btn>
-                <v-btn x-large color="indigo" block outlined style="margin-top: 20%">添加画作</v-btn>
-                <v-btn x-large color="indigo" block outlined style="margin-top: 20%">修改个人信息</v-btn>
-            </v-col>
+            <ProfileSide/>
             <v-col cols="8" style="margin-right: 8%">
                 <v-tabs grow>
                     <v-tab>作品</v-tab>
@@ -63,12 +49,61 @@
 
                     <v-tab>文章</v-tab>
                     <v-tab-item>
-                        2
+                        <div
+                                v-for="(article, i) in articleList"
+                                :key="i"
+                                style="margin-top: 5%"
+                        >
+                            <v-row>
+                                <v-col cols="6">
+                                    <h2>
+                                        标题: {{article.articleTitle}}
+                                    </h2>
+                                    <h3>
+                                        创作时间: {{createTime(article.createTime)}}
+                                    </h3>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-img
+                                            :src="article.articleFront"
+                                            max-height="984px"
+                                            max-width="484px"
+                                    >
+                                    </v-img>
+                                </v-col>
+                            </v-row>
+                        </div>
                     </v-tab-item>
 
                     <v-tab>点赞作品</v-tab>
                     <v-tab-item>
-                        3
+                        <div
+                                v-for="(like, i) in likeList"
+                                :key="i"
+                                style="margin-top: 5%"
+                        >
+                            <v-row>
+                                <v-col cols="6">
+                                    <v-img
+                                            :src="like.artPicUrl"
+                                            max-height="984px"
+                                            max-width="484px"
+                                    >
+                                    </v-img>
+                                </v-col>
+                                <v-col cols="6">
+                                    <h2>
+                                        标题: {{like.artName}}
+                                    </h2>
+                                    <h3>
+                                        点赞时间: {{createTime(like.likeTime)}}
+                                    </h3>
+                                    <h4>
+                                        分类: {{art.tagName}}
+                                    </h4>
+                                </v-col>
+                            </v-row>
+                        </div>
                     </v-tab-item>
                 </v-tabs>
 
@@ -83,43 +118,57 @@
     import Vue from 'vue'
     import Component from 'vue-class-component'
     import NavBar from "@/layout/components/NavBar.vue";
+    import ProfileSide from "@/layout/components/ProfileSide.vue";
     import {UserModule} from "@/store/modules/user";
     import {parseTime} from "@/utils/index"
-    import {IArtData, IArticleData} from "@/api/types";
-    import {getArts} from "@/api/arts";
+    import {IArtData, IArticleData, ILikeData} from "@/api/types";
+    import {getArts, getUserArts} from "@/api/arts";
+    import {getUserArticles} from "@/api/articles";
+    import {getUserLikes} from "@/api/likes";
 
     @Component({
         name: 'SelfProfile',
         components: {
-            NavBar
+            NavBar,
+            ProfileSide
         }
     })
     export default class App extends Vue {
         private artList: IArtData[] = []
         private articleList: IArticleData[] = []
-        private likeList: 
-
-
-        get name() {
-            return UserModule.name
-        }
-
-        get registerTime() {
-            return parseTime(UserModule.registerTime)
-        }
+        private likeList: ILikeData[] = []
 
         created() {
-            this.getList()
+            this.getArtList()
+            this.getArticleList()
+            this.getLikeList()
         }
 
-        private async getList() {
-            console.log(UserModule.token)
+        private async getArtList() {
             let formData = new FormData();
             formData.append("page", String(0))
             formData.append("size", String(0))
             formData.append("token", UserModule.token)
-            const {data} = await getArts(formData)
+            const {data} = await getUserArts(formData)
             this.artList = data.list
+        }
+
+        private async getArticleList() {
+            let formData = new FormData();
+            formData.append("page", String(0))
+            formData.append("size", String(0))
+            formData.append("token", UserModule.token)
+            const {data} = await getUserArticles(formData)
+            this.articleList = data.list
+        }
+
+        private async getLikeList() {
+            let formData = new FormData();
+            formData.append("page", String(0))
+            formData.append("size", String(0))
+            formData.append("token", UserModule.token)
+            const {data} = await getUserLikes(formData)
+            this.likeList = data.list
         }
 
         private createTime(time: string | number) {

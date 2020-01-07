@@ -73,7 +73,9 @@ export interface ICommentData {
 export interface ILikeData {
   id: bigint
   userId: bigint
-  userName: string
+  artPicUrl: string
+  tagName: string
   artId: bigint
-  likeTime: string
+  likeTime: bigint
+  artName: string
 }

@@ -62,7 +62,7 @@ public class ArtController {
     @PostMapping("/find_user_art_list")
     public Result listUserList(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "20") Integer size,
+            @RequestParam(defaultValue = "0") Integer size,
             @RequestParam String token
     ) {
         PageHelper.startPage(page, size);

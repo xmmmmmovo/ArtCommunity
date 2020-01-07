@@ -21,6 +21,13 @@ export const defaultArtData: IArtData = {
 
 export const getArts = (data: any) =>
     request({
+        url: '/art/list',
+        method: 'POST',
+        data
+    })
+
+export const getUserArts = (data: any) =>
+    request({
         url: '/art/find_user_art_list',
         method: 'POST',
         data

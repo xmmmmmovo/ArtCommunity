@@ -18,6 +18,13 @@ export const getArticles = (data: any) =>
     data
   })
 
+export const getUserArticles = (data: any) =>
+    request({
+        url: '/article/find_user_art_list',
+        method: 'POST',
+        data
+    })
+
 export const getArticleDetail = (data: any) =>
   request({
     url: '/article/detail',
