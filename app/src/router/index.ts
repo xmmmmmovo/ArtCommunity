@@ -103,6 +103,14 @@ const routes = [
         component: () => import('@/views/UpdateArt.vue')
     },
     {
+        path: '/content-art',
+        name: '作品详情',
+        meta: {
+            title: '作品详情'
+        },
+        component: () => import('@/views/ArtContent.vue')
+    },
+    {
         path: '/test',
         name: '测试',
         meta: {

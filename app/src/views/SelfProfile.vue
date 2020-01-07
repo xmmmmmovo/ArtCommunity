@@ -23,6 +23,7 @@
                                             :src="art.artPicUrl"
                                             max-height="984px"
                                             max-width="484px"
+                                            @click="handleArtContent(art.id)"
                                     >
                                     </v-img>
                                 </v-col>
@@ -95,6 +96,7 @@
                                             :src="like.artPicUrl"
                                             max-height="984px"
                                             max-width="484px"
+                                            @click="handleArtContent(like.artId)"
                                     >
                                     </v-img>
                                 </v-col>
@@ -187,7 +189,7 @@
         }
 
         private handleUpdateArt(id: bigint) {
-
+            this.$router.push({path: '/update-art', query: {id: String(id)}})
         }
 
         private handleArticleContent(id: bigint) {
@@ -195,7 +197,7 @@
         }
 
         private handleArtContent(id: bigint) {
-
+            this.$router.push({path: '/content-art', query: {id: String(id)}})
         }
     }
 </script>

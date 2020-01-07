@@ -10,7 +10,7 @@
     import NavBar from "@/layout/components/NavBar.vue";
 
     @Component({
-        name: 'Main',
+        name: 'TypeContent',
         components: {
             NavBar
         }
