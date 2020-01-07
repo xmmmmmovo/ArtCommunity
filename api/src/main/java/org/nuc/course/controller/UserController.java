@@ -3,6 +3,7 @@ package org.nuc.course.controller;
 import org.nuc.course.core.Result;
 import org.nuc.course.core.ResultGenerator;
 import org.nuc.course.db.service.UserService;
+import org.nuc.course.model.Admin;
 import org.nuc.course.model.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -55,6 +56,19 @@ public class UserController {
     public Result detailByToken(@RequestParam String token) {
         User user = userService.findBy("token", token);
         return ResultGenerator.genSuccessResult(user);
+    }
+
+    @PostMapping("/login")
+    public Result adminLogin(
+            @RequestParam String userEmail,
+            @RequestParam String userPassword
+    ) {
+        User user = userService.findBy("userEmail", userEmail);
+        if (BCryptUtils.match(userPassword, user.getUserPassword())) {
+            return ResultGenerator.genSuccessResult(user);
+        } else {
+            return ResultGenerator.genFailResult("账号密码错误, 请检查");
+        }
     }
 
     @PostMapping("/list")

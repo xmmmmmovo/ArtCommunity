@@ -56,7 +56,7 @@ class Admin extends VuexModule implements IAdminState {
     setToken(data.token)
     this.SET_TOKEN(data.token)
     this.SET_NAME(data.adminName)
-    this.SET_AVATAR(data.avatar)
+    this.SET_AVATAR(data.adminAvatar)
     this.SET_ID(data.id)
   }
 

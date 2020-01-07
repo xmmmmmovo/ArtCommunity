@@ -8,16 +8,21 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: '首页',
+    component: () => import('@/views/main.vue')
+  },
+  {
+    path: '/login',
+    name: '登录界面',
+    component: () => import('@/views/login.vue')
   },
   {
     path: '/about',
-    name: 'about',
+    name: '关于',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/About.vue')
+    component: () => import('../views/about.vue')
   }
 ]
 

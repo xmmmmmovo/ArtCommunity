@@ -25,7 +25,7 @@ export interface IUserData {
   userName: string
   userEmail: string
   userAvatar: string
-  registerTime: string | number
+  registerTime: string
   userBio: string
   userSex: string
 }

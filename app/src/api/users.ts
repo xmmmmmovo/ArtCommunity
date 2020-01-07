@@ -11,6 +11,20 @@ export const defaultUserData: IUserData = {
   registerTime: ''
 }
 
+export const login = (data: any) =>
+    request({
+        url: '/user/login',
+        method: 'POST',
+        data
+    })
+
+export const getUserInfo = (data: any) =>
+    request({
+        url: '/user/token_detail',
+        method: 'POST',
+        data
+    })
+
 export const getUsers = (data: any) =>
   request({
     url: '/user/list',
