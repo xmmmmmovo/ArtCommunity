@@ -12,6 +12,7 @@
             <el-button
                     class="btn"
                     type="text"
+                    @click="articleRoute"
 
             >
                 艺术品
@@ -19,34 +20,37 @@
             <el-button
                     class="btn"
                     type="text"
+                    @click="articleRoute"
             >
-                社区
+                文章
             </el-button>
+<!--            <el-button-->
+<!--                    class="btn"-->
+<!--                    type="text"-->
+<!--            >-->
+<!--                点赞排行-->
+<!--            </el-button>-->
             <el-button
                     class="btn"
                     type="text"
+                    v-if="status"
+                    @click="registerRoute"
             >
-                点赞排行
-            </el-button>
-            <el-button
-                    class="btn"
-                    type="text"
-                    v-if="status">
                 注册
             </el-button>
             <el-button
                     class="btn"
                     type="text"
-                    v-else-if="status"
+                    v-if="status"
+                    @click="loginRoute"
             >
                 登录
             </el-button>
 
-
             <el-dropdown
-                    v-if="status"
                     class="avatar-container right-menu-item hover-effect"
                     trigger="click"
+                    v-else
             >
                 <div class="avatar-wrapper">
                     <img
@@ -62,7 +66,9 @@
                         </a>
                     </el-dropdown-item>
                     <router-link to="/">
-                        <el-dropdown-item>
+                        <el-dropdown-item
+                                @click="selfRoute"
+                        >
                             主页
                         </el-dropdown-item>
                     </router-link>
@@ -110,6 +116,22 @@
         private async logout() {
             await UserModule.LogOut()
             this.$router.replace(`/login`)
+        }
+
+        private artRoute() {
+
+        }
+        private articleRoute() {
+
+        }
+        private registerRoute() {
+
+        }
+        private loginRoute() {
+
+        }
+        private selfRoute() {
+
         }
     }
 </script>
