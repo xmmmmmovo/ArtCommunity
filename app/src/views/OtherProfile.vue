@@ -154,7 +154,4 @@
 </script>
 
 <style scoped>
-    .bk_content {
-        /*background-image: url("../assets/login_bk.jpg");*/
-    }
 </style>

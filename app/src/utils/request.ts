@@ -27,7 +27,8 @@ service.interceptors.response.use(
                 Message({
                     message: res.message || 'Error',
                     type: 'error',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
+                    offset: 100
                 })
                 location.reload() // To prevent bugs from vue-router
             }
@@ -40,7 +41,8 @@ service.interceptors.response.use(
         Message({
             message: error.message,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
+            offset: 100
         })
         return Promise.reject(error)
     }
