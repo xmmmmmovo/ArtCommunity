@@ -44,6 +44,7 @@
 
 
             <el-dropdown
+                    v-if="status"
                     class="avatar-container right-menu-item hover-effect"
                     trigger="click"
             >

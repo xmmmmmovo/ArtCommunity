@@ -827,6 +827,11 @@
   resolved "https://registry.npm.taobao.org/@types/normalize-package-data/download/@types/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha1-5IbQ2XOW15vu3QpuM/RTT/a0lz4=
 
+"@types/nprogress@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/@types/nprogress/download/@types/nprogress-0.2.0.tgz#86c593682d4199212a0509cc3c4d562bbbd6e45f"
+  integrity sha1-hsWTaC1BmSEqBQnMPE1WK7vW5F8=
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
@@ -5542,6 +5547,11 @@ npm-run-path@^4.0.0:
   dependencies:
     path-key "^3.0.0"
 
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/nprogress/download/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
+
 nth-check@^1.0.2, nth-check@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/nth-check/download/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
@@ -8341,7 +8351,7 @@ webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1, webpack-
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.0.0:
+webpack@^4.0.0, webpack@^4.39.3:
   version "4.41.5"
   resolved "https://registry.npm.taobao.org/webpack/download/webpack-4.41.5.tgz#3210f1886bce5310e62bb97204d18c263341b77c"
   integrity sha1-MhDxiGvOUxDmK7lyBNGMJjNBt3w=
