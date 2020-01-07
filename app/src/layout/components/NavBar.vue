@@ -53,10 +53,10 @@
                     v-else
             >
                 <div class="avatar-wrapper">
-                    <img
+                    <v-avatar tile
                             :src="avatar+'?imageView2/1/w/40/h/40'"
                             class="user-avatar"
-                    >
+                    />
                     <i class="el-icon-caret-bottom"/>
                 </div>
                 <el-dropdown-menu slot="dropdown">
@@ -89,6 +89,7 @@
     import Component from "vue-class-component";
     import Vue from "vue";
     import {UserModule} from "@/store/modules/user";
+    import router from "@/router";
 
     @Component({
         name: 'NavBar'
@@ -125,13 +126,13 @@
 
         }
         private registerRoute() {
+            this.$router.replace('/register')
 
         }
         private loginRoute() {
-
+            this.$router.replace('/login')
         }
         private selfRoute() {
-
         }
     }
 </script>

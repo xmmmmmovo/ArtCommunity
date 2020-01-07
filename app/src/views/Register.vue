@@ -116,7 +116,7 @@
 
 
         private async handleLogin() {
-            router.replace("/login")
+            this.$router.replace("/login")
         }
 
         private async handleRegister() {
@@ -126,7 +126,7 @@
                     userEmail: this.userEmail,
                     userPassword: this.userPassword
                 })
-                router.replace("/")
+                this.$router.replace("/")
             }
         }
     }

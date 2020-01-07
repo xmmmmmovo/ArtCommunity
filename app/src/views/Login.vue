@@ -108,12 +108,12 @@
                     userEmail: this.userEmail,
                     userPassword: this.userPassword
                 })
-                router.replace("/")
+                this.$router.replace("/")
             }
         }
 
         private async handleRegister() {
-            router.replace("/register")
+            this.$router.replace("/register")
         }
     }
 </script>
