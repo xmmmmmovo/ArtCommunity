@@ -29,6 +29,14 @@ const routes = [
             title: '注册界面'
         },
         component: () => import('@/views/Register.vue')
+    },
+    {
+        path: '/test',
+        name: '测试',
+        meta: {
+            title: '测试'
+        },
+        component: () => import('@/views/test.vue')
     }
 ]
 

@@ -286,7 +286,7 @@ export default class extends Vue {
   }
 
   private beforeAvatarUpload(file: any) {
-    this.postData.key = file.name;
+    this.postData.key = file.uid.toString() + file.name;
     const isJPG = file.type === "image/jpeg";
     const isPNG = file.type === "image/png";
     const isLt2M = file.size / 1024 / 1024 < 2;
