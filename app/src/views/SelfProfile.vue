@@ -42,6 +42,9 @@
                                     <h4>
                                         分类: {{art.tagName}}
                                     </h4>
+                                    <v-btn @click="handleUpdateArt(art.id)">
+                                        修改作品
+                                    </v-btn>
                                 </v-col>
                             </v-row>
                         </div>
@@ -62,6 +65,9 @@
                                     <h3>
                                         创作时间: {{createTime(article.createTime)}}
                                     </h3>
+                                    <v-btn @click="handleUpdateArticle(article.id)">
+                                        修改文章
+                                    </v-btn>
                                 </v-col>
                                 <v-col cols="6">
                                     <v-img
@@ -173,6 +179,14 @@
 
         private createTime(time: string | number) {
             return parseTime(time)
+        }
+
+        private handleUpdateArticle(id: bigint) {
+            this.$router.replace({path: '/update-article', query: {id: String(id)}})
+        }
+
+        private handleUpdateArt(id: bigint) {
+
         }
     }
 </script>

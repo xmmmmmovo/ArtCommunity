@@ -44,7 +44,7 @@ public class ArticleController {
         return ResultGenerator.genSuccessResult(article);
     }
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
         ArticleDTO articleDTO = articleService.findADTO(id);
         return ResultGenerator.genSuccessResult(articleDTO);

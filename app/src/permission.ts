@@ -20,10 +20,6 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       NProgress.done()
     }
   }
-
-  console.log(to.meta.title)
-  document.title = to.meta.title
-  next()
 })
 
 router.afterEach((to: Route) => {

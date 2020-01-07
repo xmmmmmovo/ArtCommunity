@@ -28,7 +28,7 @@ export const getUserArticles = (data: any) =>
 export const getArticleDetail = (data: any) =>
   request({
     url: '/article/detail',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

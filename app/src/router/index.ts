@@ -47,6 +47,14 @@ const routes = [
         component: () => import('@/views/AddArticle.vue')
     },
     {
+        path: '/update-article',
+        name: '修改文章',
+        meta: {
+            title: '修改文章'
+        },
+        component: () => import('@/views/UpdateArticle.vue')
+    },
+    {
         path: '/add-art',
         name: '添加作品',
         meta: {
