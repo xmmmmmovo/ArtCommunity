@@ -20,11 +20,11 @@ export const defaultArtData: IArtData = {
 }
 
 export const getArts = (data: any) =>
-  request({
-    url: '/art/list',
-    method: 'POST',
-    data
-  })
+    request({
+        url: '/art/find_user_art_list',
+        method: 'POST',
+        data
+    })
 
 export const getArtsAll = () =>
   request({

@@ -54,7 +54,7 @@
             >
                 <div class="avatar-wrapper">
                     <v-avatar tile
-                              :src="avatar+'?imageView2/1/w/40/h/40'"
+                              :src="avatar"
                               class="user-avatar"
                     />
                     <i class="el-icon-caret-bottom"/>
