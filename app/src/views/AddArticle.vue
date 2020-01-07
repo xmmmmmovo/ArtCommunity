@@ -14,7 +14,7 @@
                         文章内容
                     </h2>
                     <el-divider></el-divider>
-                    <v-form>
+                    <v-form v-model="valid">
                         <h3>
                             文章标题
                         </h3>
@@ -22,7 +22,8 @@
                                 v-model="tempArticleData.articleTitle"
                                 style="margin: 5%"
                                 label="标题"
-                                name="input-7-1"
+                                name="articleTitle"
+                                :rules="titleRules"
                                 filled
                         ></v-text-field>
                         <h3>
@@ -31,9 +32,10 @@
                         <v-textarea
                                 v-model="tempArticleData.articleContent"
                                 style="margin: 5%"
-                                name="input-7-1"
+                                name="articleContent"
                                 filled
                                 label="内容"
+                                :rules="contentRules"
                                 auto-grow
                         >
                         </v-textarea>
@@ -46,6 +48,7 @@
                     </h2>
                     <el-divider></el-divider>
                     <el-upload
+                            align="center"
                             class="avatar-uploader"
                             action="https://upload-z1.qiniup.com"
                             :show-file-list="false"
@@ -58,7 +61,7 @@
                 </el-card>
 
                 <el-card style="margin-bottom: 10%; margin-top: 5%">
-                    <v-btn large min-height="100px" min-width="200px">
+                    <v-btn large min-height="100px" min-width="200px" @click="handlePublish" :disabled="!valid">
                         发布
                     </v-btn>
                 </el-card>
@@ -72,8 +75,10 @@
     import Component from 'vue-class-component'
     import NavBar from "@/layout/components/NavBar.vue";
     import ProfileSide from "@/layout/components/ProfileSide.vue";
-    import {defaultArticleData} from "@/api/articles";
+    import {createArticle, defaultArticleData} from "@/api/articles";
     import {getToken} from "@/api/token";
+    import {isValidateEmail, isValidatePassword} from "@/utils/validate";
+    import {UserModule} from "@/store/modules/user";
 
     @Component({
         name: 'AddArticle',
@@ -84,12 +89,20 @@
     })
     export default class App extends Vue {
         private tempArticleData = defaultArticleData
+        private valid = true
 
         private postData = {
             key: '',
             token: ''
         }
         private backUrl = 'http://q3lynq058.bkt.clouddn.com/'
+
+        private titleRules = [
+            (v: any) => !!v || '请输入邮箱!'
+        ]
+        private contentRules = [
+            (v: any) => !!v || '请输入密码!'
+        ]
 
         created() {
             this.genToken()
@@ -117,6 +130,18 @@
                 this.$message.error("图片大小不能超过 4MB!");
                 return false;
             }
+        }
+
+        private async handlePublish() {
+            let formData = new FormData()
+            formData.append('articleTitle', this.tempArticleData.articleTitle)
+            formData.append('articleContent', this.tempArticleData.articleContent)
+            formData.append('articleAuthor', UserModule.id.toString())
+            formData.append('articleFront', this.tempArticleData.articleFront)
+            let datas = await createArticle(formData)
+            datas = datas.data
+            console.log(datas)
+            this.$router.replace("/my-profile")
         }
 
     }

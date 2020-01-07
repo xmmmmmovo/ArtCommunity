@@ -27,8 +27,8 @@ public class ArtServiceImpl extends AbstractService<Art> implements ArtService {
     }
 
     @Override
-    public List<ArtDTO> findUserDTO(String token) {
-        return artMapper.findUserDTO(token);
+    public List<ArtDTO> findUserDTO(Long id) {
+        return artMapper.findUserDTO(id);
     }
 
     @Override

@@ -27,8 +27,8 @@ public class LikeListServiceImpl extends AbstractService<LikeList> implements Li
     }
 
     @Override
-    public List<LikeDTO> findLikeDTO(String token) {
-        return likeListMapper.findLikeListDTO(token);
+    public List<LikeDTO> findLikeDTO(Long id) {
+        return likeListMapper.findLikeListDTO(id);
     }
 
     @Override

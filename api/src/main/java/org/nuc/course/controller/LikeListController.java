@@ -58,10 +58,10 @@ public class LikeListController {
     public Result listUserList(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,
-            @RequestParam String token
+            @RequestParam Long id
     ) {
         PageHelper.startPage(page, size);
-        List<LikeDTO> list = likeListService.findLikeDTO(token);
+        List<LikeDTO> list = likeListService.findLikeDTO(id);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

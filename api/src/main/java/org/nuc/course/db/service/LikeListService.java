@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface LikeListService extends Service<LikeList> {
     List<LikeDTO> findAllList();
-    List<LikeDTO> findLikeDTO(String token);
+    List<LikeDTO> findLikeDTO(Long id);
     LikeDTO findADTO(Long id);
 }

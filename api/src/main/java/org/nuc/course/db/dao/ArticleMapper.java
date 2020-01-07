@@ -30,8 +30,8 @@ public interface ArticleMapper extends Mapper<Article> {
             "       create_time as createTime,\n" +
             "       user_name as userName\n" +
             "from article left join user u on article.article_author = u.id\n" +
-            "where token = '${token}'")
-    List<ArticleDTO> findArticleDTO(@Param("token") String token);
+            "where u.id = ${id}")
+    List<ArticleDTO> findArticleDTO(@Param("id") Long id);
 
     @Select("select article.id,\n" +
             "       article_author as articleAuthor,\n" +

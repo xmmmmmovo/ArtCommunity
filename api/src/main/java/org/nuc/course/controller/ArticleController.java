@@ -65,10 +65,10 @@ public class ArticleController {
     public Result listUserList(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,
-            @RequestParam String token
+            @RequestParam Long id
     ) {
         PageHelper.startPage(page, size);
-        List<ArticleDTO> list = articleService.findArticleDTO(token);
+        List<ArticleDTO> list = articleService.findArticleDTO(id);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

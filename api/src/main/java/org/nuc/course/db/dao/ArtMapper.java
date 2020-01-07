@@ -51,8 +51,8 @@ public interface ArtMapper extends Mapper<Art> {
             "    left join tag t on art.art_tag = t.id\n" +
             "    left join size s on art.art_size = s.id\n" +
             "    left join user u on art.art_author = u.id\n" +
-            "where u.token = '${token}'")
-    List<ArtDTO> findUserDTO(@Param("token") String token);
+            "where u.id = ${id}")
+    List<ArtDTO> findUserDTO(@Param("id") Long id);
 
     @Select("select\n" +
             "       art.id,\n" +

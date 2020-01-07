@@ -63,10 +63,10 @@ public class ArtController {
     public Result listUserList(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,
-            @RequestParam String token
+            @RequestParam Long id
     ) {
         PageHelper.startPage(page, size);
-        List<ArtDTO> list = artService.findUserDTO(token);
+        List<ArtDTO> list = artService.findUserDTO(id);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ArtService extends Service<Art> {
     List<ArtDTO> findAllList();
-    List<ArtDTO> findUserDTO(String token);
+    List<ArtDTO> findUserDTO(Long id);
     ArtDTO findADTO(Long id);
 }

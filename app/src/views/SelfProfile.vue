@@ -148,7 +148,7 @@
             let formData = new FormData();
             formData.append("page", String(0))
             formData.append("size", String(0))
-            formData.append("token", UserModule.token)
+            formData.append("id", UserModule.id.toString())
             const {data} = await getUserArts(formData)
             this.artList = data.list
         }
@@ -157,7 +157,7 @@
             let formData = new FormData();
             formData.append("page", String(0))
             formData.append("size", String(0))
-            formData.append("token", UserModule.token)
+            formData.append("id", UserModule.id.toString())
             const {data} = await getUserArticles(formData)
             this.articleList = data.list
         }
@@ -166,7 +166,7 @@
             let formData = new FormData();
             formData.append("page", String(0))
             formData.append("size", String(0))
-            formData.append("token", UserModule.token)
+            formData.append("id", UserModule.id.toString())
             const {data} = await getUserLikes(formData)
             this.likeList = data.list
         }

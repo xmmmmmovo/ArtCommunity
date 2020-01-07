@@ -5,7 +5,7 @@ export const defaultArticleData: IArticleData = {
   id: BigInt(0),
   articleContent: '',
   articleAuthor: BigInt(0),
-  articleFront: 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg',
+  articleFront: '',
   articleTitle: '',
   createTime: '',
   userName: ''

@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ArticleService extends Service<Article> {
     List<ArticleDTO> findAllList();
-    List<ArticleDTO> findArticleDTO(String token);
+    List<ArticleDTO> findArticleDTO(Long id);
     ArticleDTO findADTO(Long id);
 }

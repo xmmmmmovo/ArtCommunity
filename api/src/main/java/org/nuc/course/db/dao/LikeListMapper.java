@@ -34,8 +34,8 @@ public interface LikeListMapper extends Mapper<LikeList> {
             "left join user u on like_list.user_id = u.id\n" +
             "left join art a on like_list.art_id = a.id\n" +
             "left join tag t on a.art_tag = t.id\n" +
-            "where token = '${token}'")
-    List<LikeDTO> findLikeListDTO(@Param("token") String token);
+            "where u.id = ${id}")
+    List<LikeDTO> findLikeListDTO(@Param("id") Long id);
 
     @Select("select like_list.id,\n" +
             "       user_id as userId,\n" +
