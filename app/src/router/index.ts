@@ -9,12 +9,12 @@ const routes = [
   {
     path: '/',
     name: '首页',
-    component: () => import('@/views/main.vue')
+    component: () => import('@/views/Main.vue')
   },
   {
     path: '/login',
     name: '登录界面',
-    component: () => import('@/views/login.vue')
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/about',
@@ -22,7 +22,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/about.vue')
+    component: () => import('../views/About.vue')
   }
 ]
 
