@@ -5,7 +5,7 @@
         >
             <!--            <img src="./src/assets/logo.png"/>-->
 
-            <v-toolbar-title>社区本体</v-toolbar-title>
+            <v-toolbar-title @click="main">社区本体</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
@@ -122,12 +122,16 @@
             this.$router.replace(`/login`)
         }
 
+        private main() {
+            this.$router.replace('/')
+        }
+
         private artRoute() {
 
         }
 
         private articleRoute() {
-
+            this.$router.replace('/list-article')
         }
 
         private registerRoute() {

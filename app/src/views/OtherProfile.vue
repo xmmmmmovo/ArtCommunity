@@ -4,10 +4,16 @@
         <v-img
                 src="http://q3lynq058.bkt.clouddn.com/%E9%A1%B6%E9%83%A82.jpg"
         ></v-img>
-        <h1 style="margin: 10%">{{tempUserData.userName}}</h1>
-        <h3 style="margin: 5%">入驻社区时间: {{createTime(tempUserData.registerTime)}}</h3>
-        <h4 style="margin: 3%"> 个人简介:</h4>
-        <h4 style="margin: 3%"> {{tempUserData.userBio}}</h4>
+        <div style="margin: 5%">
+            <v-img :src="tempUserData.userAvatar"
+            max-width="300px"
+            max-height="300px"
+            style="margin: 2%"></v-img>
+            <h1 style="margin: 5%">{{tempUserData.userName}}</h1>
+            <h3>入驻社区时间: {{createTime(tempUserData.registerTime)}}</h3>
+            <h4> 个人简介:</h4>
+        </div>
+
         <v-tabs grow>
             <v-tab>作品</v-tab>
             <v-tab-item>

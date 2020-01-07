@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-01-06 00:49:26
+-- 生成日期： 2020-01-08 05:40:51
 -- 服务器版本： 5.7.26-log
 -- PHP 版本： 7.0.33
 
@@ -80,6 +80,14 @@ CREATE TABLE `art` (
   `art_pic_url` varchar(200) NOT NULL DEFAULT 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 转存表中的数据 `art`
+--
+
+INSERT INTO `art` (`id`, `art_name`, `art_author`, `create_time`, `modified_time`, `art_size`, `art_tag`, `art_like_num`, `art_comment_num`, `art_content`, `art_pic_url`) VALUES
+(116, '吃的', 1206, 1578408017234, 1578408017234, 1, 2, 0, 0, '吃的东西 感觉还是蛮好吃的', 'http://q3lynq058.bkt.clouddn.com/15784080040981.jpg'),
+(117, '睡觉', 1206, 1578416074517, 1578416074517, 1, 5, 0, 0, '你说现在能睡着吗', 'http://q3lynq058.bkt.clouddn.com/15784160672603.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -100,7 +108,10 @@ CREATE TABLE `article` (
 --
 
 INSERT INTO `article` (`id`, `article_content`, `article_front`, `article_title`, `create_time`, `article_author`) VALUES
-(1, '1111', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', '111', 1578226706922, 1011);
+(57, '今日是赫鲁晓夫的胜利呢', 'http://q3lynq058.bkt.clouddn.com/1.jpg', '赛尔号攻略', 1578393061978, 1206),
+(58, '确实很难弄好吧Zzxcvzcxv', 'http://q3lynq058.bkt.clouddn.com/15783938635292.jpg', '物联网好难啊啊啊啊aa', 1578393868991, 1206),
+(59, '困了', 'http://q3lynq058.bkt.clouddn.com/15783938795083.jpg', '还有没有那么难的啊啊啊', 1578393882792, 1206),
+(60, 'asdfsdaf', 'http://q3lynq058.bkt.clouddn.com/15784283390874.jpg', 'asd', 1578428341648, 1206);
 
 -- --------------------------------------------------------
 
@@ -114,8 +125,20 @@ CREATE TABLE `comment` (
   `comment_content` varchar(300) NOT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
   `comment_time` bigint(20) NOT NULL,
-  `comment_like_count` bigint(20) NOT NULL DEFAULT '0',
-  `comment_count` int(11) NOT NULL DEFAULT '0'
+  `comment_like_count` bigint(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `like_list`
+--
+
+CREATE TABLE `like_list` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `art_id` bigint(20) NOT NULL,
+  `like_time` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -162,8 +185,7 @@ INSERT INTO `tag` (`id`, `tag_name`, `usage_count`, `tag_describe`) VALUES
 (4, '摄影', 0, 'Photography helps people to see.自从1839年这项技术问世以来，摄影已成为一种必不可少的艺术媒介，它使艺术家能够捕捉街头短暂的瞬间，构建虚构的世界来迷惑观众并呈现新的抽象形式。'),
 (5, '战后', 0, '战后的艺术史时期大约在1945年至1970年之间，包括一些20世纪最具标志性和最受欢迎的艺术活动，包括抽象表现主义、波普艺术和极简主义。'),
 (6, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。'),
-(7, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。'),
-(8, 'dg', 0, 'dfgdgdg');
+(7, '20世纪之前', 0, '莱昂纳多·达·芬奇曾经写道：“最崇高的荣幸就是理解喜悦。”从古代雕塑到文艺复兴时期的素描，具有数百年历史的艺术品常常促使人们研究艺术史，并邀请参观者更多地了解使这些物品栩栩如生的背景。');
 
 -- --------------------------------------------------------
 
@@ -188,8 +210,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `register_time`, `user_name`, `user_email`, `user_password`, `user_bio`, `token`, `user_avatar`, `user_sex`) VALUES
-(1011, 1578217787114, '11', '1111111@1.com', '$2a$10$we/nBEpmrt6fuKk2UcuLke6QwmZw5.V8djLMM/D.Wx7oM/qCFlSIu', '这个人什么都没写', 'KvxD-1USSEu4N1Q2iI4K2A', 'https://sqldesign-1258573901.cos.ap-beijing.myqcloud.com/pic_null.jpg', '男'),
-(1012, 1578218179257, '123', '123', '$2a$10$ytEEx8AmBscw1KGihXf6F.uU56CwzbLR5RVGGu4iRt/g5lGUm.As6', '32342312', 'nVK-BZwmQbWuKe4NUiPnOw', 'http://q3lynq058.bkt.clouddn.com/2a9b4963f6246b603c6cdecbe1f81a4c500fa245.jpg', '男');
+(1206, 1578393021278, 'zhazha', '1@1.com', '$2a$10$0uMtAjaKgtMeyLxwVeHqne3AKrTuLnYfw53pfEhUNhPsX.BW762km', '这个人什么都没写', 'g4fK4audR5qdoN5OAwjzkw', 'http://q3lynq058.bkt.clouddn.com/15784162161576.jpg', '男');
 
 --
 -- 转储表的索引
@@ -224,7 +245,15 @@ ALTER TABLE `article`
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `comment_user_id_fk` (`comment_by`),
-  ADD KEY `comment_user_id_fk_2` (`parent_id`);
+  ADD KEY `comment_art_id_fk` (`parent_id`);
+
+--
+-- 表的索引 `like_list`
+--
+ALTER TABLE `like_list`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `like_list_art_id_fk` (`art_id`),
+  ADD KEY `like_list_user_id_fk` (`user_id`);
 
 --
 -- 表的索引 `size`
@@ -260,18 +289,24 @@ ALTER TABLE `admin`
 -- 使用表AUTO_INCREMENT `art`
 --
 ALTER TABLE `art`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- 使用表AUTO_INCREMENT `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- 使用表AUTO_INCREMENT `comment`
 --
 ALTER TABLE `comment`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- 使用表AUTO_INCREMENT `like_list`
+--
+ALTER TABLE `like_list`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -284,13 +319,13 @@ ALTER TABLE `size`
 -- 使用表AUTO_INCREMENT `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1207;
 
 --
 -- 限制导出的表
@@ -314,8 +349,15 @@ ALTER TABLE `article`
 -- 限制表 `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_user_id_fk` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `comment_user_id_fk_2` FOREIGN KEY (`parent_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `comment_art_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `art` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comment_user_id_fk` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- 限制表 `like_list`
+--
+ALTER TABLE `like_list`
+  ADD CONSTRAINT `like_list_art_id_fk` FOREIGN KEY (`art_id`) REFERENCES `art` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `like_list_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

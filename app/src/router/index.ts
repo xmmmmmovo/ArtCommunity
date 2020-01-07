@@ -79,6 +79,14 @@ const routes = [
         component: () => import('@/views/ArticleContent.vue')
     },
     {
+        path: '/list-article',
+        name: '社区',
+        meta: {
+            title: '社区'
+        },
+        component: () => import('@/views/ArticleList.vue')
+    },
+    {
         path: '/add-art',
         name: '添加作品',
         meta: {

@@ -43,6 +43,7 @@ public class AdminController {
     @PatchMapping("/update")
     public Result update(Admin admin) {
         adminService.update(admin);
+        admin = adminService.findById(admin.getId());
         return ResultGenerator.genSuccessResult(admin);
     }
 
