@@ -1,7 +1,7 @@
 import {VuexModule, Module, Action, Mutation, getModule} from "vuex-module-decorators";
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
-import {getUserDetail, getUserInfo, login} from "@/api/users";
+import {createUser, getUserDetail, getUserInfo, login} from "@/api/users";
 
 export interface IUserState {
     id: bigint
@@ -52,6 +52,24 @@ class User extends VuexModule implements IUserState{
         formData.append("userEmail", userEmail)
         formData.append("userPassword", userPassword)
         const { data } = await login(formData)
+        setToken(data.token)
+        this.SET_TOKEN(data.token)
+        this.SET_NAME(data.userName)
+        this.SET_AVATAR(data.userAvatar)
+        this.SET_ID(data.id)
+        this.SET_BIO(data.userBio)
+    }
+
+    @Action
+    public async Register(userInfo: { userName: string, userEmail: string, userPassword: string }) {
+        let { userName, userEmail, userPassword } = userInfo
+        userEmail = userEmail.trim()
+        userName = userName.trim()
+        let formData = new FormData()
+        formData.append("userName", userName)
+        formData.append("userEmail", userEmail)
+        formData.append("userPassword", userPassword)
+        const { data } = await createUser(formData)
         setToken(data.token)
         this.SET_TOKEN(data.token)
         this.SET_NAME(data.userName)

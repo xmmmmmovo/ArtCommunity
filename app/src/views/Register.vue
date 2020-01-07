@@ -31,6 +31,16 @@
                                         lazy-validation
                                 >
                                     <v-text-field
+                                            v-model="userName"
+                                            label="用户名"
+                                            name="userName"
+                                            prepend-icon="person"
+                                            type="text"
+                                            :rules="nameRules"
+                                            @input="$v.userName.$touch()"
+                                            @blur="$v.userName.$touch()"
+                                    />
+                                    <v-text-field
                                             v-model="userEmail"
                                             label="用户邮箱"
                                             name="userEmail"
@@ -40,7 +50,6 @@
                                             @input="$v.userEmail.$touch()"
                                             @blur="$v.userEmail.$touch()"
                                     />
-
                                     <v-text-field
                                             v-model="userPassword"
                                             label="密码"
@@ -57,14 +66,14 @@
                             <v-card-actions>
                                 <v-spacer/>
                                 <v-btn color="white"
-                                       @click="handleRegister">
-                                    注册
-                                </v-btn>
-                                <v-btn color="primary"
                                        @click="handleLogin"
-                                       :disabled="!valid"
                                 >
                                     登录
+                                </v-btn>
+                                <v-btn color="primary"
+                                       :disabled="!valid"
+                                       @click="handleRegister">
+                                    注册
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -88,10 +97,14 @@
     })
     export default class App extends Vue {
         // 初始化数据
+        private userName = ''
         private userEmail = ''
         private userPassword = ''
         private valid = true
 
+        private nameRules = [
+            (v: any) => !!v || '请输入用户名!'
+        ]
         private emailRules = [
             (v: any) => !!v || '请输入邮箱!',
             (v: any) => isValidateEmail(v) || '邮箱格式有误！'
@@ -103,17 +116,18 @@
 
 
         private async handleLogin() {
+            router.replace("/login")
+        }
+
+        private async handleRegister() {
             if (this.$refs.form.validate()) {
-                await UserModule.Login({
+                await UserModule.Register({
+                    userName: this.userName,
                     userEmail: this.userEmail,
                     userPassword: this.userPassword
                 })
                 router.replace("/")
             }
-        }
-
-        private async handleRegister() {
-            router.replace("/register")
         }
     }
 </script>

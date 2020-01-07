@@ -10,12 +10,13 @@
     import NavBar from "@/layout/components/NavBar.vue";
 
     @Component({
-        name: 'Main',
+        name: 'AddArticle',
         components: {
             NavBar
         }
     })
     export default class App extends Vue {
+
     }
 </script>
 
