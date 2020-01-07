@@ -49,11 +49,11 @@
         }
 
         private addArticleRoute() {
-
+            this.$router.replace('/add-article')
         }
 
         private addArtRoute() {
-
+            this.$router.replace('/add-art')
         }
 
         private changeProfileRoute() {

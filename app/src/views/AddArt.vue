@@ -1,14 +1,15 @@
 <template>
     <div>
         <NavBar/>
+        <v-row>
+            <ProfileSide/>
+            <v-col cols="8" style="margin-right: 8%">
+                <v-card>
+                    写文章
+                </v-card>
+            </v-col>
+        </v-row>
     </div>
-    <v-row>
-        <ProfileSide/>
-        <v-col>
-
-        </v-col>
-    </v-row>
-
 </template>
 
 <script lang="ts">
@@ -26,13 +27,11 @@
     })
     export default class App extends Vue {
 
-        
+
 
     }
 </script>
 
 <style scoped>
-    .bk_content {
-        /*background-image: url("../assets/login_bk.jpg");*/
-    }
+
 </style>

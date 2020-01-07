@@ -39,6 +39,22 @@ const routes = [
         component: () => import('@/views/SelfProfile.vue')
     },
     {
+        path: '/add-article',
+        name: '添加文章',
+        meta: {
+            title: '添加文章'
+        },
+        component: () => import('@/views/AddArticle.vue')
+    },
+    {
+        path: '/add-art',
+        name: '添加作品',
+        meta: {
+            title: '添加作品'
+        },
+        component: () => import('@/views/AddArt.vue')
+    },
+    {
         path: '/test',
         name: '测试',
         meta: {
