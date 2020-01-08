@@ -52,7 +52,7 @@ public class ArtController {
     @PostMapping("/list")
     public Result list(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "20") Integer size) {
+            @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<ArtDTO> list = artService.findAllList();
         PageInfo pageInfo = new PageInfo(list);
@@ -69,5 +69,17 @@ public class ArtController {
         List<ArtDTO> list = artService.findUserDTO(id);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PostMapping("/comment_up")
+    public Result commentUp(@RequestParam Long id) {
+        artService.updateCommentCount(id);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    @PostMapping("/like_up")
+    public Result likeUp(@RequestParam Long id) {
+        artService.updateLikeCount(id);
+        return ResultGenerator.genSuccessResult();
     }
 }

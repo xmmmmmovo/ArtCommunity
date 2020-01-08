@@ -2,6 +2,7 @@ package org.nuc.course.db.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.nuc.course.db.Mapper;
 import org.nuc.course.dto.ArtDTO;
 import org.nuc.course.model.Art;
@@ -76,4 +77,10 @@ public interface ArtMapper extends Mapper<Art> {
             "    left join user u on art.art_author = u.id\n" +
             "where art.id = ${id}")
     ArtDTO findIdDTO(@Param("id") Long id);
+
+    @Update("update art set art_comment_num = art_comment_num + 1 where id = ${id}")
+    void updateCommentCount(@Param("id") Long id);
+
+    @Update("update art set art_like_num = art_like_num + 1 where id = ${id}")
+    void updateLikeCount(@Param("id") Long id);
 }

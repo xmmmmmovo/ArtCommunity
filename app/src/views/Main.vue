@@ -53,15 +53,44 @@
             </v-col>
         </v-row>
 
-        <h1 style="margin: 2%">这里写一个conponents</h1>
+        <h1 style="margin: 2%">艺术作品</h1>
         <el-divider content-position="left">
             就在下面
         </el-divider>
-
-        <h1 style="margin: 2%">精选文章</h1>
-        <el-divider content-position="left">
-            就在下面
-        </el-divider>
+        <div
+                v-for="(art, i) in artList"
+                :key="i"
+                style="margin-top: 5%"
+        >
+            <v-row>
+                <v-col cols="6">
+                    <v-img
+                            :src="art.artPicUrl"
+                            max-height="984px"
+                            max-width="484px"
+                            @click="handleArtContent(art.id)"
+                    >
+                    </v-img>
+                </v-col>
+                <v-col cols="6">
+                    <h2>
+                        标题: {{art.artName}}
+                    </h2>
+                    <h3>
+                        创作时间: {{createTime(art.createTime)}}
+                    </h3>
+                    <h3>
+                        点赞数: {{art.artLikeNum}}
+                    </h3>
+                    <h4>
+                        尺寸: {{art.length}} * {{art.height}}
+                    </h4>
+                    <h4>
+                        分类: {{art.tagName}}
+                    </h4>
+                </v-col>
+            </v-row>
+        </div>
     </div>
 </template>
 
@@ -71,6 +100,8 @@
     import NavBar from "@/layout/components/NavBar.vue";
     import {IArticleData} from "@/api/types";
     import {getArticles} from "@/api/articles";
+    import {getArts, getArtsAll} from "@/api/arts";
+    import {parseTime} from "@/utils";
 
     @Component({
         name: 'Main',
@@ -79,7 +110,7 @@
         }
     })
     export default class App extends Vue {
-        private articles: IArticleData[] = []
+        private artList: IArticleData[] = []
 
         created() {
             this.getData()
@@ -87,14 +118,21 @@
 
         private async getData() {
             let formData = new FormData()
-            formData.append('size', String(3))
-            const {data} = await getArticles(formData)
-            this.articles = data.list
-            console.log(this.articles)
+            const {data} = await getArts(formData)
+            this.artList = data.list
+            console.log(this.artList)
         }
 
         private articleRoute(id: bigint) {
             console.log(id)
+        }
+
+        private createTime(time: string | number) {
+            return parseTime(time)
+        }
+
+        private handleArtContent(id: bigint) {
+            this.$router.push({path: '/content-art', query: {id: String(id)}})
         }
 
     }

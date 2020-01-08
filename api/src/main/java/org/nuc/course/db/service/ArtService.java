@@ -13,4 +13,6 @@ public interface ArtService extends Service<Art> {
     List<ArtDTO> findAllList();
     List<ArtDTO> findUserDTO(Long id);
     ArtDTO findADTO(Long id);
+    void updateCommentCount(Long id);
+    void updateLikeCount(Long id);
 }

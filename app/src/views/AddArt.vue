@@ -6,31 +6,30 @@
             <v-col cols="8" style="margin-right: 8%; margin-top: 5%">
                 <v-card align="center" style="margin-bottom: 5%">
                     <h2 style="padding: 5%">
-                        写文章
+                        发布作品
                     </h2>
                 </v-card>
                 <v-card>
                     <h2 align="center">
-                        文章内容
+                        作品内容
                     </h2>
                     <el-divider></el-divider>
                     <v-form v-model="valid">
                         <h3>
-                            文章标题
+                            作品标题
                         </h3>
                         <v-text-field
-                                v-model="tempArticleData.articleTitle"
+                                v-model="tempArtData.artName"
                                 style="margin: 5%"
                                 label="标题"
-                                name="articleTitle"
                                 :rules="titleRules"
                                 filled
                         ></v-text-field>
                         <h3>
-                            文章内容
+                            作品介绍
                         </h3>
                         <v-textarea
-                                v-model="tempArticleData.articleContent"
+                                v-model="tempArtData.artContent"
                                 style="margin: 5%"
                                 name="articleContent"
                                 filled
@@ -39,12 +38,45 @@
                                 auto-grow
                         >
                         </v-textarea>
+
+                        <h3>
+                            作品尺寸
+                        </h3>
+                        <el-select
+                                v-model="tempArtData.artSize"
+                                class="filter-item"
+                                :placeholder="'长度' + sizeList[0].length + '宽度' +sizeList[0].height"
+
+                        >
+                            <el-option
+                                    v-for="item in sizeList"
+                                    :key="item.id"
+                                    :label="'长度' + item.length + '宽度' +item.height"
+                                    :value="item.id"
+                            />
+                        </el-select>
+                        <h3>
+                            作品
+                        </h3>
+                        <el-select
+                                v-model="tempArtData.artTag"
+                                class="filter-item"
+                                :placeholder="tagList[0].tagName"
+                        >
+                            <el-option
+                                    v-for="item in tagList"
+                                    :key="item.id"
+                                    :label="item.tagName"
+                                    :value="item.id"
+                            />
+                        </el-select>
+
                     </v-form>
                 </v-card>
 
                 <el-card>
                     <h2 align="center">
-                        文章封面
+                        作品主体
                     </h2>
                     <el-divider></el-divider>
                     <el-upload
@@ -55,7 +87,7 @@
                             :data="postData"
                             :on-success="onCropUploadSuccess"
                             :before-upload="beforeAvatarUpload">
-                        <img v-if="tempArticleData.articleFront" :src="tempArticleData.articleFront" class="avatar">
+                        <img v-if="tempArtData.artPicUrl" :src="tempArtData.artPicUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </el-card>
@@ -79,6 +111,21 @@
     import {getToken} from "@/api/token";
     import {isValidateEmail, isValidatePassword} from "@/utils/validate";
     import {UserModule} from "@/store/modules/user";
+    import {
+        getArts,
+        createArt,
+        getArtDetail,
+        updateArt,
+        deleteArt,
+        defaultArtData,
+    } from '@/api/arts'
+    import {getUsersAll} from "@/api/users";
+    import {getSizesAll} from "@/api/sizes";
+    import {getTagsAll} from "@/api/tags";
+    import {IArtData, ISizeData, ITagData} from "@/api/types";
+    import da from "element-ui/src/locale/lang/da";
+    import { cloneDeep } from 'lodash'
+
 
     @Component({
         name: 'AddArt',
@@ -88,7 +135,9 @@
         }
     })
     export default class App extends Vue {
-        private tempArticleData = defaultArticleData
+        private tagList: ITagData[] = []
+        private sizeList: ISizeData[] = []
+        private tempArtData = defaultArtData
         private valid = true
 
         private postData = {
@@ -106,6 +155,16 @@
 
         created() {
             this.genToken()
+            this.getNeedData()
+        }
+
+        private async getNeedData() {
+            let data = await getSizesAll()
+            this.sizeList = data.data
+
+            data = await getTagsAll()
+            this.tagList = data.data
+            console.log(this.tagList)
         }
 
         private async genToken() {
@@ -114,7 +173,7 @@
         }
 
         private onCropUploadSuccess(res: any, file: any) {
-            this.tempArticleData.articleFront = this.backUrl + res.key
+            this.tempArtData.artPicUrl = this.backUrl + res.key
         }
 
         private beforeAvatarUpload(file: any) {
@@ -132,16 +191,23 @@
             }
         }
 
+        private resetTempData() {
+            this.tempArtData = cloneDeep(defaultArtData)
+        }
+
         private async handlePublish() {
             let formData = new FormData()
-            formData.append('articleTitle', this.tempArticleData.articleTitle)
-            formData.append('articleContent', this.tempArticleData.articleContent)
-            formData.append('articleAuthor', UserModule.id.toString())
-            formData.append('articleFront', this.tempArticleData.articleFront)
-            let datas = await createArticle(formData)
+            formData.append('artName', this.tempArtData.artName)
+            formData.append('artAuthor', UserModule.id.toString())
+            formData.append('artSize', this.tempArtData.artSize.toString())
+            formData.append('artContent', this.tempArtData.artContent)
+            formData.append('artPicUrl', this.tempArtData.artPicUrl)
+            formData.append('artTag', this.tempArtData.artTag.toString())
+            let datas = await createArt(formData)
             datas = datas.data
             console.log(datas)
             this.$router.replace("/my-profile")
+            this.resetTempData()
         }
 
     }

@@ -23,7 +23,6 @@ public class CommentController {
 
     @PostMapping("/add")
     public Result add(Comment comment) {
-        System.out.println(comment);
         comment.setCommentTime(DateUtils.getTimeStamp());
         commentService.save(comment);
         CommentDTO commentDTO = commentService.findADTO(comment.getId());

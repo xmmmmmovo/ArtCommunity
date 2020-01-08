@@ -41,14 +41,17 @@
                 <v-col cols="12">
                     <v-card
                     >
-                        <v-card-title class="headline">{{comment.userName}} 于 {{createTime(comment.commentTime)}} 说到</v-card-title>
+                        <v-card-title class="headline">{{comment.userName}} 于 {{createTime(comment.commentTime)}} 说到
+                        </v-card-title>
                         <v-card-subtitle style="font-size: 30px">{{comment.commentContent}}</v-card-subtitle>
                     </v-card>
                 </v-col>
             </v-row>
         </div>
 
-        <v-container fluid>
+        <v-container fluid
+                     v-if="id!=''"
+        >
             <v-textarea
                     v-model="content"
                     label="评论内容"
@@ -69,10 +72,10 @@
     import {ICommentData} from "@/api/types";
     import {createArticle, getArticleDetail, getArticles} from "@/api/articles";
     import {parseTime} from "@/utils";
-    import {defaultArtData, getArtDetail} from "@/api/arts";
+    import {defaultArtData, getArtDetail, updateArt, updateCommentCount} from "@/api/arts";
     import {createComment, defaultCommentData, getByCommentsByArtId, getComments} from "@/api/comments";
     import {UserModule} from "@/store/modules/user";
-    import { cloneDeep } from 'lodash'
+    import {cloneDeep} from 'lodash'
 
     @Component({
         name: 'ArtContent',
@@ -85,6 +88,10 @@
         private tempCommentData = defaultCommentData
         private commentList: ICommentData[] = []
         private content = ''
+
+        get id() {
+            return UserModule.id
+        }
 
         created() {
             this.init()
@@ -128,6 +135,9 @@
             this.tempCommentData = datas.data
             this.commentList.push(this.tempCommentData)
             this.content = ''
+            let formData2 = new FormData()
+            formData2.append('id', this.tempArtData.id.toString())
+            let dataBack = await updateCommentCount(formData2)
         }
 
     }

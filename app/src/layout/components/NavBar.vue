@@ -127,7 +127,7 @@
         }
 
         private artRoute() {
-
+            this.$router.replace('/')
         }
 
         private articleRoute() {

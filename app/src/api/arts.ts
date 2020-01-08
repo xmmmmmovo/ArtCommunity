@@ -60,6 +60,20 @@ export const updateArt = (data: any) =>
     data
   })
 
+export const updateCommentCount = (data: any) =>
+    request({
+        url: '/art/comment_up',
+        method: 'POST',
+        data
+    })
+
+export const updateLikeCount = (data: any) =>
+    request({
+        url: '/art/like_up',
+        method: 'POST',
+        data
+    })
+
 export const deleteArt = (data: any) =>
   request({
     url: '/art/delete',

@@ -35,4 +35,14 @@ public class ArtServiceImpl extends AbstractService<Art> implements ArtService {
     public ArtDTO findADTO(Long id) {
         return artMapper.findIdDTO(id);
     }
+
+    @Override
+    public void updateCommentCount(Long id) {
+        artMapper.updateCommentCount(id);
+    }
+
+    @Override
+    public void updateLikeCount(Long id) {
+        artMapper.updateLikeCount(id);
+    }
 }
