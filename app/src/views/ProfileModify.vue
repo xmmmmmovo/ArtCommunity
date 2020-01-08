@@ -4,10 +4,21 @@
             <NavBar/>
         </div>
         <row>
-            <ProfileSide/>
             <v-col cols="4">
+                <el-upload
+                        align="center"
+                        class="avatar-uploader"
+                        action="https://upload-z1.qiniup.com"
+                        :show-file-list="false"
+                        :data="postData"
+                        :on-success="onCropUploadSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="tempUser.userAvatar"
+                           :src="tempUser.userAvatar"
+                           class="avatar" max-height="300px" max-width="300px">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
                 <v-card
-                        max-width="300px"
                 >
                     <v-form
                             ref="form"
@@ -15,7 +26,7 @@
                             lazy-validation
                     >
                         <v-text-field
-                                v-model="userName"
+                                v-model="tempUser.userName"
                                 label="用户名"
                                 name="userName"
                                 prepend-icon="person"
@@ -25,7 +36,7 @@
                                 @blur="$v.userName.$touch()"
                         />
                         <v-text-field
-                                v-model="userEmail"
+                                v-model="tempUser.userEmail"
                                 label="用户邮箱"
                                 name="userEmail"
                                 prepend-icon="email"
@@ -35,7 +46,7 @@
                                 @blur="$v.userEmail.$touch()"
                         />
                         <v-text-field
-                                v-model="userPassword"
+                                v-model="pwd"
                                 label="密码"
                                 name="userPassword"
                                 prepend-icon="lock"
@@ -45,6 +56,7 @@
                                 @input="$v.userPassword.$touch()"
                                 @blur="$v.userPassword.$touch()"
                         />
+                        <b-button @click="handleUpdate">修改</b-button>
                     </v-form>
                 </v-card>
             </v-col>
@@ -60,12 +72,14 @@
     import Component from 'vue-class-component'
     import NavBar from "@/layout/components/NavBar.vue";
     import ProfileSide from "@/layout/components/ProfileSide.vue";
-    import {UserModule} from "@/store/modules/user";
+    import {IUserState, UserModule} from "@/store/modules/user";
     import {parseTime} from "@/utils"
-    import {IArtData, IArticleData, ILikeData} from "@/api/types";
+    import {IArtData, IArticleData, ILikeData, IUserData} from "@/api/types";
     import {getArts, getUserArts} from "@/api/arts";
     import {getUserArticles} from "@/api/articles";
     import {getUserLikes} from "@/api/likes";
+    import {defaultUserData, getUserDetail} from "@/api/users";
+    import da from "element-ui/src/locale/lang/da";
 
     @Component({
         name: 'ProfileModify',
@@ -76,6 +90,9 @@
     })
     export default class App extends Vue {
 
+        private tempUser:IUserData = defaultUserData
+        private pwd = ''
+
         get name() {
             return UserModule.name
         }
@@ -84,11 +101,22 @@
             return UserModule.email
         }
 
+        get avatar() {
+            return UserModule.avatar
+        }
+
         created() {
             this.init()
         }
 
         private async init() {
+            let formData = new FormData()
+            formData.append('id', UserModule.id.toString())
+            const {data} = await getUserDetail(formData)
+            this.tempUser = data
+        }
+
+        private handleUpdate() {
 
         }
 

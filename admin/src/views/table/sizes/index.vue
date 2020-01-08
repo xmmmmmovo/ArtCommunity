@@ -40,7 +40,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        label="长度"
         align="center"
       >
         <template slot-scope="scope">
@@ -48,7 +48,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        label="宽度"
         align="center"
       >
         <template slot-scope="scope">

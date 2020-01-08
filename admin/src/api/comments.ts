@@ -9,8 +9,7 @@ export const defaultCommentData: ICommentData = {
   parentId: BigInt(0),
   artId: BigInt(0),
   artName: '',
-  commentTime: BigInt(0),
-  commentLikeCount: BigInt(0)
+  commentTime: BigInt(0)
 }
 
 export const getComments = (data: any) =>

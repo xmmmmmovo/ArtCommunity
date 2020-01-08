@@ -32,21 +32,21 @@
       </el-table-column>
 
       <el-table-column
-        label="commentTime"
+        label="评论时间"
         align="center"
         :formatter="dateFormater"
         prop="commentTime"
       >
       </el-table-column>
       <el-table-column
-        label="userName"
+        label="用户名"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="commentContent"
+        label="评论内容"
         align="center"
       >
         <template slot-scope="scope">
@@ -54,7 +54,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="artId"
+        label="评论作品id"
         align="center"
       >
         <template slot-scope="scope">
@@ -62,22 +62,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="artName"
+        label="作品名"
         align="center"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.artName }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="commentLikeCount"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.commentLikeCount }}</span>
-        </template>
-      </el-table-column>
-
       <el-table-column
         label="操作"
         align="center"
@@ -90,7 +81,7 @@
             size="mini"
             @click="handleUpdate(row)"
           >
-            Edit
+            编辑
           </el-button>
           <el-button
             size="mini"

@@ -18,6 +18,13 @@ export const getLikes = (data: any) =>
         data
     })
 
+export const getIsLikes = (data: any) =>
+    request({
+        url: '/like/list/find_is_like',
+        method: 'POST',
+        data
+    })
+
 export const getUserLikes = (data: any) =>
     request({
         url: '/like/list/find_user_art_list',

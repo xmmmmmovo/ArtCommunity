@@ -108,11 +108,12 @@
                                         点赞时间: {{createTime(like.likeTime)}}
                                     </h3>
                                     <h4>
-                                        分类: {{art.tagName}}
+                                        分类: {{like.tagName}}
                                     </h4>
                                 </v-col>
                             </v-row>
                         </div>
+
                     </v-tab-item>
                 </v-tabs>
 
@@ -178,6 +179,8 @@
             formData.append("id", UserModule.id.toString())
             const {data} = await getUserLikes(formData)
             this.likeList = data.list
+            console.log(data.list)
+            console.log(this.likeList)
         }
 
         private createTime(time: string | number) {

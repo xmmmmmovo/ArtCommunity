@@ -6,6 +6,7 @@ import org.nuc.course.model.LikeList;
 import org.nuc.course.db.service.LikeListService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.nuc.course.utils.DateUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ public class LikeListController {
 
     @PostMapping("/add")
     public Result add(LikeList likeList) {
+        likeList.setLikeTime(DateUtils.getTimeStamp());
         likeListService.save(likeList);
         return ResultGenerator.genSuccessResult();
     }
@@ -38,10 +40,10 @@ public class LikeListController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
-        LikeList likeList = likeListService.findById(id);
-        return ResultGenerator.genSuccessResult(likeList);
+        LikeDTO likeDTO = likeListService.findADTO(id);
+        return ResultGenerator.genSuccessResult(likeDTO);
     }
 
     @PostMapping("/list")
@@ -64,5 +66,12 @@ public class LikeListController {
         List<LikeDTO> list = likeListService.findLikeDTO(id);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PostMapping("/find_is_like")
+    public Result findIsLike(@RequestParam Long userId,
+                             @RequestParam Long artId) {
+        List<LikeDTO> likeDTO = likeListService.findALikeDTO(userId, artId);
+        return ResultGenerator.genSuccessResult(likeDTO);
     }
 }

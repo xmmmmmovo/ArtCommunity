@@ -11,10 +11,16 @@
                         :max-width="tempArtData.length"
                 >
                 </v-img>
+
+                <div align="center">
+                    <v-img src="http://q3lynq058.bkt.clouddn.com/like%E7%BA%A2.png"
+                           max-width="40px" max-height="40px" @click="handleLike"></v-img>
+                </div>
+
             </v-col>
 
             <v-col cols="4">
-                <h1 style="margin: 10%; font-size: 60px">
+                <h1 style="margin: 10%; font-size: 60px" @click="handleAuthorProfile(tempArtData.artAuthor)">
                     作者:{{tempArtData.userName}}
                 </h1>
                 <el-divider></el-divider>
@@ -72,10 +78,12 @@
     import {ICommentData} from "@/api/types";
     import {createArticle, getArticleDetail, getArticles} from "@/api/articles";
     import {parseTime} from "@/utils";
-    import {defaultArtData, getArtDetail, updateArt, updateCommentCount} from "@/api/arts";
+    import {defaultArtData, getArtDetail, updateArt, updateCommentCount, updateLikeCount} from "@/api/arts";
     import {createComment, defaultCommentData, getByCommentsByArtId, getComments} from "@/api/comments";
     import {UserModule} from "@/store/modules/user";
     import {cloneDeep} from 'lodash'
+    import {Message} from "element-ui";
+    import {createLike, getIsLikes} from "@/api/likes";
 
     @Component({
         name: 'ArtContent',
@@ -126,6 +134,10 @@
             return parseTime(time)
         }
 
+        private handleAuthorProfile(id: bigint) {
+            this.$router.push({path: '/other-profile', query: {id: String(id)}})
+        }
+
         private async handleCommit() {
             let formData = new FormData()
             formData.append('commentBy', UserModule.id.toString())
@@ -138,6 +150,49 @@
             let formData2 = new FormData()
             formData2.append('id', this.tempArtData.id.toString())
             let dataBack = await updateCommentCount(formData2)
+        }
+
+        private async handleLike() {
+            if (UserModule.token === '') {
+                Message({
+                    message: '请先登录！',
+                    type: 'error',
+                    duration: 5 * 1000,
+                    offset: 100
+                })
+                return
+            }
+
+            let formData = new FormData()
+            formData.append('userId', UserModule.id.toString())
+            formData.append('artId', this.tempArtData.id.toString())
+            const {data} = await getIsLikes(formData)
+
+            console.log(data)
+
+            if (data.len !== 0) {
+                let formData2 = new FormData()
+                let formData3 = new FormData()
+                formData2.append('userId', UserModule.id.toString())
+                formData2.append('artId', this.tempArtData.id.toString())
+                formData3.append('id', this.tempArtData.id.toString())
+                let d = await createLike(formData2)
+                let d2 = await updateLikeCount(formData3)
+                Message({
+                    message: '成功喜欢',
+                    type: 'success',
+                    duration: 5 * 1000,
+                    offset: 100
+                })
+            } else {
+                Message({
+                    message: '你已经喜欢过了！',
+                    type: 'error',
+                    duration: 5 * 1000,
+                    offset: 100
+                })
+            }
+
         }
 
     }

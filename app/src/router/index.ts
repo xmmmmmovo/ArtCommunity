@@ -109,14 +109,6 @@ const routes = [
             title: '作品详情'
         },
         component: () => import('@/views/ArtContent.vue')
-    },
-    {
-        path: '/test',
-        name: '测试',
-        meta: {
-            title: '测试'
-        },
-        component: () => import('@/views/test.vue')
     }
 ]
 

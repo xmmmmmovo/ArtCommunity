@@ -57,21 +57,21 @@
       </el-table-column>
 
       <el-table-column
-        label="registerTime"
+        label="注册时间"
         align="center"
         :formatter="dateFormater"
         prop="registerTime"
       >
       </el-table-column>
       <el-table-column
-        label="adminName"
+        label="管理员姓名"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.adminName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="adminEmail"
+        label="管理员邮箱"
         align="center"
       >
         <template slot-scope="scope">
@@ -79,7 +79,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="adminAvatar"
+        label="管理员头像"
         width="130px"
       >
         <template slot-scope="scope">
@@ -91,7 +91,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="roles"
+        label="管理员身份"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.roles }}</span>
@@ -259,7 +259,8 @@ export default class extends Vue {
   private listLoading = true
   private listQuery = {
     page: 1,
-    size: 20
+    size: 20,
+    title: ''
   }
   private textMap = {
     update: '编辑',

@@ -56,7 +56,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="tagName"
+        label="标签名"
         align="center"
       >
         <template slot-scope="scope">
@@ -64,7 +64,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="tagDescribe"
+        label="标签描述"
         align="center"
       >
         <template slot-scope="scope">
@@ -73,7 +73,7 @@
       </el-table-column>
 
       <el-table-column
-        label="usageCount"
+        label="使用数"
         align="center"
       >
         <template slot-scope="scope">

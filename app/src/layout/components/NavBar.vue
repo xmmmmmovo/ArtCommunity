@@ -12,10 +12,10 @@
             <el-button
                     class="btn"
                     type="text"
-                    @click="articleRoute"
+                    @click="artRoute"
 
             >
-                艺术品
+                作品
             </el-button>
             <el-button
                     class="btn"

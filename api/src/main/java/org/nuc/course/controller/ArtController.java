@@ -59,6 +59,18 @@ public class ArtController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
+    @PostMapping("/list_search")
+    public Result listSearch(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size,
+            @RequestParam String name
+    ) {
+        PageHelper.startPage(page, size);
+        List<ArtDTO> list = artService.findUserLikeDTO(name);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
     @PostMapping("/find_user_art_list")
     public Result listUserList(
             @RequestParam(defaultValue = "0") Integer page,

@@ -19,8 +19,8 @@
         @click="addArticleRoute">添加文章</v-btn>
         <v-btn x-large color="indigo" block outlined style="margin-top: 20%"
         @click="addArtRoute">添加画作</v-btn>
-        <v-btn x-large color="indigo" block outlined style="margin-top: 20%"
-        @click="changeProfileRoute">修改个人信息</v-btn>
+<!--        <v-btn x-large color="indigo" block outlined style="margin-top: 20%"-->
+<!--        @click="changeProfileRoute">修改个人信息</v-btn>-->
     </v-col>
 </template>
 

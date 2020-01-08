@@ -26,6 +26,13 @@ export const getArts = (data: any) =>
     data
   })
 
+export const getArtsLike = (data: any) =>
+  request({
+    url: '/art/list_search',
+    method: 'POST',
+    data
+  })
+
 export const getArtsAll = () =>
   request({
     url: '/art/all',

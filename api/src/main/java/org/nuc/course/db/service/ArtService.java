@@ -12,6 +12,7 @@ import java.util.List;
 public interface ArtService extends Service<Art> {
     List<ArtDTO> findAllList();
     List<ArtDTO> findUserDTO(Long id);
+    List<ArtDTO> findUserLikeDTO(String name);
     ArtDTO findADTO(Long id);
     void updateCommentCount(Long id);
     void updateLikeCount(Long id);

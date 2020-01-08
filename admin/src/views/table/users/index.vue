@@ -57,7 +57,7 @@
       </el-table-column>
 
       <el-table-column
-        label="registerTime"
+        label="注册时间"
         align="center"
         :formatter="dateFormater"
         prop="registerTime"
@@ -65,14 +65,14 @@
       </el-table-column>
 
       <el-table-column
-        label="userName"
+        label="用户名"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="userEmail"
+        label="用户邮箱"
         align="center"
       >
         <template slot-scope="scope">
@@ -80,21 +80,21 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="userBio"
+        label="简介"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.userBio }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="userSex"
+        label="用户性别"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.userSex }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="userAvatar"
+        label="用户头像"
         width="130px"
       >
         <template slot-scope="scope">

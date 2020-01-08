@@ -57,28 +57,28 @@
       </el-table-column>
 
       <el-table-column
-        label="createTime"
+        label="创建时间"
         align="center"
         :formatter="dateFormater"
         prop="createTime"
       >
       </el-table-column>
       <el-table-column
-        label="modifiedTime"
+        label="更改时间"
         align="center"
         :formatter="dateFormater"
         prop="modifiedTime"
       >
       </el-table-column>
       <el-table-column
-        label="artName"
+        label="作品名"
       >
         <template slot-scope="scope">
           <span>{{ scope.row.artName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="userName"
+        label="用户名"
         align="center"
       >
         <template slot-scope="scope">
@@ -86,7 +86,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="length"
+        label="长度"
         align="center"
       >
         <template slot-scope="scope">
@@ -94,7 +94,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="height"
+        label="宽度"
         align="center"
       >
         <template slot-scope="scope">
@@ -102,7 +102,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="tagName"
+        label="标签名"
         align="center"
       >
         <template slot-scope="scope">
@@ -110,7 +110,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="artLikeNum"
+        label="作品喜欢数"
         align="center"
       >
         <template slot-scope="scope">
@@ -310,7 +310,7 @@ import {
   getArtDetail,
   updateArt,
   deleteArt,
-  defaultArtData,
+  defaultArtData, getArtsLike,
 } from '@/api/arts'
 import {
   getToken
@@ -323,6 +323,7 @@ import * as moment from 'moment'
 import {getUsersAll} from "@/api/users";
 import {getSizesAll} from "@/api/sizes";
 import {getTagsAll} from "@/api/tags";
+import {getAdmins} from "@/api/admins";
 
 @Component({
   name: 'ArtsTable',
@@ -339,7 +340,8 @@ export default class extends Vue {
   private listLoading = true
   private listQuery = {
     page: 1,
-    size: 20
+    size: 20,
+    title: ''
   }
   private textMap = {
     update: '编辑',
@@ -430,7 +432,23 @@ export default class extends Vue {
 
   private handleFilter() {
     this.listQuery.page = 1
-    this.getList()
+    this.search()
+  }
+
+  private async search() {
+    this.listLoading = true
+    let formData = new FormData()
+    formData.append('page', this.listQuery.page.toString())
+    formData.append('size', this.listQuery.size.toString())
+    formData.append('name', this.listQuery.title)
+    const { data } = await getArtsLike(formData)
+    console.log(data)
+    this.list = data.list
+    this.total = data.total
+    // Just to simulate the time of the request
+    setTimeout(() => {
+      this.listLoading = false
+    }, 0.5 * 1000)
   }
 
   private handleModifyStatus(row: any, status: string) {
