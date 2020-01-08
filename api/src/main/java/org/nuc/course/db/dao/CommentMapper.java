@@ -17,8 +17,7 @@ public interface CommentMapper extends Mapper<Comment> {
             "       parent_id as parentId,\n" +
             "       a.id as artId,\n" +
             "       art_name as artName,\n" +
-            "       comment_time as commentTime,\n" +
-            "       comment_like_count as commentLikeCount\n" +
+            "       comment_time as commentTime\n" +
             "from comment\n" +
             "    left join user u on comment.comment_by = u.id\n" +
             "    left join art a on comment.parent_id = a.id")
@@ -31,11 +30,26 @@ public interface CommentMapper extends Mapper<Comment> {
             "       parent_id as parentId,\n" +
             "       a.id as artId,\n" +
             "       art_name as artName,\n" +
-            "       comment_time as commentTime,\n" +
-            "       comment_like_count as commentLikeCount\n" +
+            "       comment_time as commentTime\n" +
+            "from comment\n" +
+            "    left join user u on comment.comment_by = u.id\n" +
+            "    left join art a on comment.parent_id = a.id\n" +
+            "where parent_id = ${id}")
+    List<CommentDTO> findByArtId(@Param("id") Long id);
+
+    @Select("select comment.id,\n" +
+            "       comment_by as commentBy,\n" +
+            "       user_name as userName,\n" +
+            "       comment_content as commentContent,\n" +
+            "       parent_id as parentId,\n" +
+            "       a.id as artId,\n" +
+            "       art_name as artName,\n" +
+            "       comment_time as commentTime\n" +
             "from comment\n" +
             "    left join user u on comment.comment_by = u.id\n" +
             "    left join art a on comment.parent_id = a.id\n" +
             "where comment.id = ${id}")
     CommentDTO findIdDTO(@Param("id") Long id);
+
+
 }

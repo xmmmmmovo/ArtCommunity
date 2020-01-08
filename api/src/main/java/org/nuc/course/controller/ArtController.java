@@ -43,7 +43,7 @@ public class ArtController {
         return ResultGenerator.genSuccessResult(artDTO);
     }
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
         Art art = artService.findById(id);
         return ResultGenerator.genSuccessResult(art);

@@ -42,7 +42,7 @@ export const getArtsAll = () =>
 export const getArtDetail = (data: any) =>
   request({
     url: '/art/detail',
-    method: 'GET',
+    method: 'POST',
     data
   })
 

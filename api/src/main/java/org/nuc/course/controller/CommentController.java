@@ -23,6 +23,7 @@ public class CommentController {
 
     @PostMapping("/add")
     public Result add(Comment comment) {
+        System.out.println(comment);
         comment.setCommentTime(DateUtils.getTimeStamp());
         commentService.save(comment);
         CommentDTO commentDTO = commentService.findADTO(comment.getId());
@@ -46,6 +47,17 @@ public class CommentController {
     public Result detail(@RequestParam Long id) {
         Comment comment = commentService.findById(id);
         return ResultGenerator.genSuccessResult(comment);
+    }
+
+    @PostMapping("/art_comment")
+    public Result artComment(@RequestParam(defaultValue = "0") Integer page,
+                             @RequestParam(defaultValue = "0") Integer size,
+                             @RequestParam Long id) {
+
+        PageHelper.startPage(page, size);
+        List<CommentDTO> comments = commentService.findByArtId(id);
+        PageInfo pageInfo = new PageInfo(comments);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
     @PostMapping("/list")

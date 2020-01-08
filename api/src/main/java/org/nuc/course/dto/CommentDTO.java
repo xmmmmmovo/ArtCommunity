@@ -16,5 +16,4 @@ public class CommentDTO {
     private Long artId;
     private String artName;
     private Long commentTime;
-    private Long commentLikeCount;
 }

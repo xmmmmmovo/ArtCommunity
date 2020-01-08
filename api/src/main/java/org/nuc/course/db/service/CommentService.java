@@ -13,4 +13,5 @@ import java.util.List;
 public interface CommentService extends Service<Comment> {
     List<CommentDTO> findAllList();
     CommentDTO findADTO(Long id);
+    List<CommentDTO> findByArtId(Long id);
 }

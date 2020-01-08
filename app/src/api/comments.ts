@@ -9,8 +9,7 @@ export const defaultCommentData: ICommentData = {
   parentId: BigInt(0),
   artId: BigInt(0),
   artName: '',
-  commentTime: BigInt(0),
-  commentLikeCount: BigInt(0)
+  commentTime: BigInt(0)
 }
 
 export const getComments = (data: any) =>
@@ -19,6 +18,13 @@ export const getComments = (data: any) =>
     method: 'POST',
     data
   })
+
+export const getByCommentsByArtId = (data: any) =>
+    request({
+        url: '/comment/art_comment',
+        method: 'POST',
+        data
+    })
 
 export const getCommentsAll = () =>
   request({

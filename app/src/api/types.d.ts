@@ -67,7 +67,6 @@ export interface ICommentData {
   artId: bigint
   artName: string
   commentTime: bigint
-  commentLikeCount: bigint
 }
 
 export interface ILikeData {

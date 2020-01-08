@@ -141,7 +141,7 @@
             let datas = await createArticle(formData)
             datas = datas.data
             console.log(datas)
-            this.$router.replace("/my-profile")
+            this.$router.push("/my-profile")
         }
 
     }

@@ -19,9 +19,6 @@ public class Comment {
     @Column(name = "comment_time")
     private Long commentTime;
 
-    @Column(name = "comment_like_count")
-    private Long commentLikeCount;
-
     /**
      * @return id
      */
@@ -92,17 +89,14 @@ public class Comment {
         this.commentTime = commentTime;
     }
 
-    /**
-     * @return comment_like_count
-     */
-    public Long getCommentLikeCount() {
-        return commentLikeCount;
-    }
-
-    /**
-     * @param commentLikeCount
-     */
-    public void setCommentLikeCount(Long commentLikeCount) {
-        this.commentLikeCount = commentLikeCount;
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", commentBy=" + commentBy +
+                ", commentContent='" + commentContent + '\'' +
+                ", parentId=" + parentId +
+                ", commentTime=" + commentTime +
+                '}';
     }
 }

@@ -10,6 +10,5 @@
     <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="comment_time" jdbcType="BIGINT" property="commentTime" />
-    <result column="comment_like_count" jdbcType="BIGINT" property="commentLikeCount" />
   </resultMap>
 </mapper>
