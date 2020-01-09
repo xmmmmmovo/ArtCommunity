@@ -75,7 +75,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 } else if (e instanceof ServletException) {
                     result.setCode(ResultCode.FAIL).setMessage(e.getMessage());
                 } else {
-                    result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口内部错误，检查是否输入有问题");
+                    result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("访问失败！请检查自己信息是否有错误！");
                     String message;
                     if (handler instanceof HandlerMethod) {
                         HandlerMethod handlerMethod = (HandlerMethod) handler;

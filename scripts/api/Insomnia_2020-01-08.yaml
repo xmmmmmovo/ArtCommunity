@@ -1,0 +1,1098 @@
+_type: export
+__export_format: 4
+__export_date: 2020-01-08T14:18:42.062Z
+__export_source: insomnia.desktop.app:v7.0.6
+resources:
+  - _id: req_20df58ac7ae94f34be4fa6e4cee63a8e
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_ab7a69cc32994807887218b9ef118874
+          name: userId
+          value: "1"
+        - description: ""
+          id: pair_11b232e96e0246c2a9a3b41954b9b499
+          name: artId
+          value: "1"
+    created: 1578470739448
+    description: ""
+    headers:
+      - id: pair_bae9ecb6b93549ecb9a7be4bdc13cb8a
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578470739448
+    method: POST
+    modified: 1578470794395
+    name: like
+    parameters: []
+    parentId: fld_43c5bb17c4ca4657b5e6a5997439f88d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/like/list/find_is_like
+    _type: request
+  - _id: fld_43c5bb17c4ca4657b5e6a5997439f88d
+    created: 1578470736024
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578470736025
+    modified: 1578470736024
+    name: like
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: fld_c1872108c3ac4817983efa8e506fbb6c
+    created: 1578242881030
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1575763150628.5
+    modified: 1578242881283
+    name: sqlCrouseDesign
+    parentId: wrk_5b568b00145e4db4baa593da1a730af5
+    _type: request_group
+  - _id: wrk_5b568b00145e4db4baa593da1a730af5
+    created: 1578242871260
+    description: ""
+    modified: 1578242871260
+    name: sqlCourse
+    parentId: null
+    _type: workspace
+  - _id: req_dc97cb51996e42429020081d3e022210
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_0698781faab94f7aa597d68275dee922
+          name: id
+          value: "116"
+    created: 1578440393822
+    description: ""
+    headers:
+      - id: pair_702412d3335d41f29d3cf1b49dfef1f8
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578259135070
+    method: POST
+    modified: 1578440494400
+    name: comments
+    parameters: []
+    parentId: fld_5183d50162304434a92732f98bc04a3e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/comment/art_comment
+    _type: request
+  - _id: fld_5183d50162304434a92732f98bc04a3e
+    created: 1578248488605
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578248488605
+    modified: 1578248488605
+    name: comment
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_b08b2cd6515549fd90db720a35555a57
+    authentication: {}
+    body: {}
+    created: 1578259135020
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1578259135020
+    method: GET
+    modified: 1578259159465
+    name: list
+    parameters: []
+    parentId: fld_5183d50162304434a92732f98bc04a3e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/comment/list
+    _type: request
+  - _id: req_59d259204e324209a83948b4131e9c2d
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_58b0b432274544309daa636797bb9978
+          name: commentBy
+          value: "1011"
+        - description: ""
+          id: pair_9bf68d3ac91e4139bbc47ce843f6bbf7
+          name: commentContent
+          value: asdfafa
+        - description: ""
+          id: pair_7e6fcb9802a347bbacd4083366760b81
+          name: parentId
+          value: "2"
+    created: 1578248494542
+    description: ""
+    headers:
+      - id: pair_d085cf1da1a840b39e66f7d623895f7e
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578248494542
+    method: POST
+    modified: 1578259313696
+    name: add
+    parameters: []
+    parentId: fld_5183d50162304434a92732f98bc04a3e
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/comment/add
+    _type: request
+  - _id: req_5d8c499ee59f44a1944dc745d3a385a4
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          disabled: false
+          id: pair_9eda897af6ba48a68de69ba01ec5dc2b
+          name: page
+          value: "0"
+        - description: ""
+          id: pair_2f2a0f0812774dbbacb0d6d5d7d3bea8
+          name: size
+          value: "3"
+    created: 1578242881261
+    description: ""
+    headers:
+      - id: pair_cc9b38890555461aa128510537230644
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578226515838
+    method: POST
+    modified: 1578374140016
+    name: list
+    parameters: []
+    parentId: fld_4292c86c5074453f999a107837e4bc18
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/article/list
+    _type: request
+  - _id: fld_4292c86c5074453f999a107837e4bc18
+    created: 1578242881244
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578218892079
+    modified: 1578242881244
+    name: article
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_65183ea2651d4cfcbeca987806bdfb40
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_35f1b7bd15704a918cf20a8dcbb529f9
+          name: articleTitle
+          value: "111"
+        - description: ""
+          id: pair_2f0a5a1b27044462b07c89ce0a70718a
+          name: articleContent
+          value: "1111"
+        - description: ""
+          id: pair_9df3ee1c253041f7bf9b8a55f02dba55
+          name: articleAuthor
+          value: "1011"
+    created: 1578242881252
+    description: ""
+    headers:
+      - id: pair_112fbeab178c4f0c9800b3e835ac640a
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578218904393
+    method: POST
+    modified: 1578242881252
+    name: add
+    parameters: []
+    parentId: fld_4292c86c5074453f999a107837e4bc18
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/article/add
+    _type: request
+  - _id: req_a4e0a1d0d904482a8d140b7628d16e65
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_0570f116118f45f081a61fa981d5875d
+          name: tagName
+          value: 当代
+        - description: ""
+          id: pair_13926e3d5b6d48fab6e19b4f987214fb
+          multiline: text/plain
+          name: tagDescribe
+          type: text
+          value: "从1970年到今天，当代艺术史代表着艺术领域中最为多样化和广泛收集的时代。当\r
+
+            \r
+
+            代艺术家从当下汲取灵感，挑战观众从另一个角度思考现实。"
+    created: 1578242881234
+    description: ""
+    headers:
+      - id: pair_e2517274b90a4c1fb71d35147243cd12
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578198256087
+    method: POST
+    modified: 1578242881234
+    name: tag
+    parameters: []
+    parentId: fld_f467ee5afa404fb6b84e2c9bce6a1925
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/tag/add
+    _type: request
+  - _id: fld_f467ee5afa404fb6b84e2c9bce6a1925
+    created: 1578242881226
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578198248562
+    modified: 1578242881226
+    name: tag
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_e148d35bf23847faa319d92072b394d1
+    authentication: {}
+    body: {}
+    created: 1578451492152
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1578451492152
+    method: GET
+    modified: 1578451497416
+    name: all
+    parameters: []
+    parentId: fld_f14852e03cd34528b37ca6e5c4c6d957
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/size/all
+    _type: request
+  - _id: fld_f14852e03cd34528b37ca6e5c4c6d957
+    created: 1578242881207
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578193994879
+    modified: 1578242881207
+    name: size
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_44ec323719f840e4ad301a6ae6938414
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_f5a3f6e73fd74e5da3124ca56225072b
+          name: length
+          value: "1920"
+        - description: ""
+          id: pair_6ec5679d9f1746148edf59a8e3fc2f3c
+          name: height
+          value: "1080"
+    created: 1578242881215
+    description: ""
+    headers:
+      - id: pair_8629d4a7853148ea8c9de664159d6c47
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578194002172
+    method: POST
+    modified: 1578242881215
+    name: add
+    parameters: []
+    parentId: fld_f14852e03cd34528b37ca6e5c4c6d957
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/size/add
+    _type: request
+  - _id: req_a5489fa1f32f416ea73d61edf5a456b3
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params: []
+    created: 1578242881197
+    description: ""
+    headers:
+      - id: pair_faf8f7ec16934a69a5773b7831479aca
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578190114048
+    method: GET
+    modified: 1578242881197
+    name: get
+    parameters: []
+    parentId: fld_da0086e47d8543e895fac8782c7ea5c5
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/token/token
+    _type: request
+  - _id: fld_da0086e47d8543e895fac8782c7ea5c5
+    created: 1578242881189
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578190109446
+    modified: 1578242881189
+    name: token
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_40cf418796024ffbb81de6c613906ad0
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_fc0c436c93f9455fbb2542768548e4df
+          name: id
+          value: "116"
+    created: 1578446205553
+    description: ""
+    headers:
+      - id: pair_9d19ddef6a2046ab88db257e27947fba
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578446205553
+    method: POST
+    modified: 1578446231895
+    name: comment
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/art/comment_up
+    _type: request
+  - _id: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    created: 1578242881180
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1578047679511
+    modified: 1578242881180
+    name: art
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_29e13a7350994ac58e9f2eba8eb6062c
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          disabled: true
+          id: pair_d509fd8af550451086a0088b04441822
+          name: page
+          value: "1"
+        - description: ""
+          disabled: true
+          id: pair_16df5e9786714b2f8b347c1009c532f8
+          name: size
+          value: "20"
+        - description: ""
+          id: pair_51883aad3816405db60d794e362dc365
+          name: token
+          value: g4fK4audR5qdoN5OAwjzkw
+    created: 1578408473386
+    description: ""
+    headers:
+      - id: pair_df217c18039f4902ab9982a21381faf5
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578408473386
+    method: POST
+    modified: 1578415074373
+    name: user_list
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/art/find_user_art_list
+    _type: request
+  - _id: req_cca9734487e34a2ebee09f6e694c49ce
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          disabled: false
+          id: pair_d509fd8af550451086a0088b04441822
+          name: page
+          value: "1"
+        - description: ""
+          disabled: false
+          id: pair_16df5e9786714b2f8b347c1009c532f8
+          name: size
+          value: "20"
+        - description: ""
+          id: pair_51883aad3816405db60d794e362dc365
+          name: name
+          value: 睡
+    created: 1578473402867
+    description: ""
+    headers:
+      - id: pair_df217c18039f4902ab9982a21381faf5
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578365750630
+    method: POST
+    modified: 1578474010419
+    name: search
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/art/list_search
+    _type: request
+  - _id: req_5716234a6fb6436b9b37f51ff33732f4
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_a03b77cc98e744e4852f1e223136f9e0
+          name: id
+          value: "4"
+    created: 1578253514632
+    description: ""
+    headers:
+      - id: pair_8a8952cc15ee4a8a963990efc24c43b4
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578253514632
+    method: PATCH
+    modified: 1578253521188
+    name: update
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: ""
+    _type: request
+  - _id: req_3a80373c602b46928069e96815ed29a5
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_0611aa6f637940aaa4f279394203237d
+          name: page
+          value: "0"
+        - description: ""
+          id: pair_baeb103caa2f49c9b1d48c4db2a5b62d
+          name: size
+          value: "0"
+    created: 1578243801701
+    description: ""
+    headers:
+      - id: pair_a564c8970f8244538209501a2ebbeafa
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578243801701
+    method: GET
+    modified: 1578248673803
+    name: list
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/art/list
+    _type: request
+  - _id: req_d417133fbadd4fd3b53c31549a7f3dcb
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_05ff64029aaf462ba1c7f26309ea7293
+          name: artName
+          value: nameasfdcxvb
+        - description: ""
+          id: pair_e6b8ec893b30464f8839c4cf259570b3
+          name: artAuthor
+          value: "1011"
+        - description: ""
+          id: pair_b871ad9c0c9f4070b528c48255a1d80b
+          name: artSize
+          value: "1"
+        - description: ""
+          id: pair_1279e002a9224beca114724f30dc7ce9
+          name: artTag
+          value: "1"
+        - description: ""
+          id: pair_6e465337bbb54a54a727b74959a4509c
+          name: artContent
+          value: 123332asdf
+    created: 1578243002959
+    description: ""
+    headers:
+      - id: pair_4bf49b7dd30b4b1bbc21efee48faa3e8
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578243002959
+    method: POST
+    modified: 1578243459104
+    name: add
+    parameters: []
+    parentId: fld_8a3bf71e1d344bfe87b2286a4edf9ee1
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/art/add
+    _type: request
+  - _id: req_a8a9c1d41f84489ea6fd2e956fbefec4
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_765ed72a4e1742d591b6a24222409991
+          name: id
+          value: "1206"
+    created: 1578429611212
+    description: ""
+    headers:
+      - id: pair_2c8ad214c22946b098109295432c5967
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578429611212
+    method: POST
+    modified: 1578430327008
+    name: detail
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/detail
+    _type: request
+  - _id: fld_6ef87596b6ce4d44963fc75e1302c762
+    created: 1578242881133
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1577952594138
+    modified: 1578242881133
+    name: user
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_c1f4dd7fff834f3eb1a782ab500bef94
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_6b59d0e17c44400386628cb8aea779e3
+          name: userEmail
+          value: 1@1.com
+        - description: ""
+          id: pair_4b66f58daa484732ab53a6ef9547abd9
+          name: userPassword
+          value: "111111"
+    created: 1578323027874
+    description: ""
+    headers:
+      - id: pair_e99c2b1784054b669a5929a33b323100
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578323027874
+    method: POST
+    modified: 1578407622394
+    name: login
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/login
+    _type: request
+  - _id: req_e2521d12a46244e786d7919888daf488
+    authentication: {}
+    body: {}
+    created: 1578242881170
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1578220068571
+    method: GET
+    modified: 1578242881170
+    name: all
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/all
+    _type: request
+  - _id: req_d71676b605c74e46b3a6a149960e5f14
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - disabled: true
+          id: pair_46f2b428f4d8451f8d6d053520114371
+          name: page
+          value: "2"
+        - disabled: true
+          id: pair_5ac771fee47c48268cf4e979278fba7f
+          name: size
+          value: "20"
+    created: 1578242881161
+    description: ""
+    headers:
+      - id: pair_4adba6ae36804b5f98fad2e7d4b21865
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578055233821
+    method: POST
+    modified: 1578407833411
+    name: list
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/list
+    _type: request
+  - _id: req_0130d0c8a23143e9aad82fd905d1ced8
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_76f88f7155f14cccb41cc9691a1b18cb
+          name: token
+          value: 4yjVrFpYTp6vrSPPs3G4Tg
+    created: 1578242881151
+    description: ""
+    headers:
+      - id: pair_35fef3e9e3104014af75f2e82adf35ee
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1577953666377
+    method: POST
+    modified: 1578242881151
+    name: token_detail
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/token_detail
+    _type: request
+  - _id: req_f426ec4d430f45faaf21769c74a535bd
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_67b47794522649c88f1ed1cf0894710b
+          name: userName
+          value: zha
+        - id: pair_5e552b95b2904f56959b7d519a3fc135
+          name: userEmail
+          value: 1@1.com
+        - id: pair_a8f8ab8938fa4739b9e134f41eae5756
+          name: userPassword
+          value: "123456"
+        - id: pair_d9fbda5d0ec64548b262e94df14768db
+          name: ""
+          value: ""
+    created: 1578242881141
+    description: ""
+    headers:
+      - id: pair_04dcd97badde46c4ae9dc656b2f69710
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1577952600644
+    method: POST
+    modified: 1578322968300
+    name: add
+    parameters: []
+    parentId: fld_6ef87596b6ce4d44963fc75e1302c762
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/user/add
+    _type: request
+  - _id: req_1ea4f3b1664b403f93f28503f6c36b61
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - description: ""
+          id: pair_5f15bedc3bec4927b5e9c1092e70bf15
+          name: id
+          value: "30"
+    created: 1578242881123
+    description: ""
+    headers:
+      - id: pair_ceba05b25dbc4eac9b6a4f31a6dc8773
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578174751480
+    method: GET
+    modified: 1578242881123
+    name: detail
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/detail
+    _type: request
+  - _id: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    created: 1578242881043
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1577800396673
+    modified: 1578242881043
+    name: admin
+    parentId: fld_c1872108c3ac4817983efa8e506fbb6c
+    _type: request_group
+  - _id: req_b548e74d9a814a6e9690d205d98ea69c
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params: []
+    created: 1578242881112
+    description: ""
+    headers:
+      - id: pair_b27eb1e3d03a4261be1c49215c038a15
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578160210918
+    method: POST
+    modified: 1578242881112
+    name: avatar
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: ""
+    _type: request
+  - _id: req_90f905fa4187448ba4fb68e63a3005e7
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_38a7e2c19f4b499b9d20a99084b34fde
+          name: id
+          value: "10"
+    created: 1578242881103
+    description: ""
+    headers:
+      - id: pair_3af0c1a899cf4eb7bd53cdaad4385f2a
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578147683716
+    method: DELETE
+    modified: 1578242881103
+    name: delete
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/delete
+    _type: request
+  - _id: req_c17f3ddd166b45f880b30d13fd5d5d50
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_b765b330e5ce477594804f1c81bd6c90
+          name: id
+          value: "11"
+        - id: pair_58c432de38a543af83b8c33dc638a3b3
+          name: adminName
+          value: te
+    created: 1578242881093
+    description: ""
+    headers:
+      - id: pair_1aa7a5fb81d349c1ab5858081e8edbf7
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578128832177
+    method: PATCH
+    modified: 1578242881093
+    name: update
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/update
+    _type: request
+  - _id: req_68140c72f35c42598503144b2c7cb6a6
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_52b305de2fab41df8ac42cb2688f528b
+          name: token
+          value: vkc355tVR4mkNAeqcVnd0A
+    created: 1578242881084
+    description: ""
+    headers:
+      - id: pair_5ffb676ecd6c41bbbd9ee78d368e9702
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1578023312172
+    method: POST
+    modified: 1578242881084
+    name: token_detail
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/token_detail
+    _type: request
+  - _id: req_231badfb536d4ffdbcc3f303e06d35b7
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_a5a4617db6e941c989f91bb244f11343
+          name: adminName
+          value: admin
+        - id: pair_cc0ae2dd5e7e4a6aa0b7cf5c8db1c5bf
+          name: adminPassword
+          value: "111111"
+    created: 1578242881074
+    description: ""
+    headers:
+      - id: pair_01f16f5130ac4205b72277a9b361a5aa
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1577955872306
+    method: POST
+    modified: 1578242881074
+    name: login
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/login
+    _type: request
+  - _id: req_1080f7d8870b4949aea6b71a8431e2cd
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_5788a8f8c06248b9845c263264db48d3
+          name: adminName
+          value: editor
+        - id: pair_058165dbcce44e4e823239a4145ef378
+          name: adminEmail
+          value: editor
+        - id: pair_07d780045f8d4449a25b8d1f1a0ac668
+          name: adminPassword
+          value: "111111"
+    created: 1578242881052
+    description: ""
+    headers:
+      - id: pair_3405d241148247ebbd6e46db6685f8c2
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1577800394611.5
+    method: POST
+    modified: 1578242881052
+    name: admin_add
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/add
+    _type: request
+  - _id: req_dbb9ca02aa6c44f38e1a5f69306034c0
+    authentication: {}
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_ca215ccde1be4ea4b2124b40a019b89e
+          name: page
+          value: "1"
+        - id: pair_a1c2c99b899a4c7388a1f67e6fe46134
+          name: size
+          value: "20"
+    created: 1578242881064
+    description: ""
+    headers:
+      - id: pair_f0ddfe1289b3487280425bbfdac0bb8d
+        name: Content-Type
+        value: multipart/form-data
+    isPrivate: false
+    metaSortKey: -1577800394561.5
+    method: GET
+    modified: 1578242881064
+    name: admin_list
+    parameters: []
+    parentId: fld_20fb0c7c4bcd41308b8386af7ff4c21d
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingFollowRedirects: global
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: http://127.0.0.1:9000/admin/list
+    _type: request
+  - _id: env_a1903bd89cfb59971546993a1850876f61869f9c
+    color: null
+    created: 1578242871303
+    data: {}
+    dataPropertyOrder: null
+    isPrivate: false
+    metaSortKey: 1578242871303
+    modified: 1578242871303
+    name: Base Environment
+    parentId: wrk_5b568b00145e4db4baa593da1a730af5
+    _type: environment
+  - _id: jar_a1903bd89cfb59971546993a1850876f61869f9c
+    cookies: []
+    created: 1578242871343
+    modified: 1578242871343
+    name: Default Jar
+    parentId: wrk_5b568b00145e4db4baa593da1a730af5
+    _type: cookie_jar
