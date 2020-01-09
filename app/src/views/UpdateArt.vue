@@ -6,7 +6,7 @@
             <v-col cols="8" style="margin-right: 8%; margin-top: 5%">
                 <v-card align="center" style="margin-bottom: 5%">
                     <h2 style="padding: 5%">
-                        发布作品
+                        修改作品
                     </h2>
                 </v-card>
                 <v-card>

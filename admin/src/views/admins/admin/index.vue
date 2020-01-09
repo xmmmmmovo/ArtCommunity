@@ -146,11 +146,6 @@
             style="width: 400px; margin-left:50px;"
           >
             <el-form-item
-              label="管理员编号"
-            >
-              <span v-model="tempAdminData.id" />
-            </el-form-item>
-            <el-form-item
               label="管理员姓名"
               prop="adminName"
             >
