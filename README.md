@@ -7,7 +7,7 @@
 
 前端、后端、后端前台：[xmmmmmovo](https://github.com/xmmmmmovo)
 
-界面设计、原型设计、文档编写：[akoooo123](https://github.com/akoooo123)
+界面设计、原型设计、文档编写：akoooo123
 
 ### 用到的相关知识
 
