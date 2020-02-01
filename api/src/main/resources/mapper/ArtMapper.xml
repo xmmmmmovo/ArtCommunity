@@ -1,20 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.nuc.course.db.dao.ArtMapper">
-  <resultMap id="BaseResultMap" type="org.nuc.course.model.Art">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="art_name" jdbcType="VARCHAR" property="artName" />
-    <result column="art_author" jdbcType="BIGINT" property="artAuthor" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="modified_time" jdbcType="BIGINT" property="modifiedTime" />
-    <result column="art_size" jdbcType="BIGINT" property="artSize" />
-    <result column="art_tag" jdbcType="BIGINT" property="artTag" />
-    <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum" />
-    <result column="art_comment_num" jdbcType="BIGINT" property="artCommentNum" />
-    <result column="art_content" jdbcType="VARCHAR" property="artContent" />
-    <result column="art_pic_url" jdbcType="VARCHAR" property="artPicUrl" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="org.nuc.course.model.Art">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="art_name" jdbcType="VARCHAR" property="artName"/>
+        <result column="art_author" jdbcType="BIGINT" property="artAuthor"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="modified_time" jdbcType="BIGINT" property="modifiedTime"/>
+        <result column="art_size" jdbcType="BIGINT" property="artSize"/>
+        <result column="art_tag" jdbcType="BIGINT" property="artTag"/>
+        <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum"/>
+        <result column="art_comment_num" jdbcType="BIGINT" property="artCommentNum"/>
+        <result column="art_content" jdbcType="VARCHAR" property="artContent"/>
+        <result column="art_pic_url" jdbcType="VARCHAR" property="artPicUrl"/>
+    </resultMap>
+
+    <resultMap id="artDTO" type="org.nuc.course.dto.ArtDTO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="art_name" jdbcType="VARCHAR" property="artName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="modified_time" jdbcType="BIGINT" property="modifiedTime"/>
+        <result column="art_author" jdbcType="BIGINT" property="artAuthor"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="art_size" jdbcType="BIGINT" property="artSize"/>
+        <result column="length" jdbcType="INTEGER" property="length"/>
+        <result column="height" jdbcType="INTEGER" property="height"/>
+        <result column="art_tag" jdbcType="BIGINT" property="artTag"/>
+        <result column="tag_name" jdbcType="VARCHAR" property="tagName"/>
+        <result column="art_like_num" jdbcType="BIGINT" property="artLikeNum"/>
+        <result column="art_comment_num" jdbcType="BIGINT" property="artCommentNum"/>
+        <result column="art_content" jdbcType="VARCHAR" property="artContent"/>
+        <result column="art_pic_url" jdbcType="VARCHAR" property="artPicUrl"/>
+    </resultMap>
+
+    <select id="findAllDTO" resultMap="artDTO">
+        select art.id,
+               art_name,
+               create_time,
+               modified_time,
+               art_author,
+               user_name,
+               art_size,
+               length,
+               height,
+               art_tag,
+               tag_name,
+               art_like_num,
+               art_comment_num,
+               art_content,
+               art_pic_url
+        from art
+                 left join tag t on art.art_tag = t.id
+                 left join size s on art.art_size = s.id
+                 left join user u on art.art_author = u.id
+    </select>
+
+    <select id="findUserDTO" resultMap="artDTO" parameterType="long">
+        select art.id,
+               art_name,
+               create_time,
+               modified_time,
+               art_author,
+               user_name,
+               art_size,
+               length,
+               height,
+               art_tag,
+               tag_name,
+               art_like_num,
+               art_comment_num,
+               art_content,
+               art_pic_url
+        from art
+                 left join tag t on art.art_tag = t.id
+                 left join size s on art.art_size = s.id
+                 left join user u on art.art_author = u.id
+        where u.id = #{id}
+    </select>
+
+    
+
 </mapper>
