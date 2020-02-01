@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.nuc.course.db.dao.ArticleMapper">
-  <resultMap id="BaseResultMap" type="org.nuc.course.model.Article">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="article_front" jdbcType="VARCHAR" property="articleFront" />
-    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="article_author" jdbcType="BIGINT" property="articleAuthor" />
-    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="org.nuc.course.model.Article">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="article_front" jdbcType="VARCHAR" property="articleFront"/>
+        <result column="article_title" jdbcType="VARCHAR" property="articleTitle"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="article_author" jdbcType="BIGINT" property="articleAuthor"/>
+        <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent"/>
+    </resultMap>
+
+    <resultMap id="articleDTO" type="org.nuc.course.dto.ArticleDTO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="article_front" jdbcType="VARCHAR" property="articleFront"/>
+        <result column="article_title" jdbcType="VARCHAR" property="articleTitle"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="article_author" jdbcType="BIGINT" property="articleAuthor"/>
+        <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+
+    <select id="findAllDTO" resultMap="articleDTO">
+        select
+            article.id,
+            article_author,
+            article_title,
+            article_content,
+            article_front,
+            article_author,
+            create_time,
+            user_name
+        from article
+            left join user u on article.article_author = u.id
+    </select>
+
+    <select id="findArticleDTO" resultMap="articleDTO" parameterType="long">
+        select
+            article.id,
+            article_author,
+            article_title,
+            article_content,
+            article_front,
+            article_author,
+            create_time,
+            user_name
+        from article
+            left join user u on article.article_author = u.id
+        where u.id = #{id}
+    </select>
+
+    <select id="findIdDTO" resultMap="articleDTO" parameterType="long">
+        select
+            article.id,
+            article_author,
+            article_title,
+            article_content,
+            article_front,
+            article_author,
+            create_time,
+            user_name
+        from article
+            left join user u on article.article_author = u.id
+        where article.id = #{id}
+    </select>
+
 </mapper>

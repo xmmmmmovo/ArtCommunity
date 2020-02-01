@@ -81,6 +81,62 @@
         where u.id = #{id}
     </select>
 
-    
+    <select id="findIdDTO" resultMap="artDTO" parameterType="long">
+        select art.id,
+               art_name,
+               create_time,
+               modified_time,
+               art_author,
+               user_name,
+               art_size,
+               length,
+               height,
+               art_tag,
+               tag_name,
+               art_like_num,
+               art_comment_num,
+               art_content,
+               art_pic_url
+        from art
+                 left join tag t on art.art_tag = t.id
+                 left join size s on art.art_size = s.id
+                 left join user u on art.art_author = u.id
+        where art.id = #{id}
+    </select>
+
+    <select id="findUserLikeDTO" resultMap="artDTO" parameterType="string">
+        select art.id,
+               art_name,
+               create_time,
+               modified_time,
+               art_author,
+               user_name,
+               art_size,
+               length,
+               height,
+               art_tag,
+               tag_name,
+               art_like_num,
+               art_comment_num,
+               art_content,
+               art_pic_url
+        from art
+                 left join tag t on art.art_tag = t.id
+                 left join size s on art.art_size = s.id
+                 left join user u on art.art_author = u.id
+        where art.art_name like '%#{name}%'
+    </select>
+
+    <update id="updateCommentCount" parameterType="long">
+        update art
+            set art_comment_num = art_comment_num + 1
+            where id = #{id}
+    </update>
+
+    <update id="updateLikeCount" parameterType="long">
+        update art
+            set art_like_num = art_like_num + 1
+            where id = ${id}
+    </update>
 
 </mapper>
