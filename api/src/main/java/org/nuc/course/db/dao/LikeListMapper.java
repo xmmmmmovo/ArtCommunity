@@ -10,58 +10,12 @@ import org.nuc.course.model.LikeList;
 import java.util.List;
 
 public interface LikeListMapper extends Mapper<LikeList> {
-    @Select("select like_list.id,\n" +
-            "       user_id as userId,\n" +
-            "       art_pic_url as artPicUrl,\n" +
-            "       tag_name as tagName,\n" +
-            "       art_id as artId,\n" +
-            "       art_name as artName,\n" +
-            "       like_time as likeTime\n" +
-            "from like_list\n" +
-            "left join user u on like_list.user_id = u.id\n" +
-            "left join art a on like_list.art_id = a.id\n" +
-            "left join tag t on a.art_tag = t.id")
+
     List<LikeDTO> findAllDTO();
 
-    @Select("select like_list.id,\n" +
-            "       user_id as userId,\n" +
-            "       art_pic_url as artPicUrl,\n" +
-            "       tag_name as tagName,\n" +
-            "       art_id as artId,\n" +
-            "       art_name as artName,\n" +
-            "       like_time as likeTime\n" +
-            "from like_list\n" +
-            "left join user u on like_list.user_id = u.id\n" +
-            "left join art a on like_list.art_id = a.id\n" +
-            "left join tag t on a.art_tag = t.id\n" +
-            "where u.id = ${id}")
     List<LikeDTO> findLikeListDTO(@Param("id") Long id);
 
-    @Select("select like_list.id,\n" +
-            "       user_id as userId,\n" +
-            "       art_pic_url as artPicUrl,\n" +
-            "       tag_name as tagName,\n" +
-            "       art_id as artId,\n" +
-            "       art_name as artName,\n" +
-            "       like_time as likeTime\n" +
-            "from like_list\n" +
-            "left join user u on like_list.user_id = u.id\n" +
-            "left join art a on like_list.art_id = a.id\n" +
-            "left join tag t on a.art_tag = t.id\n" +
-            "where like_list.id = ${id}")
     LikeDTO findIdDTO(@Param("id") Long id);
 
-    @Select("select like_list.id,\n" +
-            "       user_id as userId,\n" +
-            "       art_pic_url as artPicUrl,\n" +
-            "       tag_name as tagName,\n" +
-            "       art_id as artId,\n" +
-            "       art_name as artName,\n" +
-            "       like_time as likeTime\n" +
-            "from like_list\n" +
-            "left join user u on like_list.user_id = u.id\n" +
-            "left join art a on like_list.art_id = a.id\n" +
-            "left join tag t on a.art_tag = t.id\n" +
-            "where u.id = ${user_id} and a.id = ${art_id}")
     List<LikeDTO> findLikeDTO(@Param("user_id") Long userId, @Param("art_id") Long artId);
 }
